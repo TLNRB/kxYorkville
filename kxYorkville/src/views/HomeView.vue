@@ -1,5 +1,5 @@
 <script setup></script>
 
 <template>
-  <div>Hello</div>
+  <div class="font-bold font-poppins">HOME</div>
 </template>

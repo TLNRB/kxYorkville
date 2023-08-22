@@ -11,7 +11,10 @@ module.exports = {
       xxl: '1440px',
       xxxl: '1600px'
     },
-    fontFamily: {},
+    fontFamily: {
+      poppins: ['Poppins', 'sans-serif'],
+      oswald: ['Oswald', 'sans-serif']
+    },
     extend: {
       colors: {
         darkBG: '#181818',
