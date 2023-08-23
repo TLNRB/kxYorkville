@@ -38,8 +38,8 @@ onUnmounted(() => {
           <span class="menu-icon__line menu-icon__line-bottom"></span>
         </div>
         <div
-          class="font-oswald absolute left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap justify-between pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgMenuBlack text-[1.5rem] text-textDarker md:px-[2rem] md:text-[1.75rem] xxxl:pt-[7rem] xxxl:pb-[2rem]"
-          :class="{ hidden: !isMenuOpen }"
+          class="font-oswald absolute translate-y-0 duration-[.25s] ease-in-out left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap justify-between pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgMenuBlack text-[1.5rem] text-textDarker md:px-[2rem] md:text-[1.75rem] xxxl:pt-[7rem] xxxl:pb-[2rem]"
+          :class="{ menuClosed: !isMenuOpen }"
         >
           <div
             class="mx-auto flex flex-col gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
@@ -92,6 +92,12 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* ----- Menu ----- */
+.menuClosed {
+  transform: translateY(-100%);
+  transition: all 0.25s ease-in-out;
+}
+
 /* ----- Menu Icon ----- */
 .menu-icon {
   display: flex;
