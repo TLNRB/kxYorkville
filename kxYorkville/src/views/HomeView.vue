@@ -4,10 +4,18 @@ import twd from '../assets/images/twd.jpg'
 
 /* ----- Nav and dropdown click event ----- */
 const isMenuOpen = ref(false)
+const isLoginOpen = ref(false)
 const screenWidth = ref(window.innerWidth)
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
+  isLoginOpen.value = false
+  console.log(isLoginOpen.value)
+}
+
+const toggleLogin = () => {
+  isLoginOpen.value = !isLoginOpen.value
+  isMenuOpen.value = false
 }
 
 //Resize handling
@@ -38,7 +46,7 @@ onUnmounted(() => {
           <span class="menu-icon__line menu-icon__line-bottom"></span>
         </div>
         <div
-          class="font-oswald absolute translate-y-0 duration-[.25s] ease-in-out left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap justify-between pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgMenuBlack text-[1.5rem] text-textDarker md:px-[2rem] md:text-[1.75rem] xxxl:pt-[7rem] xxxl:pb-[2rem]"
+          class="font-oswald absolute translate-y-0 duration-[.25s] ease-in-out left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap justify-between pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgMenuDark text-[1.5rem] text-textDarker md:px-[2rem] md:text-[1.75rem] xxxl:pt-[7rem] xxxl:pb-[2rem]"
           :class="{ menuClosed: !isMenuOpen }"
         >
           <div
@@ -82,7 +90,52 @@ onUnmounted(() => {
       >
         K<span class="ml-[-.1125rem] font-[600]">X</span> Yorkville
       </div>
-      <div class="z-[2]">Login</div>
+      <button v-if="isLoginOpen" @click="toggleLogin" class="font-oswald tracking-[1px] z-[2]">
+        login
+      </button>
+      <button
+        v-else
+        @click="toggleLogin"
+        class="w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center z-[2]"
+      >
+        <font-awesome-icon class="text-[1rem]" :icon="['fas', 'user']" />
+      </button>
+      <div
+        class="w-[250px] absolute top-[3rem] right-[1rem] rounded-[10px] bg-bgMenuDark"
+        :class="{ hidden: !isLoginOpen }"
+      >
+        <div class="p-[1rem] flex items-center gap-[1rem] border-b border-textDarker">
+          <div
+            class="w-[40px] h-[40px] rounded-full bg-primaryColor flex justify-center items-center"
+          >
+            <font-awesome-icon class="text-[1.25rem]" :icon="['fas', 'user']" />
+          </div>
+          <p>username</p>
+        </div>
+        <div class="my-[.5rem]">
+          <div
+            class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
+          >
+            <font-awesome-icon class="text-[1.125rem] translate-x-[2px]" :icon="['fas', 'gear']" />
+            <p class="text-[.875rem]">Settings</p>
+          </div>
+          <div
+            class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
+          >
+            <font-awesome-icon
+              class="text-[1.125rem] translate-x-[4px]"
+              :icon="['fas', 'bookmark']"
+            />
+            <p class="text-[.875rem] translate-x-[4px]">Classes</p>
+          </div>
+          <div
+            class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
+          >
+            <font-awesome-icon class="text-[1.125rem]" :icon="['fas', 'arrow-right-to-bracket']" />
+            <p class="text-[.875rem]">Logout</p>
+          </div>
+        </div>
+      </div>
       <hr
         class="absolute border-textDarker top-[4rem] left-[1rem] right-[1rem] md:left-[2rem] md:right-[2rem] xxxl:top-[4.5rem]"
         :class="{ hidden: !isMenuOpen }"

@@ -11,12 +11,30 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import solid icons */
-import { faHouse, faCalendar, faPeopleGroup, faDumbbell } from '@fortawesome/free-solid-svg-icons'
+import {
+  faHouse,
+  faCalendar,
+  faPeopleGroup,
+  faDumbbell,
+  faArrowRightToBracket,
+  faBookmark,
+  faUser,
+  faGear
+} from '@fortawesome/free-solid-svg-icons'
 /* import brand icons */
 import {} from '@fortawesome/free-brands-svg-icons'
 
 /* add icons to the library */
-library.add(faHouse, faCalendar, faPeopleGroup, faDumbbell)
+library.add(
+  faHouse,
+  faCalendar,
+  faPeopleGroup,
+  faDumbbell,
+  faArrowRightToBracket,
+  faBookmark,
+  faUser,
+  faGear
+)
 
 const app = createApp(App)
 

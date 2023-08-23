@@ -17,10 +17,12 @@ module.exports = {
     },
     extend: {
       colors: {
-        bgNavBlack: '#000000da',
-        bgMenuBlack: '#282828',
+        bgMenuDark: '#282828',
+        bgHoverDark: '#505050',
         textLight: '#f4f4f4',
-        textDarker: '#606060'
+        textNormal: '#dddddd',
+        textDarker: '#606060',
+        primaryColor: '#D9A404'
       }
     }
   },
