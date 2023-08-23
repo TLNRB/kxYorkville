@@ -17,7 +17,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        bgNavBlack: '#000000da'
+        bgNavBlack: '#000000da',
+        bgMenuBlack: '#282828',
+        textLight: '#f4f4f4',
+        textDarker: '#606060'
       }
     }
   },

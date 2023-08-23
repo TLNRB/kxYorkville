@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import twd from '../assets/images/twd.jpg'
 
 /* ----- Nav and dropdown click event ----- */
 const isMenuOpen = ref(false)
@@ -25,10 +26,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header>
+  <header :style="{ backgroundImage: 'url(' + twd + ')' }">
     <nav
-      class="flex justify-between items-center py-[1rem] px-[1rem] backdrop-blur-[10px]"
-      :class="{ 'nav-active': isMenuOpen && screenWidth <= 768 }"
+      class="flex justify-between items-center w-[100%] py-[1rem] px-[1rem] backdrop-blur-[12px] md:px-[2rem]"
+      :class="{ 'nav-active': isMenuOpen }"
     >
       <div>
         <div @click="toggleMenu" class="menu-icon">
@@ -36,26 +37,56 @@ onUnmounted(() => {
           <span class="menu-icon__line menu-icon__line-middle"></span>
           <span class="menu-icon__line menu-icon__line-bottom"></span>
         </div>
-        <div class="hidden">
-          <div>Home</div>
-          <div>Classes</div>
-          <div>Coaches</div>
-          <div>Timetable</div>
+        <div
+          class="font-oswald absolute left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap justify-between pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgMenuBlack text-[1.5rem] text-textDarker md:px-[2rem] md:text-[1.75rem] xxxl:pt-[7rem] xxxl:pb-[2rem]"
+          :class="{ hidden: !isMenuOpen }"
+        >
+          <div
+            class="mx-auto flex flex-col gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
+          >
+            <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'house']" />
+            <p>Home</p>
+          </div>
+          <div
+            class="mx-auto flex flex-col gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
+          >
+            <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'dumbbell']" />
+            <p>Classes</p>
+          </div>
+          <div
+            class="mx-auto flex flex-col gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
+          >
+            <font-awesome-icon
+              class="text-[2rem] md:text-[2.5rem]"
+              :icon="['fas', 'people-group']"
+            />
+            <p>Coaches</p>
+          </div>
+          <div
+            class="mx-auto flex flex-col gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
+          >
+            <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'calendar']" />
+            <p>Timetable</p>
+          </div>
         </div>
       </div>
       <div
         v-if="screenWidth < 360"
-        class="uppercase font-[600] tracking-[1px] text-[1.25rem] absolute ml-[50%] translate-x-[-50%]"
+        class="uppercase font-[600] tracking-[1px] text-[1.25rem] absolute ml-[50%] translate-x-[-75%]"
       >
         K<span class="ml-[-.1125rem] font-[600]">X</span> Y
       </div>
       <div
         v-else
-        class="uppercase font-[600] tracking-[1px] text-[1.25rem] absolute ml-[50%] translate-x-[-50%]"
+        class="uppercase font-[600] tracking-[1px] text-[1.25rem] absolute ml-[50%] translate-x-[-50%] md:translate-x-[-75%] lg:text-[1.5rem]"
       >
         K<span class="ml-[-.1125rem] font-[600]">X</span> Yorkville
       </div>
-      <div>Login</div>
+      <div class="z-[2]">Login</div>
+      <hr
+        class="absolute border-textDarker top-[4rem] left-[1rem] right-[1rem] md:left-[2rem] md:right-[2rem] xxxl:top-[4.5rem]"
+        :class="{ hidden: !isMenuOpen }"
+      />
     </nav>
   </header>
 </template>
@@ -135,5 +166,23 @@ onUnmounted(() => {
   transform: translateY(0);
   -webkit-transform: translate(-3px, -3.5px) rotate(45deg);
   transform: translate(5.5px, -2.5px) rotate(45deg);
+}
+
+@media screen and (min-width: 1400px) {
+  .menu-icon {
+    width: 50px;
+  }
+  .menu-icon__line {
+    width: 50px;
+  }
+
+  .nav-active .menu-icon__line {
+    width: 30px;
+  }
+
+  .nav-active .menu-icon__line-top,
+  .nav-active .menu-icon__line-bottom {
+    width: 15px;
+  }
 }
 </style>
