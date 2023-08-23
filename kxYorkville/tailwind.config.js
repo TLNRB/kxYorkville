@@ -17,18 +17,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        darkBG: '#181818',
-        colorBG: '#1ECECE',
-        taintedBG: '#111111',
-        lightText: '#F4F4F4',
-        normalText: '#afafaf',
-        darkerText: '#606060',
-        darkText: '#242424',
-        baseColor: '#1ECECE',
-        manaClub: '#a809e5',
-        vertex: '#ea3397',
-        deft: '#20e062',
-        dub: '#ffd930'
+        bgNavBlack: '#000000da'
       }
     }
   },
