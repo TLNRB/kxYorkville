@@ -1,16 +1,17 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import twd from '../assets/images/twd.jpg'
+import videoDesktop from '../assets/images/weights.mp4'
+import videoMobile from '../assets/images/weightsVertical.mp4'
 
 /* ----- Nav and dropdown click event ----- */
 const isMenuOpen = ref(false)
 const isLoginOpen = ref(false)
+const isMobile = ref(false)
 const screenWidth = ref(window.innerWidth)
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
   isLoginOpen.value = false
-  console.log(isLoginOpen.value)
 }
 
 const toggleLogin = () => {
@@ -21,6 +22,7 @@ const toggleLogin = () => {
 //Resize handling
 function handleResize() {
   screenWidth.value = window.innerWidth
+  isMobile.value = window.innerWidth < 768
 }
 
 // Add resize event listener when component is mounted
@@ -34,9 +36,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header :style="{ backgroundImage: 'url(' + twd + ')' }">
+  <header class="fixed top-0 right-0 left-0 z-[10]">
     <nav
-      class="flex justify-between items-center w-[100%] py-[1rem] px-[1rem] backdrop-blur-[12px] md:px-[2rem]"
+      class="flex justify-between items-center w-[100%] py-[1rem] px-[1rem] backdrop-blur-[14px] md:px-[2rem]"
       :class="{ 'nav-active': isMenuOpen }"
     >
       <div>
@@ -46,7 +48,7 @@ onUnmounted(() => {
           <span class="menu-icon__line menu-icon__line-bottom"></span>
         </div>
         <div
-          class="font-oswald absolute translate-y-0 duration-[.25s] ease-in-out left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap justify-between pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgMenuDark text-[1.5rem] text-textDarker md:px-[2rem] md:text-[1.75rem] xxxl:pt-[7rem] xxxl:pb-[2rem]"
+          class="font-oswald absolute translate-y-0 duration-[.25s] ease-in-out left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap justify-between pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgMenuDark text-[1.5rem] text-textDarker drop-shadow-lg md:px-[2rem] md:text-[1.75rem] xxxl:pt-[7rem] xxxl:pb-[2rem]"
           :class="{ menuClosed: !isMenuOpen }"
         >
           <div
@@ -86,11 +88,11 @@ onUnmounted(() => {
       </div>
       <div
         v-else
-        class="uppercase font-[600] tracking-[1px] text-[1.25rem] absolute ml-[50%] translate-x-[-50%] md:translate-x-[-75%] lg:text-[1.5rem]"
+        class="uppercase font-[600] tracking-[1px] text-[1.25rem] absolute ml-[50%] translate-x-[-55%] md:translate-x-[-75%] lg:text-[1.5rem]"
       >
         K<span class="ml-[-.1125rem] font-[600]">X</span> Yorkville
       </div>
-      <button v-if="isLoginOpen" @click="toggleLogin" class="font-oswald tracking-[1px] z-[2]">
+      <button v-if="!isLoginOpen" @click="toggleLogin" class="font-oswald tracking-[1px] z-[2]">
         login
       </button>
       <button
@@ -101,7 +103,7 @@ onUnmounted(() => {
         <font-awesome-icon class="text-[1rem]" :icon="['fas', 'user']" />
       </button>
       <div
-        class="w-[250px] absolute top-[3rem] right-[1rem] rounded-[10px] bg-bgMenuDark"
+        class="w-[250px] absolute top-[3rem] right-[1rem] rounded-[10px] bg-bgMenuDark drop-shadow-lg"
         :class="{ hidden: !isLoginOpen }"
       >
         <div class="p-[1rem] flex items-center gap-[1rem] border-b border-textDarker">
@@ -142,6 +144,15 @@ onUnmounted(() => {
       />
     </nav>
   </header>
+  <section class="">
+    <video
+      class="object-cover w-[100%] h-[100vh]"
+      :src="!isMobile ? videoDesktop : videoMobile"
+      autoplay
+      loop
+      muted
+    ></video>
+  </section>
 </template>
 
 <style scoped>

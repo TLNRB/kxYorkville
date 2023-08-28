@@ -17,7 +17,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        bgMenuDark: '#282828',
+        bgMenuDark: '#202020',
         bgHoverDark: '#505050',
         textLight: '#f4f4f4',
         textNormal: '#dddddd',
