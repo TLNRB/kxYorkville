@@ -8,7 +8,7 @@ const isMobile = ref(false)
 
 //Resize handling
 function handleResize() {
-  isMobile.value = window.innerWidth < 768
+  isMobile.value = window.innerWidth < 560
 }
 
 // Add resize event listener when component is mounted
@@ -22,14 +22,46 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="">
+  <section class="min-h-[100vh] flex items-center justify-center">
     <video
-      class="object-cover w-[100%] h-[100vh]"
+      class="absolute top-0 left-0 object-cover w-[100%] min-h-[100vh] z-[-1]"
       :src="!isMobile ? videoDesktop : videoMobile"
       autoplay
       loop
       muted
     ></video>
+    <div class="px-[1.5rem]">
+      <h1
+        class="text-[3rem] text-center uppercase font-bold leading-[3rem] drop-shadow-lg xs:text-[4rem] xs:leading-[3.5rem] lg:text-[6rem] lg:leading-[5.5rem] xxxxl:text-[8rem] xxxxl:leading-[7rem]"
+      >
+        Start <span class="font-bold text-primaryColor drop-shadow-lg">your</span><br />
+        journey today
+      </h1>
+      <button
+        class="flex flex-col mt-[2.5rem] w-fit mx-auto text-[1.25rem] relative group sm:mt-[3rem]"
+      >
+        <span
+          class="font-[600] py-[.375rem] px-[1.125rem] border-[1px] text-primaryColor border-textLight z-[1] group-hover:text-textLight group-hover:border-primaryColor ease-in duration-[.15s] delay-[.05s] md:py-[.5rem] md:px-[1.25rem] md:text-[1.5rem]"
+          >Classes</span
+        >
+        <span
+          class="font-[600] py-[.375rem] px-[1.125rem] text-transparent border-[1px] border-primaryColor absolute top-[4px] right-[-4px] group-hover:top-[0] group-hover:right-[0] ease-in duration-[.2s] md:py-[.5rem] md:px-[1.25rem] md:text-[1.5rem]"
+          >Classes</span
+        >
+      </button>
+      <button
+        class="flex flex-col mt-[2.5rem] w-fit mx-auto text-[1.25rem] relative group sm:mt-[3rem]"
+      >
+        <span
+          class="font-[600] py-[.375rem] px-[1.125rem] border-[1px] bg-primaryColor text-textLight border-primaryColor z-[1] group-hover:bg-transparent group-hover:border-primaryColor ease-in duration-[.15s] delay-[.05s] md:py-[.5rem] md:px-[1.25rem] md:text-[1.5rem]"
+          >Timetable</span
+        >
+        <span
+          class="font-[600] py-[.375rem] px-[1.125rem] text-transparent border-[1px] border-textLight absolute top-[4px] right-[-4px] group-hover:top-[0] group-hover:right-[0] ease-in duration-[.2s] md:py-[.5rem] md:px-[1.25rem] md:text-[1.5rem]"
+          >Timetable</span
+        >
+      </button>
+    </div>
   </section>
 </template>
 
