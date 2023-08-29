@@ -44,23 +44,23 @@ onUnmounted(() => {
           <span class="menu-icon__line menu-icon__line-bottom"></span>
         </div>
         <div
-          class="font-oswald absolute translate-y-0 duration-[.25s] ease-in-out left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap justify-between pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgMenuDark text-[1.5rem] text-textDarker drop-shadow-lg md:px-[2rem] md:text-[1.75rem] xxxl:pt-[7rem] xxxl:pb-[2rem]"
+          class="font-oswald absolute translate-y-0 duration-[.25s] ease-in-out left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgMenuDark text-[1.5rem] text-textDarker drop-shadow-lg md:px-[2rem] md:text-[1.75rem] lg:gap-0 xxxl:pt-[7rem] xxxl:pb-[2rem]"
           :class="{ menuClosed: !isMenuOpen }"
         >
           <div
-            class="mx-auto flex flex-col gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
+            class="mx-auto w-[25%] flex flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
             <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'house']" />
             <p>Home</p>
           </div>
           <div
-            class="mx-auto flex flex-col gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
+            class="mx-auto flex w-[25%] flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
             <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'dumbbell']" />
             <p>Classes</p>
           </div>
           <div
-            class="mx-auto flex flex-col gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
+            class="mx-auto flex w-[25%] flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
             <font-awesome-icon
               class="text-[2rem] md:text-[2.5rem]"
@@ -69,7 +69,7 @@ onUnmounted(() => {
             <p>Coaches</p>
           </div>
           <div
-            class="mx-auto flex flex-col gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
+            class="mx-auto flex w-[25%] flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
             <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'calendar']" />
             <p>Timetable</p>
