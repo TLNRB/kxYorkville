@@ -5,9 +5,6 @@ import videoMobile from '../assets/images/weightsVertical.mp4'
 
 import Button from '../components/UI/Button.vue'
 
-//Button content
-const buttonContent = ['Classes', 'Timetable']
-
 /* ----- Checking if the screen size is mobile ----- */
 const isMobile = ref(false)
 
@@ -45,8 +42,8 @@ onUnmounted(() => {
       <div
         class="flex flex-wrap justify-center gap-[1.5rem] mt-[2.5rem] xs:gap-[2rem] lg:mt-[3rem]"
       >
-        <Button :content="buttonContent[0]" />
-        <Button :content="buttonContent[1]" />
+        <Button :content="'Classes'" />
+        <Button :content="'Timetable'" />
         <!-- <button class="flex flex-col w-fit text-[1.25rem] relative group">
           <span
             class="font-[600] py-[.375rem] px-[1.125rem] border-[1px] bg-primaryColor text-textLight border-primaryColor z-[1] group-hover:bg-transparent group-hover:border-primaryColor ease-in duration-[.15s] delay-[.05s] md:py-[.5rem] md:px-[1.25rem] md:text-[1.5rem]"

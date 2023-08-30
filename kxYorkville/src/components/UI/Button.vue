@@ -1,6 +1,5 @@
 <script setup>
 const { content } = defineProps(['content'])
-console.log(content)
 </script>
 <template>
   <button class="flex flex-col w-fit text-[1.25rem] relative group">
