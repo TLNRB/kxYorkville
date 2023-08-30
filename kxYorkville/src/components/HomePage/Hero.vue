@@ -2,6 +2,7 @@
 /* ----- Import components ----- */
 import Button from '../../components/UI/Button.vue'
 
+//Prop handling
 const { videoDesktop, videoMobile, isMobile } = defineProps([
   'videoDesktop',
   'videoMobile',

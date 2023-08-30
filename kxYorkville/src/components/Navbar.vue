@@ -1,16 +1,18 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-/* ----- Nav and dropdown click event ----- */
+//Nav and dropdown click event
 const isMenuOpen = ref(false)
 const isLoginOpen = ref(false)
 const screenWidth = ref(window.innerWidth)
 
+//Toggle menu dropdown
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
   isLoginOpen.value = false
 }
 
+//Toggle login dropdown
 const toggleLogin = () => {
   isLoginOpen.value = !isLoginOpen.value
   isMenuOpen.value = false

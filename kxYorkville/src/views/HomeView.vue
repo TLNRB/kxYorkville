@@ -6,7 +6,7 @@ import Hero from '../components/HomePage/Hero.vue'
 import videoDesktop from '../assets/images/weights.mp4'
 import videoMobile from '../assets/images/weightsVertical.mp4'
 
-/* ----- Checking if the screen size is mobile ----- */
+//Checking if the screen size is mobile
 const isMobile = ref(false)
 
 //Resize handling

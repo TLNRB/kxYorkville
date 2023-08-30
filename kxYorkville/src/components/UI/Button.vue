@@ -1,4 +1,5 @@
 <script setup>
+//Prop handling
 const { content } = defineProps(['content'])
 </script>
 <template>
