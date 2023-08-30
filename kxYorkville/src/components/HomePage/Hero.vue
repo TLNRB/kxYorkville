@@ -13,7 +13,7 @@ const { videoDesktop, videoMobile, isMobile } = defineProps([
 <template>
   <section class="min-h-[100vh] flex items-center justify-center">
     <video
-      class="absolute top-0 left-0 object-cover w-[100%] min-h-[100vh] z-[-1]"
+      class="absolute top-0 left-0 right-0 object-cover w-[100%] h-[100vh] z-[-1]"
       :src="!isMobile ? videoDesktop : videoMobile"
       autoplay
       loop
