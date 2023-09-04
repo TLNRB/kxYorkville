@@ -1,4 +1,8 @@
 <script setup>
+/* ----- Import components ----- */
+import Button from '../../components/UI/ButtonLight.vue'
+
+//Prop handling
 const { studio } = defineProps(['studio'])
 const bgImg = `bg-[url('${studio}')]`
 </script>
