@@ -24,7 +24,7 @@ module.exports = {
         textGray: '#E1E1E1',
         textNormal: '#dddddd',
         textDarker: '#606060',
-        textDark: '#30303055',
+        textDark: '#30303060',
         primaryColor: '#D9A404'
       }
     }
