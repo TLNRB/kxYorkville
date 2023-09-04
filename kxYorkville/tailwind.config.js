@@ -18,14 +18,16 @@ module.exports = {
     },
     extend: {
       colors: {
+        bgNavDark: '#151515',
         bgDark: '#202020',
+        bgColorDark: '#4F5951',
         bgHoverDark: '#505050',
         textLight: '#f4f4f4',
         textGray: '#E1E1E1',
         textNormal: '#dddddd',
         textDarker: '#606060',
-        textDark: '#30303060',
-        primaryColor: '#D9A404'
+        textDark: '#30303065',
+        primaryColor: '#A69D24'
       }
     }
   },

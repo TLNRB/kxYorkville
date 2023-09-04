@@ -46,7 +46,7 @@ onUnmounted(() => {
           <span class="menu-icon__line menu-icon__line-bottom"></span>
         </div>
         <div
-          class="font-oswald absolute translate-y-0 duration-[.25s] ease-in-out left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgDark text-[1.5rem] text-textDarker drop-shadow-lg md:px-[2rem] md:text-[1.75rem] lg:gap-0 xxxl:pt-[7rem] xxxl:pb-[2rem]"
+          class="font-oswald absolute translate-y-0 duration-[.25s] ease-in-out left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgNavDark text-[1.5rem] text-textDarker drop-shadow-2xl md:px-[2rem] md:text-[1.75rem] lg:gap-0 xxxl:pt-[7rem] xxxl:pb-[2rem]"
           :class="{ menuClosed: !isMenuOpen }"
         >
           <div
@@ -105,7 +105,7 @@ onUnmounted(() => {
         <font-awesome-icon class="text-[1rem]" :icon="['fas', 'user']" />
       </button>
       <div
-        class="w-[250px] absolute top-[3rem] right-[1rem] rounded-[10px] bg-bgDark drop-shadow-lg"
+        class="w-[250px] absolute top-[3rem] right-[1rem] rounded-[10px] bg-bgNavDark drop-shadow-2xl"
         :class="{ hidden: !isLoginOpen }"
       >
         <div class="p-[1rem] flex items-center gap-[1rem] border-b border-textDarker">
