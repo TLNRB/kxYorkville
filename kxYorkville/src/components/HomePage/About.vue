@@ -4,7 +4,7 @@ import Button from '../../components/UI/ButtonLight.vue'
 
 //Prop handling
 const { studio } = defineProps(['studio'])
-const bgImg = `bg-[url('${studio}')]`
+const bgImg = `background-image: url('${studio}')`
 </script>
 
 <template>
@@ -26,7 +26,11 @@ const bgImg = `bg-[url('${studio}')]`
       </p>
       <Button class="sm:mt-[1rem] xxxl:mt-[2rem] xxxl:mx-auto" content="Timetable" />
     </div>
-    <div class="h-[350px] bg-cover bg-center sm:w-[50%] sm:h-auto" :class="bgImg"></div>
+    <div
+      class="h-[350px] bg-cover bg-center sm:w-[50%] sm:h-auto"
+      :class="bgImg"
+      :style="bgImg"
+    ></div>
   </section>
 </template>
 
