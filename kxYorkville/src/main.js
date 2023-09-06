@@ -19,7 +19,8 @@ import {
   faArrowRightToBracket,
   faBookmark,
   faUser,
-  faGear
+  faGear,
+  faArrowRightLong
 } from '@fortawesome/free-solid-svg-icons'
 /* import brand icons */
 import {} from '@fortawesome/free-brands-svg-icons'
@@ -33,7 +34,8 @@ library.add(
   faArrowRightToBracket,
   faBookmark,
   faUser,
-  faGear
+  faGear,
+  faArrowRightLong
 )
 
 const app = createApp(App)

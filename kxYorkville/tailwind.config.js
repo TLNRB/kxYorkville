@@ -2,6 +2,9 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
+    backgroundPosition: {
+      'center-top-mid': 'center top 20%'
+    },
     screens: {
       xs: '360px',
       sm: '560px',
@@ -18,9 +21,11 @@ module.exports = {
     },
     extend: {
       colors: {
+        bgDarkFilter: '#000000ff',
         bgNavDark: '#151515',
         bgDark: '#202020',
         bgColorDark: '#4F5951',
+        bgColorLight: '#7B8C81',
         bgHoverDark: '#505050',
         textLight: '#f4f4f4',
         textGray: '#E1E1E1',
