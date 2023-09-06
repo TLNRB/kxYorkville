@@ -6,22 +6,22 @@ import crossfitImg from '../assets/images/classes/crossfit.jpg'
 const classesDB = [
   {
     id: 1,
-    class: 'Body Building',
+    name: 'Body Building',
     img: bodyImg
   },
   {
     id: 2,
-    class: 'Yoga',
+    name: 'Yoga',
     img: yogaImg
   },
   {
     id: 3,
-    class: 'Boxing',
+    name: 'Boxing',
     img: boxingImg
   },
   {
     id: 4,
-    class: 'Crossfit',
+    name: 'Crossfit',
     img: crossfitImg
   }
 ]
