@@ -1,5 +1,5 @@
 <script setup>
-import classesDB from '../../data/classes.js'
+import classesDB from '../../data/classesDB.js'
 </script>
 
 <template>

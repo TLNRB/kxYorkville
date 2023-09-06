@@ -3,7 +3,7 @@ import yogaImg from '../assets/images/yoga.jpg'
 import boxingImg from '../assets/images/box.jpg'
 import crossfitImg from '../assets/images/crossfit.jpg'
 
-const classes = [
+const classesDB = [
   {
     id: 1,
     class: 'Body Building',
@@ -26,4 +26,4 @@ const classes = [
   }
 ]
 
-export default classes
+export default classesDB
