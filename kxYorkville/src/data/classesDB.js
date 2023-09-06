@@ -1,7 +1,7 @@
-import bodyImg from '../assets/images/bodyBuilding.jpg'
-import yogaImg from '../assets/images/yoga.jpg'
-import boxingImg from '../assets/images/box.jpg'
-import crossfitImg from '../assets/images/crossfit.jpg'
+import bodyImg from '../assets/images/classes/bodyBuilding.jpg'
+import yogaImg from '../assets/images/classes/yoga.jpg'
+import boxingImg from '../assets/images/classes/box.jpg'
+import crossfitImg from '../assets/images/classes/crossfit.jpg'
 
 const classesDB = [
   {

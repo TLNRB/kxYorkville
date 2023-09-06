@@ -1,4 +1,4 @@
-import coachOne from '../assets/images/coach.jpg'
+import coachOne from '../assets/images/coaches/coach.jpg'
 
 const coachesDB = [
   {
