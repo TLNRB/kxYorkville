@@ -28,7 +28,7 @@ const coachesDB = [
   },
   {
     id: 5,
-    name: 'Joel Williams',
+    name: 'Liu Williams',
     img: boxingCoachOne
   },
   {

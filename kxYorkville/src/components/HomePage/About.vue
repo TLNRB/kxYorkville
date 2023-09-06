@@ -8,9 +8,9 @@ const bgImg = `background-image: url('${studio}')`
 </script>
 
 <template>
-  <section class="flex flex-col-reverse w-[100%] sm:flex-row">
+  <section class="flex flex-col-reverse w-[100%] drop-shadow-2xl sm:flex-row">
     <div
-      class="flex flex-col gap-[2rem] py-[4rem] px-[1.5rem] bg-bgColorDark sm:w-[50%] md:py-[6rem] md:px-[2rem] lg:px-[4rem] xxl:py-[8rem] xxxl:px-[6rem] xxxxl:py-[12rem] xxxxl:px-[8rem]"
+      class="flex flex-col gap-[2rem] py-[4rem] px-[1.5rem] bg-bgColorDark drop-shadow-2xl sm:w-[50%] md:py-[6rem] md:px-[2rem] lg:px-[4rem] xxl:py-[8rem] xxxl:px-[6rem] xxxxl:py-[12rem] xxxxl:px-[8rem]"
     >
       <p
         class="font-light md:text-[1.125rem] xl:text-[1.25rem] xxxl:text-[1.375rem] xxxl:text-center xxxxl:text-[1.5rem]"
