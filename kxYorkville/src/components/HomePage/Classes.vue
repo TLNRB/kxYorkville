@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import classesDB from '../../data/classes.js'
+</script>
 
 <template>
   <section
@@ -9,7 +11,21 @@
     >
       classes
     </h2>
-    <div class="flex flex-col items-center gap-[2rem]">
+    <div
+      class="flex flex-col items-center gap-[2rem]"
+      v-for="classes in classesDB"
+      :key="classes.id"
+    >
+      <div
+        class="absolute w-[200px] h-[200px] rounded-full border-[1px] border-transparent hover:scale-[112.5%] hover:border-[1px] hover:border-primaryColor ease-in duration-[.1s] z-[2] cursor-pointer md:w-[250px] md:h-[250px]"
+      ></div>
+      <div
+        class="bg-[url('../assets/images/bodyBuilding.jpg')] bg-cover bg-center relative w-[200px] h-[200px] p-[.5rem] rounded-full md:w-[250px] md:h-[250px]"
+        :style="`background-image: url('${classes.img}')`"
+      ></div>
+      <p class="font-oswald uppercase text-[1.25rem] md:text-[1.5rem]">{{ classes.class }}</p>
+    </div>
+    <!-- <div class="flex flex-col items-center gap-[2rem]">
       <div
         class="absolute w-[200px] h-[200px] rounded-full border-[1px] border-transparent hover:scale-[112.5%] hover:border-[1px] hover:border-primaryColor ease-in duration-[.1s] z-[2] cursor-pointer md:w-[250px] md:h-[250px]"
       ></div>
@@ -35,16 +51,7 @@
         class="bg-[url('../assets/images/bodyBuilding.jpg')] bg-cover bg-center relative w-[200px] h-[200px] p-[.5rem] rounded-full md:w-[250px] md:h-[250px]"
       ></div>
       <p class="font-oswald uppercase text-[1.25rem] md:text-[1.5rem]">Body Building</p>
-    </div>
-    <div class="flex flex-col items-center gap-[2rem]">
-      <div
-        class="absolute w-[200px] h-[200px] rounded-full border-[1px] border-transparent hover:scale-[112.5%] hover:border-[1px] hover:border-primaryColor ease-in duration-[.1s] z-[2] cursor-pointer md:w-[250px] md:h-[250px]"
-      ></div>
-      <div
-        class="bg-[url('../assets/images/bodyBuilding.jpg')] bg-cover bg-center relative w-[200px] h-[200px] p-[.5rem] rounded-full md:w-[250px] md:h-[250px]"
-      ></div>
-      <p class="font-oswald uppercase text-[1.25rem] md:text-[1.5rem]">Body Building</p>
-    </div>
+    </div> -->
   </section>
 </template>
 
