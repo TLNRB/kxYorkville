@@ -20,7 +20,9 @@ const { coachesDB } = defineProps(['coachesDB'])
         >
           {{ coaches.profession }}
         </p>
-        <h4 class="text-[1.125rem] drop-shadow-lg xxl:text-[1.25rem]">{{ coaches.name }}</h4>
+        <h4 class="text-[1.125rem] font-[500] drop-shadow-lg xxl:text-[1.25rem]">
+          {{ coaches.name }}
+        </h4>
         <div
           class="absolute left-0 top-0 w-[0px] h-[124px] py-[.75rem] flex justify-center items-center text-transparent bg-bgColorDark text-[1.25rem] group-hover:w-[100%] group-hover:text-textLight group-hover:px-[1.125rem] ease-in duration-[.2s] xs:h-[159px] lg:h-[174px] xxl:h-[199px] xxxxl:h-[224px]"
         >

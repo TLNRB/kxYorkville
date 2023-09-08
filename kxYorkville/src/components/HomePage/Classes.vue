@@ -20,7 +20,7 @@ import classesDB from '../../data/classesDB.js'
         class="absolute w-[200px] h-[200px] rounded-full border-[1px] border-transparent hover:scale-[112.5%] hover:border-[2px] hover:border-primaryColor ease-in duration-[.1s] z-[2] cursor-pointer md:w-[250px] md:h-[250px]"
       ></div>
       <div
-        class="bg-cover bg-center bg-no-repeat relative w-[200px] h-[200px] p-[.5rem] rounded-full md:w-[250px] md:h-[250px]"
+        class="bg-cover bg-center-top-mid bg-no-repeat relative w-[200px] h-[200px] p-[.5rem] rounded-full md:w-[250px] md:h-[250px]"
         :style="`background-image: url('${classes.img}')`"
       ></div>
       <p class="font-oswald uppercase text-[1.25rem] md:text-[1.5rem]">{{ classes.name }}</p>
