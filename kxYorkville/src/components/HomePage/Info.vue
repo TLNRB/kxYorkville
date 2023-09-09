@@ -4,36 +4,43 @@ import mosaicBallImage from '../../assets/images/mosaic/mosaic-ball.jpg'
 import mosaicBoxImage from '../../assets/images/mosaic/mosaic-box.jpg'
 import mosaicCardioImage from '../../assets/images/mosaic/mosaic-cardio.jpg'
 
-/* const gridClassNameArray = [
-  `grid-one bg-[url('${mosaicBallImage}')]`,
-  'grid-two',
-  `grid-three bg-[url('${mosaicBoxImage}')]`,
-  'grid-four',
-  'grid-five',
-  `grid-six bg-[url('${mosaicCardioImage}')]`,
-  'grid-seven'
-] */
-
+// Grid box images and styling
 const gridClassNameArray = [
   {
     id: 1,
     class: 'grid-one bg-cover bg-center-top-mid bg-no-repeat',
     style: `background-image: url('${mosaicBallImage}')`
   },
-  { id: 2, class: 'grid-two' },
+  {
+    id: 2,
+    class:
+      'grid-two bg-bgColorLight cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent'
+  },
   {
     id: 3,
     class: 'grid-three bg-cover bg-center-top-mid bg-no-repeat',
     style: `background-image: url('${mosaicBoxImage}')`
   },
-  { id: 4, class: 'grid-four' },
-  { id: 5, class: 'grid-five' },
+  {
+    id: 4,
+    class:
+      'grid-four bg-bgColorLightest cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent'
+  },
+  {
+    id: 5,
+    class:
+      'grid-five bg-bgColorDark cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent'
+  },
   {
     id: 6,
     class: 'grid-six bg-cover bg-center-top-mid bg-no-repeat',
     style: `background-image: url('${mosaicCardioImage}')`
   },
-  { id: 7, class: 'grid-seven' }
+  {
+    id: 7,
+    class:
+      'grid-seven bg-bgColorLighter cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent'
+  }
 ]
 </script>
 
@@ -42,7 +49,7 @@ const gridClassNameArray = [
     <div
       v-for="gridClassName in gridClassNameArray"
       :key="gridClassName.id"
-      class="bg-primaryColor border-[1px] border-black"
+      class="border-[1px] border-bgDark"
       :class="gridClassName.class"
       :style="gridClassName.style"
     ></div>
