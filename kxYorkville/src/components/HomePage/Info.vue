@@ -65,7 +65,7 @@ const gridClassNameArray = [
       :class="gridClassName.class"
       :style="gridClassName.style"
     >
-      <p v-if="gridClassName.text" class="mx-auto font-[400]">
+      <p v-if="gridClassName.text" class="mx-auto font-[400] drop-shadow-lg">
         {{ gridClassName.text }}<br />
         {{ gridClassName.textTwo }}<br />
         {{ gridClassName.textThree }}
