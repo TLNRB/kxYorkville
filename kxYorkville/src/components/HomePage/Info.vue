@@ -9,37 +9,49 @@ const gridClassNameArray = [
   {
     id: 1,
     class: 'grid-one bg-cover bg-center-top-mid bg-no-repeat',
-    style: `background-image: url('${mosaicBallImage}')`
+    style: `background-image: url('${mosaicBallImage}')`,
+    text: null
   },
   {
     id: 2,
     class:
-      'grid-two bg-bgColorLight cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent'
+      'grid-two bg-bgColorLight cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent',
+    text: 'Our',
+    textTwo: 'classes.'
   },
   {
     id: 3,
     class: 'grid-three bg-cover bg-center-top-mid bg-no-repeat',
-    style: `background-image: url('${mosaicBoxImage}')`
+    style: `background-image: url('${mosaicBoxImage}')`,
+    text: null
   },
   {
     id: 4,
     class:
-      'grid-four bg-bgColorLightest cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent'
+      'grid-four bg-bgColorLightest cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent',
+    text: 'View',
+    textTwo: 'available',
+    textThree: 'classes.'
   },
   {
     id: 5,
     class:
-      'grid-five bg-bgColorDark cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent'
+      'grid-five bg-bgColorDark cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent',
+    text: 'About',
+    textTwo: 'the gym.'
   },
   {
     id: 6,
     class: 'grid-six bg-cover bg-center-top-mid bg-no-repeat',
-    style: `background-image: url('${mosaicCardioImage}')`
+    style: `background-image: url('${mosaicCardioImage}')`,
+    text: null
   },
   {
     id: 7,
     class:
-      'grid-seven bg-bgColorLighter cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent'
+      'grid-seven bg-bgColorLighter cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent',
+    text: 'Meet the',
+    textTwo: 'coaches.'
   }
 ]
 </script>
@@ -49,10 +61,16 @@ const gridClassNameArray = [
     <div
       v-for="gridClassName in gridClassNameArray"
       :key="gridClassName.id"
-      class="border-[1px] border-bgDark"
+      class="flex flex-col justify-center items-start font-oswald text-[1.75rem] leading-tight border-[1px] border-bgDark sm:text-[2rem] lg:text-[2.5rem] xxxxl:text-[3rem]"
       :class="gridClassName.class"
       :style="gridClassName.style"
-    ></div>
+    >
+      <p v-if="gridClassName.text" class="mx-auto font-[400]">
+        {{ gridClassName.text }}<br />
+        {{ gridClassName.textTwo }}<br />
+        {{ gridClassName.textThree }}
+      </p>
+    </div>
   </section>
 </template>
 
