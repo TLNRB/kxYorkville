@@ -25,6 +25,7 @@ module.exports = {
         bgDarkFilter: '#000000ff',
         bgNavDark: '#151515',
         bgDark: '#202020',
+        bgNormal: '#282828',
         bgColorDark: '#4F5951',
         bgColorLight: '#7B8C81',
         bgColorLighter: '#637365',
