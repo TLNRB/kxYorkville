@@ -15,7 +15,7 @@ const gridClassNameArray = [
   {
     id: 2,
     class:
-      'grid-two bg-bgColorLight cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent',
+      'grid-two bg-bgColorLight cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent xxxl:hover:scale-[102.5%]',
     text: 'Our',
     textTwo: 'classes.'
   },
@@ -28,7 +28,7 @@ const gridClassNameArray = [
   {
     id: 4,
     class:
-      'grid-four bg-bgColorLightest cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent',
+      'grid-four bg-bgColorLightest cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent xxxl:hover:scale-[102.5%]',
     text: 'View',
     textTwo: 'available',
     textThree: 'classes.'
@@ -36,7 +36,7 @@ const gridClassNameArray = [
   {
     id: 5,
     class:
-      'grid-five bg-bgColorDark cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent',
+      'grid-five bg-bgColorDark cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent xxxl:hover:scale-[102.5%]',
     text: 'About',
     textTwo: 'the gym.'
   },
@@ -49,7 +49,7 @@ const gridClassNameArray = [
   {
     id: 7,
     class:
-      'grid-seven bg-bgColorLighter cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent',
+      'grid-seven bg-bgColorLighter cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent xxxl:hover:scale-[102.5%] ',
     text: 'Meet the',
     textTwo: 'coaches.'
   }
