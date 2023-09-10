@@ -6,6 +6,7 @@ import Classes from '../components/HomePage/Classes.vue'
 import About from '../components/HomePage/About.vue'
 import Coaches from '../components/HomePage/Coaches.vue'
 import Info from '../components/HomePage/Info.vue'
+import Reviews from '../components/HomePage/Reviews/Reviews.vue'
 /* ----- Import assets ----- */
 import videoDesktop from '../assets/images/weights.mp4'
 import videoMobile from '../assets/images/weightsVertical.mp4'
@@ -37,6 +38,7 @@ onUnmounted(() => {
   <About :studio="studio" />
   <Coaches :coachesDB="coachesDB" />
   <Info />
+  <Reviews />
 </template>
 
 <style scoped></style>

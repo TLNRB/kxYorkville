@@ -3,7 +3,8 @@ module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     backgroundPosition: {
-      'center-top-mid': 'center top 20%'
+      'center-top-mid': 'center top 20%',
+      'center-bottom-mid': 'center top 50%'
     },
     screens: {
       xs: '360px',

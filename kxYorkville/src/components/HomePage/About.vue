@@ -26,11 +26,7 @@ const bgImg = `background-image: url('${studio}')`
       </p>
       <Button class="sm:mt-[1rem] xxxl:mt-[2rem] xxxl:mx-auto" content="Timetable" />
     </div>
-    <div
-      class="h-[350px] bg-cover bg-center sm:w-[50%] sm:h-auto"
-      :class="bgImg"
-      :style="bgImg"
-    ></div>
+    <div class="h-[350px] bg-cover bg-center-bottom-mid sm:w-[50%] sm:h-auto" :style="bgImg"></div>
   </section>
 </template>
 
