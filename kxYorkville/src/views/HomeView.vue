@@ -11,6 +11,8 @@ import Reviews from '../components/HomePage/Reviews/Reviews.vue'
 import videoDesktop from '../assets/images/weights.mp4'
 import videoMobile from '../assets/images/weightsVertical.mp4'
 import studio from '../assets/images/studio.jpg'
+import smallDumbbell from '../assets/images/smallDumbbell.jpg'
+import ring from '../assets/images/ring.jpg'
 
 import coachesDB from '../data/coachesDB.js'
 
@@ -35,10 +37,10 @@ onUnmounted(() => {
 <template>
   <Hero :videoDesktop="videoDesktop" :videoMobile="videoMobile" :isMobile="isMobile" />
   <Classes />
-  <About :studio="studio" />
+  <About :img="studio" />
   <Coaches :coachesDB="coachesDB" />
   <Info />
-  <Reviews />
+  <Reviews :img="smallDumbbell" :imgMobile="ring" :isMobile="isMobile" />
 </template>
 
 <style scoped></style>
