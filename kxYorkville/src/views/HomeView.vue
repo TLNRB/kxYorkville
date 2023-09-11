@@ -17,13 +17,15 @@ import ring from '../assets/images/ring.jpg'
 import coachesDB from '../data/coachesDB.js'
 
 //Checking if the screen size is mobile
-const isMobile = ref(false)
-const isDesktopLarge = ref(false)
+const isMobile = ref(window.innerWidth < 560 ? true : false)
+const isDesktopMedium = ref(window.innerWidth >= 1060 && window.innerWidth < 1440 ? true : false)
+const isDesktopLarge = ref(window.innerWidth >= 1440 ? true : false)
 
 //Resize handling
 function handleResize() {
-  isMobile.value = window.innerWidth < 560
-  isDesktopLarge.value = window.innerWidth > 1440
+  isMobile.value = window.innerWidth < 560 ? true : false
+  isDesktopMedium.value = window.innerWidth >= 1060 && window.innerWidth < 1440 ? true : false
+  isDesktopLarge.value = window.innerWidth > 1440 ? true : false
 }
 
 // Add resize event listener when component is mounted
@@ -46,6 +48,7 @@ onUnmounted(() => {
     :img="smallDumbbell"
     :imgMobile="ring"
     :isMobile="isMobile"
+    :isDesktopMedium="isDesktopMedium"
     :isDesktopLarge="isDesktopLarge"
   />
 </template>
