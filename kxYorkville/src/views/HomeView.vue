@@ -18,10 +18,12 @@ import coachesDB from '../data/coachesDB.js'
 
 //Checking if the screen size is mobile
 const isMobile = ref(false)
+const isDesktopLarge = ref(false)
 
 //Resize handling
 function handleResize() {
   isMobile.value = window.innerWidth < 560
+  isDesktopLarge.value = window.innerWidth > 1440
 }
 
 // Add resize event listener when component is mounted
@@ -40,7 +42,12 @@ onUnmounted(() => {
   <About :img="studio" />
   <Coaches :coachesDB="coachesDB" />
   <Info />
-  <Reviews :img="smallDumbbell" :imgMobile="ring" :isMobile="isMobile" />
+  <Reviews
+    :img="smallDumbbell"
+    :imgMobile="ring"
+    :isMobile="isMobile"
+    :isDesktopLarge="isDesktopLarge"
+  />
 </template>
 
 <style scoped></style>

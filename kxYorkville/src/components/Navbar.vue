@@ -114,7 +114,7 @@ onUnmounted(() => {
           >
             <font-awesome-icon class="text-[1.25rem]" :icon="['fas', 'user']" />
           </div>
-          <p>username</p>
+          <p class="font-oswald text-[1.125rem]">username</p>
         </div>
         <div class="my-[.5rem]">
           <div

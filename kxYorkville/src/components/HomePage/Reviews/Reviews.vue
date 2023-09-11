@@ -1,10 +1,26 @@
 <script setup>
+/* ----- Import assets ----- */
 import Title from '../../UI/Title.vue'
+import Review from '../Reviews/Review.vue'
+import reviewsDB from '../../../data/reviewsDB.js'
 
 //Prop handling
-const { img, imgMobile, isMobile } = defineProps(['img', 'imgMobile', 'isMobile'])
+const { img, imgMobile, isMobile, isDesktopLarge } = defineProps([
+  'img',
+  'imgMobile',
+  'isMobile',
+  'isDesktopLarge'
+])
 const bgImg = `background-image: url('${img}')`
 const bgImgMobile = `background-image: url('${imgMobile}')`
+
+/* ---------- Filtering reviews based on column value ---------- */
+const reviewFilterThree = (colNum) => {
+  return reviewsDB.filter((_, index) => index % 3 === colNum - 1)
+}
+const reviewFilterTwo = (colNum) => {
+  return reviewsDB.filter((_, index) => index % 2 === colNum - 1)
+}
 </script>
 
 <template>
@@ -16,60 +32,56 @@ const bgImgMobile = `background-image: url('${imgMobile}')`
       class="absolute left-0 top-0 right-0 bottom-0 backdrop-blur-[6px] z-[-1] sm:backdrop-blur-[8px] lg:backdrop-blur-[10px]"
     ></div>
     <Title content="testimonials" />
-    <div class="flex flex-wrap justify-center gap-[2rem] items-center my-[4rem]">
+    <div
+      v-if="!isDesktopLarge"
+      class="flex flex-col justify-center items-center gap-[1.5rem] my-[4rem] lg:items-start lg:flex-row"
+    >
       <!-- Column 1 -->
-      <div
-        class="w-[230px] flex flex-col gap-[2rem] items-center p-[2rem] bg-bgNormal border-[1px] border-textDarker drop-shadow-xl xs:w-[250px] sm:w-[350px] sm:p-[2.25rem] md:w-[400px] xxxxl:w-[500px]"
-      >
-        <p class="text-[.875rem] sm:text-[1rem]">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus beatae est officiis
-          dolore, blanditiis autem mollitia, debitis omnis, veniam suscipit nesciunt! Quos illo
-          fugit aspernatur odio? Amet veniam quod eaque!
-        </p>
-        <div class="flex items-center gap-[.75rem] mr-auto">
-          <div
-            class="w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center sm:w-[40px] sm:h-[40px]"
-          >
-            <font-awesome-icon class="text-[1rem] sm:text-[1.25rem]" :icon="['fas', 'user']" />
-          </div>
-          <p>username</p>
-        </div>
+      <div class="flex flex-col gap-[1.5rem]">
+        <Review
+          v-for="review in reviewFilterTwo(1)"
+          :key="review.id"
+          :text="review.text"
+          :username="review.username"
+        />
       </div>
       <!-- Column 2 -->
-      <div
-        class="w-[230px] flex flex-col gap-[2rem] items-center p-[2rem] bg-bgNormal border-[1px] border-textDarker drop-shadow-xl xs:w-[250px] sm:w-[350px] sm:p-[2.25rem] md:w-[400px] xxxxl:w-[500px]"
-      >
-        <p class="text-[.875rem] sm:text-[1rem]">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus beatae est officiis
-          dolore, blanditiis autem mollitia, debitis omnis, veniam suscipit nesciunt! Quos illo
-          fugit aspernatur odio? Amet veniam quod eaque!
-        </p>
-        <div class="flex items-center gap-[.75rem] mr-auto">
-          <div
-            class="w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center sm:w-[40px] sm:h-[40px]"
-          >
-            <font-awesome-icon class="text-[1rem] sm:text-[1.25rem]" :icon="['fas', 'user']" />
-          </div>
-          <p>username</p>
-        </div>
+      <div class="flex flex-col gap-[1.5rem]">
+        <Review
+          v-for="review in reviewFilterTwo(2)"
+          :key="review.id"
+          :text="review.text"
+          :username="review.username"
+        />
+      </div>
+    </div>
+    <div v-else class="flex justify-center gap-[1.5rem] my-[4rem] xxxxl:gap-[1.75rem]">
+      <!-- Column 1 -->
+      <div class="flex flex-col gap-[1.5rem] xxxxl:gap-[1.75rem]">
+        <Review
+          v-for="review in reviewFilterThree(1)"
+          :key="review.id"
+          :text="review.text"
+          :username="review.username"
+        />
+      </div>
+      <!-- Column 2 -->
+      <div class="flex flex-col gap-[1.5rem] xxxxl:gap-[1.75rem]">
+        <Review
+          v-for="review in reviewFilterThree(2)"
+          :key="review.id"
+          :text="review.text"
+          :username="review.username"
+        />
       </div>
       <!-- Column 3 -->
-      <div
-        class="w-[230px] flex flex-col gap-[2rem] items-center p-[2rem] bg-bgNormal border-[1px] border-textDarker drop-shadow-xl xs:w-[250px] sm:w-[350px] sm:p-[2.25rem] md:w-[400px] xxxxl:w-[500px]"
-      >
-        <p class="text-[.875rem] sm:text-[1rem]">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus beatae est officiis
-          dolore, blanditiis autem mollitia, debitis omnis, veniam suscipit nesciunt! Quos illo
-          fugit aspernatur odio? Amet veniam quod eaque!
-        </p>
-        <div class="flex items-center gap-[.75rem] mr-auto">
-          <div
-            class="w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center sm:w-[40px] sm:h-[40px]"
-          >
-            <font-awesome-icon class="text-[1rem] sm:text-[1.25rem]" :icon="['fas', 'user']" />
-          </div>
-          <p>username</p>
-        </div>
+      <div class="flex flex-col gap-[1.5rem] xxxxl:gap-[1.75rem]">
+        <Review
+          v-for="review in reviewFilterThree(3)"
+          :key="review.id"
+          :text="review.text"
+          :username="review.username"
+        />
       </div>
     </div>
   </section>
