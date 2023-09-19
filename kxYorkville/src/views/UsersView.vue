@@ -1,4 +1,22 @@
 <script setup>
+import { ref } from 'vue'
+
+/* ----- Form display ----- */
+const loginActive = ref(true)
+const signupActive = ref(false)
+const active = 'text-primaryColor border-primaryColor'
+const inActive = 'text-textGray border-textGray'
+
+const toggleLogin = () => {
+  loginActive.value = true
+  signupActive.value = false
+}
+
+const toggleSignup = () => {
+  loginActive.value = false
+  signupActive.value = true
+}
+
 /* ----- Import assets ----- */
 </script>
 
@@ -15,6 +33,24 @@
       >
         users
       </h1>
+      <div
+        class="flex items-center gap-[1.5rem] my-[2rem] font-oswald text-textGray xs:my-[4rem] sm:mt-[6rem] lg:text-[1.25rem] xxxl:mt-[11rem]"
+      >
+        <button
+          class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
+          :class="loginActive ? active : inActive"
+          @click="toggleLogin"
+        >
+          Login
+        </button>
+        <button
+          class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
+          :class="signupActive ? active : inActive"
+          @click="toggleSignup"
+        >
+          Sign Up
+        </button>
+      </div>
     </div>
   </main>
 </template>
