@@ -103,11 +103,11 @@ const reviewFilterOne = () => {
 
 <template>
   <section
-    class="mt-[4rem] mb-[2rem] py-[4rem] px-[1rem] bg-cover bg-center-bottom-mid bg-no-repeat brightness-[85%] drop-shadow-2xl md:px-[2rem] xxl:py-[6rem] xxxxl:px-[4rem] xxxxl:mt-[6rem]"
+    class="relative mt-[4rem] mb-[2rem] py-[4rem] px-[1rem] bg-cover bg-center-bottom-mid bg-no-repeat xs:rounded-[20px] xs:mx-[1rem] md:rounded-[25px] md:mx-[2rem] md:px-[2rem] xxl:py-[6rem] xxxxl:px-[4rem] xxxxl:mt-[6rem]"
     :style="!isMobile ? bgImg : bgImgMobile"
   >
     <div
-      class="absolute left-0 top-0 right-0 bottom-0 backdrop-blur-[6px] z-[-1] sm:backdrop-blur-[8px] lg:backdrop-blur-[10px]"
+      class="absolute left-0 top-0 right-0 bottom-0 brightness-[90%] backdrop-blur-[6px] z-[0] xs:rounded-[20px] sm:backdrop-blur-[8px] md:rounded-[25px] lg:backdrop-blur-[10px]"
     ></div>
     <Title content="testimonials" />
     <!-- SETUP - Column 2 -->
