@@ -18,16 +18,15 @@ body {
   overflow-x: hidden;
   background-color: #202020;
   color: #f4f4f4;
-  /* scrollbar-width: none; */
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 4px;
-  background-color: #181818;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 60em;
-  background-color: #f4f4f4;
+  background-color: #a69d24;
   cursor: pointer;
-} */
+}
