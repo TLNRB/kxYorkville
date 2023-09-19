@@ -9,11 +9,11 @@ import Info from '../components/HomePage/Info.vue'
 import Reviews from '../components/HomePage/Reviews/Reviews.vue'
 import FooterSection from '../components/FooterSection.vue'
 /* ----- Import assets ----- */
-import videoDesktop from '../assets/images/weights.mp4'
-import videoMobile from '../assets/images/weightsVertical.mp4'
-import studio from '../assets/images/studio.jpg'
-import smallDumbbell from '../assets/images/smallDumbbell.jpg'
-import ring from '../assets/images/ring.jpg'
+import videoDesktop from '../assets/images/home/weights.mp4'
+import videoMobile from '../assets/images/home/weightsVertical.mp4'
+import studio from '../assets/images/home/studio.jpg'
+import smallDumbbell from '../assets/images/home/smallDumbbell.jpg'
+import ring from '../assets/images/home/ring.jpg'
 
 import coachesDB from '../data/coachesDB.js'
 
