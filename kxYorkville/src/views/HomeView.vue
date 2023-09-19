@@ -7,6 +7,7 @@ import About from '../components/HomePage/About.vue'
 import Coaches from '../components/HomePage/Coaches.vue'
 import Info from '../components/HomePage/Info.vue'
 import Reviews from '../components/HomePage/Reviews/Reviews.vue'
+import FooterSection from '../components/HomePage/FooterSection.vue'
 /* ----- Import assets ----- */
 import videoDesktop from '../assets/images/weights.mp4'
 import videoMobile from '../assets/images/weightsVertical.mp4'
@@ -51,6 +52,7 @@ onUnmounted(() => {
     :isDesktopMedium="isDesktopMedium"
     :isDesktopLarge="isDesktopLarge"
   />
+  <FooterSection />
 </template>
 
 <style scoped></style>

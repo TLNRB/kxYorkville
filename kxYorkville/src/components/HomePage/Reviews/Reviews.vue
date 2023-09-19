@@ -103,7 +103,7 @@ const reviewFilterOne = () => {
 
 <template>
   <section
-    class="my-[4rem] py-[4rem] px-[1rem] bg-cover bg-center-bottom-mid bg-no-repeat brightness-[85%] drop-shadow-2xl md:px-[2rem] xxl:py-[6rem] xxxxl:px-[4rem] xxxxl:my-[6rem]"
+    class="mt-[4rem] mb-[2rem] py-[4rem] px-[1rem] bg-cover bg-center-bottom-mid bg-no-repeat brightness-[85%] drop-shadow-2xl md:px-[2rem] xxl:py-[6rem] xxxxl:px-[4rem] xxxxl:mt-[6rem]"
     :style="!isMobile ? bgImg : bgImgMobile"
   >
     <div
