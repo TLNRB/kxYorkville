@@ -121,16 +121,7 @@ onUnmounted(() => {
             class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
           >
             <font-awesome-icon class="text-[1.125rem] translate-x-[2px]" :icon="['fas', 'gear']" />
-            <p class="text-[.875rem]">Settings</p>
-          </div>
-          <div
-            class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
-          >
-            <font-awesome-icon
-              class="text-[1.125rem] translate-x-[4px]"
-              :icon="['fas', 'bookmark']"
-            />
-            <p class="text-[.875rem] translate-x-[4px]">Classes</p>
+            <p class="text-[.875rem]">Your Account</p>
           </div>
           <div
             class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"

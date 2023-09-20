@@ -2,7 +2,10 @@
 import { ref } from 'vue'
 /* ----- Import assets ----- */
 
-/* ----- Form display ----- */
+//Handling props
+const { isLoggedIn } = defineProps(['isLoggedIn'])
+
+// Form display
 const loginActive = ref(true)
 const signupActive = ref(false)
 const active = 'text-primaryColor border-primaryColor'
@@ -28,12 +31,12 @@ const toggleSignup = () => {
     ></div>
     <div class="w-[100%] md:w-[45%]">
       <h1
-        class="absolute top-[3rem] leading-none tracking-tighter text-[6rem] translate-x-[-1.25rem] font-semibold text-textDark xs:text-[8rem] xs:top-[2.5rem] sm:text-[10rem] sm:translate-x-[-1.5rem] sm:top-[2rem] md:top-[2rem] md:right-0 md:sm:translate-x-0 lg:top-[1rem] lg:text-[12rem] xxxl:top-[-1.5rem] xxxl:text-[20rem]"
+        class="absolute top-[4rem] leading-none tracking-tighter text-[4.5rem] translate-x-[-1.125rem] font-semibold text-textDark xs:text-[5.5rem] xs:top-[4rem] sm:text-[9rem] sm:translate-x-[-1.25rem] sm:top-[3.5rem] md:top-[4rem] md:text-[6.5rem] md:right-0 md:sm:translate-x-0 lg:top-[3rem] lg:text-[9rem] xxl:top-[2rem] xxl:text-[12rem] xxxl:text-[13rem] xxxxl:text-[17rem]"
       >
-        users
+        account
       </h1>
       <div
-        class="flex items-center gap-[1.5rem] my-[2rem] font-oswald text-textGray xs:my-[4rem] sm:mt-[6rem] lg:text-[1.25rem] xxxl:mt-[11rem]"
+        class="flex items-center gap-[1.5rem] my-[2rem] font-oswald text-textGray xs:my-[4rem] sm:mt-[6rem] lg:text-[1.25rem] xxl:mt-[8rem] xxxl:mt-[10rem] xxxxl:mt-[11rem]"
       >
         <button
           class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
