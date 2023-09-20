@@ -12,8 +12,8 @@ const isLoggedIn = ref(true)
 
 <template>
   <Navbar />
-  <RouterView />
-  <FooterSection :isLoggedIn="isLoggedIn" />
+  <RouterView :isLoggedIn="isLoggedIn" />
+  <FooterSection />
 </template>
 
 <style scoped></style>

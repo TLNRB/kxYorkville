@@ -35,101 +35,106 @@ const toggleSignup = () => {
       >
         account
       </h1>
-      <div
-        class="flex items-center gap-[1.5rem] my-[2rem] font-oswald text-textGray xs:my-[4rem] sm:mt-[6rem] lg:text-[1.25rem] xxl:mt-[8rem] xxxl:mt-[10rem] xxxxl:mt-[11rem]"
-      >
-        <button
-          class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-          :class="loginActive ? active : inActive"
-          @click="toggleLogin"
+      <!-- Login/SignUp -->
+      <div v-if="!isLoggedIn">
+        <div
+          class="flex items-center gap-[1.5rem] my-[2rem] font-oswald text-textGray xs:my-[4rem] sm:mt-[6rem] lg:text-[1.25rem] xxl:mt-[8rem] xxxl:mt-[10rem] xxxxl:mt-[11rem]"
         >
-          Login
-        </button>
-        <button
-          class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-          :class="signupActive ? active : inActive"
-          @click="toggleSignup"
-        >
-          Sign Up
-        </button>
-      </div>
-      <div>
-        <!-- Login Form -->
-        <form
-          v-if="loginActive"
-          class="flex flex-col gap-[1.5rem] text-[.875rem] sm:text-[1rem] lg:text-[1.125rem]"
-        >
-          <input
-            type="email"
-            placeholder="Email"
-            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-          />
           <button
-            type="submit"
-            class="mt-[.5rem] font-oswald flex flex-col w-fit text-[.875rem] relative group xs:text-[1rem] md:text-[1.125rem] lg:mt-[1rem]"
+            class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
+            :class="loginActive ? active : inActive"
+            @click="toggleLogin"
           >
-            <span
-              class="font-[600] py-[.25rem] px-[1rem] border-[1px] bg-primaryColor text-textLight border-primaryColor z-[1] group-hover:bg-transparent group-hover:border-primaryColor ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem]"
-              >Login</span
-            >
-            <span
-              class="font-[600] py-[.25rem] px-[1rem] text-transparent border-[1px] border-textLight absolute top-[4px] right-[-4px] group-hover:top-[0] group-hover:right-[0] ease-in duration-[.2s] md:py-[.375rem] md:px-[1.125rem]"
-              >Login</span
-            >
+            Login
           </button>
-        </form>
-        <!-- Sign Up Form -->
-        <form
-          v-else="signupActive"
-          class="flex flex-col gap-[1.5rem] text-[.875rem] sm:text-[1rem] lg:text-[1.125rem]"
-        >
-          <input
-            type="text"
-            placeholder="First name"
-            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-          />
-          <input
-            type="text"
-            placeholder="Last name"
-            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-          />
-          <input
-            type="text"
-            placeholder="Username"
-            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-          />
           <button
-            type="submit"
-            class="mt-[.5rem] font-oswald flex flex-col w-fit text-[.875rem] relative group xs:text-[1rem] md:text-[1.125rem] lg:mt-[1rem]"
+            class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
+            :class="signupActive ? active : inActive"
+            @click="toggleSignup"
           >
-            <span
-              class="font-[600] py-[.25rem] px-[1rem] border-[1px] bg-primaryColor text-textLight border-primaryColor z-[1] group-hover:bg-transparent group-hover:border-primaryColor ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem]"
-              >Register</span
-            >
-            <span
-              class="font-[600] py-[.25rem] px-[1rem] text-transparent border-[1px] border-textLight absolute top-[4px] right-[-4px] group-hover:top-[0] group-hover:right-[0] ease-in duration-[.2s] md:py-[.375rem] md:px-[1.125rem]"
-              >Register</span
-            >
+            Sign Up
           </button>
-        </form>
+        </div>
+        <div>
+          <!-- Login Form -->
+          <form
+            v-if="loginActive"
+            class="flex flex-col gap-[1.5rem] text-[.875rem] sm:text-[1rem] lg:text-[1.125rem]"
+          >
+            <input
+              type="email"
+              placeholder="Email"
+              class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+            />
+            <button
+              type="submit"
+              class="mt-[.5rem] font-oswald flex flex-col w-fit text-[.875rem] relative group xs:text-[1rem] md:text-[1.125rem] lg:mt-[1rem]"
+            >
+              <span
+                class="font-[600] py-[.25rem] px-[1rem] border-[1px] bg-primaryColor text-textLight border-primaryColor z-[1] group-hover:bg-transparent group-hover:border-primaryColor ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem]"
+                >Login</span
+              >
+              <span
+                class="font-[600] py-[.25rem] px-[1rem] text-transparent border-[1px] border-textLight absolute top-[4px] right-[-4px] group-hover:top-[0] group-hover:right-[0] ease-in duration-[.2s] md:py-[.375rem] md:px-[1.125rem]"
+                >Login</span
+              >
+            </button>
+          </form>
+          <!-- Sign Up Form -->
+          <form
+            v-else="signupActive"
+            class="flex flex-col gap-[1.5rem] text-[.875rem] sm:text-[1rem] lg:text-[1.125rem]"
+          >
+            <input
+              type="text"
+              placeholder="First name"
+              class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+            />
+            <input
+              type="text"
+              placeholder="Last name"
+              class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+            />
+            <input
+              type="text"
+              placeholder="Username"
+              class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+            />
+            <button
+              type="submit"
+              class="mt-[.5rem] font-oswald flex flex-col w-fit text-[.875rem] relative group xs:text-[1rem] md:text-[1.125rem] lg:mt-[1rem]"
+            >
+              <span
+                class="font-[600] py-[.25rem] px-[1rem] border-[1px] bg-primaryColor text-textLight border-primaryColor z-[1] group-hover:bg-transparent group-hover:border-primaryColor ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem]"
+                >Register</span
+              >
+              <span
+                class="font-[600] py-[.25rem] px-[1rem] text-transparent border-[1px] border-textLight absolute top-[4px] right-[-4px] group-hover:top-[0] group-hover:right-[0] ease-in duration-[.2s] md:py-[.375rem] md:px-[1.125rem]"
+                >Register</span
+              >
+            </button>
+          </form>
+        </div>
       </div>
+      <!-- Account -->
+      <div v-else="isLoggedIn"></div>
     </div>
   </main>
 </template>
