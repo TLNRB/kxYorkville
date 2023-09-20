@@ -30,7 +30,7 @@ module.exports = {
         bgColorLight: '#7B8C81',
         bgColorLighter: '#637365',
         bgColorLightest: '#737065',
-        bgHoverDark: '#505050',
+        bgHoverDark: '#40404050',
         textLight: '#f4f4f4',
         textGray: '#E1E1E1',
         textNormal: '#dddddd',
