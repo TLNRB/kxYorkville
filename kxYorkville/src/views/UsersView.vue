@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+/* ----- Import assets ----- */
 
 /* ----- Form display ----- */
 const loginActive = ref(true)
@@ -16,16 +17,14 @@ const toggleSignup = () => {
   loginActive.value = false
   signupActive.value = true
 }
-
-/* ----- Import assets ----- */
 </script>
 
 <template>
   <main
-    class="flex flex-col-reverse justify-between gap-[4rem] mt-[4rem] py-[4rem] px-[1rem] xs:rounded-[20px] md:flex-row md:gap-0 md:rounded-[25px] md:px-[2rem] xxxxl:px-[4rem] xxxxl:mt-[6rem]"
+    class="flex flex-col-reverse justify-between gap-[4rem] mt-[4rem] py-[4rem] px-[1rem] xs:rounded-[20px] sm:gap-[6rem] md:flex-row md:gap-0 md:rounded-[25px] md:px-[2rem] xxxxl:px-[4rem] xxxxl:mt-[6rem]"
   >
     <div
-      class="w-[100%] h-[700px] relative bg-cover bg-center-bottom-mid bg-no-repeat bg-[url('../assets/images/users/cardio.jpg')] brightness-[90%] drop-shadow-xl rounded-[15px] md:w-[45%] md:rounded-[20px]"
+      class="w-[100%] h-[500px] relative bg-cover bg-center-bottom-mid bg-no-repeat bg-[url('../assets/images/users/cardio.jpg')] brightness-[90%] drop-shadow-xl rounded-[15px] sm:h-[600px] md:h-[750px] md:w-[45%] md:rounded-[20px]"
     ></div>
     <div class="w-[100%] md:w-[45%]">
       <h1
@@ -51,8 +50,92 @@ const toggleSignup = () => {
           Sign Up
         </button>
       </div>
+      <div>
+        <!-- Login Form -->
+        <form
+          v-if="loginActive"
+          class="flex flex-col gap-[1.5rem] text-[.875rem] sm:text-[1rem] lg:text-[1.125rem]"
+        >
+          <input
+            type="email"
+            placeholder="Email"
+            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+          />
+          <button
+            type="submit"
+            class="mt-[.5rem] font-oswald flex flex-col w-fit text-[.875rem] relative group xs:text-[1rem] md:text-[1.125rem] lg:mt-[1rem]"
+          >
+            <span
+              class="font-[600] py-[.25rem] px-[1rem] border-[1px] bg-primaryColor text-textLight border-primaryColor z-[1] group-hover:bg-transparent group-hover:border-primaryColor ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem]"
+              >Login</span
+            >
+            <span
+              class="font-[600] py-[.25rem] px-[1rem] text-transparent border-[1px] border-textLight absolute top-[4px] right-[-4px] group-hover:top-[0] group-hover:right-[0] ease-in duration-[.2s] md:py-[.375rem] md:px-[1.125rem]"
+              >Login</span
+            >
+          </button>
+        </form>
+        <!-- Sign Up Form -->
+        <form
+          v-else="signupActive"
+          class="flex flex-col gap-[1.5rem] text-[.875rem] sm:text-[1rem] lg:text-[1.125rem]"
+        >
+          <input
+            type="text"
+            placeholder="First name"
+            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+          />
+          <input
+            type="text"
+            placeholder="Last name"
+            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+          />
+          <input
+            type="text"
+            placeholder="Username"
+            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+          />
+          <button
+            type="submit"
+            class="mt-[.5rem] font-oswald flex flex-col w-fit text-[.875rem] relative group xs:text-[1rem] md:text-[1.125rem] lg:mt-[1rem]"
+          >
+            <span
+              class="font-[600] py-[.25rem] px-[1rem] border-[1px] bg-primaryColor text-textLight border-primaryColor z-[1] group-hover:bg-transparent group-hover:border-primaryColor ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem]"
+              >Register</span
+            >
+            <span
+              class="font-[600] py-[.25rem] px-[1rem] text-transparent border-[1px] border-textLight absolute top-[4px] right-[-4px] group-hover:top-[0] group-hover:right-[0] ease-in duration-[.2s] md:py-[.375rem] md:px-[1.125rem]"
+              >Register</span
+            >
+          </button>
+        </form>
+      </div>
     </div>
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #e1e1e1;
+  transition: background-color 10000s ease-in-out 0s;
+}
+</style>
