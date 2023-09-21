@@ -34,6 +34,7 @@ module.exports = {
         textLight: '#f4f4f4',
         textGray: '#E1E1E1',
         textNormal: '#dddddd',
+        textNofile: '#707070',
         textDarker: '#606060',
         textDark: '#30303060',
         primaryColor: '#A69D24'
