@@ -186,9 +186,58 @@ const toggleSignup = () => {
           <div class="max-w-[750px]">
             <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Profile Settings</h2>
             <div
-              class="flex flex-col gap-[1.25rem] items-center p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor xs:flex-row lg:gap-[1.5rem]"
-            ></div>
+              class="flex flex-col gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor sm:gap-[2rem]"
+            >
+              <!-- Username -->
+              <div
+                class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
+              >
+                <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Username</h3>
+                <form class="w-[100%]">
+                  <input
+                    type="text"
+                    value="tlnrb"
+                    class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
+                  />
+                </form>
+              </div>
+              <!-- Favourit Class -->
+              <div
+                class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
+              >
+                <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">
+                  Favourit class
+                </h3>
+                <form class="w-[100%] relative">
+                  <select
+                    class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
+                  >
+                    <option disabled>Classes</option>
+                    <option value="yoga">Yoga</option>
+                    <option value="box">Box</option>
+                    <option value="crossfit">Crossfit</option>
+                  </select>
+                  <font-awesome-icon
+                    :icon="['fas', 'caret-down']"
+                    class="absolute top-[50%] translate-y-[-50%] right-[1rem] text-textGray"
+                  />
+                </form>
+              </div>
+            </div>
           </div>
+          <button
+            type="submit"
+            class="font-oswald flex flex-col w-fit mt-[-1rem] text-[1rem] relative group sm:mt-0 md:mt-[-1rem]"
+          >
+            <span
+              class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
+              >Save</span
+            >
+            <span
+              class="font-[600] w-[0px] py-[.25rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1.125rem] ease-in duration-[.2s] md:py-[.375rem] md:group-hover:px-[1.125rem] md:text-[1.125rem]"
+              >Save</span
+            >
+          </button>
         </div>
       </div>
     </section>
@@ -207,5 +256,11 @@ input[type=file], /* FF, IE7+, chrome (except button) */
 input[type=file]::-webkit-file-upload-button {
   /* chromes and blink button */
   cursor: pointer;
+}
+
+select {
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
 }
 </style>
