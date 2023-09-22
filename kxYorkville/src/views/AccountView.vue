@@ -153,7 +153,7 @@ const toggleSignup = () => {
             Reserved Classes
           </button>
         </div>
-        <div class="flex flex-col gap-[3rem]">
+        <form class="flex flex-col gap-[3rem]">
           <!-- Profile Picture -->
           <div class="max-w-[750px]">
             <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Profile Picture</h2>
@@ -164,7 +164,7 @@ const toggleSignup = () => {
                 class="min-w-[75px] min-h-[75px] bg-textGray rounded-full xs:min-w-[100px] xs:min-h-[100px] sm:min-w-[125px] sm:min-h-[125px] md:min-w-[100px] md:min-h-[100px] lg:min-w-[125px] lg:min-h-[125px]"
               ></div>
               <div class="flex flex-col my-auto">
-                <form class="relative">
+                <div class="relative">
                   <label
                     class="absolute top-0 left-[50%] translate-x-[-50%] py-[.375rem] px-[1rem] bg-bgColorDark text-[.875rem] xs:left-0 xs:translate-x-[0] sm:text-[1rem] sm:px-[1.25em] md:text-[.875rem] md:px-[1rem] lg:text-[1rem] lg:px-[1.25em]"
                     >Update</label
@@ -173,7 +173,7 @@ const toggleSignup = () => {
                     class="absolute w-[83px] h-[33px] opacity-0 top-0 left-[50%] translate-x-[-50%] xs:left-0 xs:translate-x-[0] sm:w-[99px] sm:h-[36px] md:w-[83px] md:h-[33px] lg:w-[99px] lg:h-[36px]"
                     type="file"
                   />
-                </form>
+                </div>
                 <p
                   class="mt-[3rem] text-[.875rem] text-textNofile italic sm:text-[1rem] md:text-[.875rem] lg:text-[1rem]"
                 >
@@ -193,13 +193,11 @@ const toggleSignup = () => {
                 class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
               >
                 <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Username</h3>
-                <form class="w-[100%]">
-                  <input
-                    type="text"
-                    value="tlnrb"
-                    class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
-                  />
-                </form>
+                <input
+                  type="text"
+                  value="tlnrb"
+                  class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
+                />
               </div>
               <!-- Favourit Class -->
               <div
@@ -208,20 +206,19 @@ const toggleSignup = () => {
                 <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">
                   Favourit class
                 </h3>
-                <form class="w-[100%] relative">
-                  <select
-                    class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
-                  >
-                    <option disabled>Classes</option>
-                    <option value="yoga">Yoga</option>
-                    <option value="box">Box</option>
-                    <option value="crossfit">Crossfit</option>
-                  </select>
-                  <font-awesome-icon
-                    :icon="['fas', 'caret-down']"
-                    class="absolute top-[50%] translate-y-[-50%] right-[1rem] text-textGray"
-                  />
-                </form>
+
+                <select
+                  class="w-[100%] relative bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
+                >
+                  <option disabled>Classes</option>
+                  <option value="yoga">Yoga</option>
+                  <option value="box">Box</option>
+                  <option value="crossfit">Crossfit</option>
+                </select>
+                <font-awesome-icon
+                  :icon="['fas', 'caret-down']"
+                  class="absolute top-[50%] translate-y-[-50%] right-[1rem] text-textGray"
+                />
               </div>
             </div>
           </div>
@@ -238,7 +235,7 @@ const toggleSignup = () => {
               >Save</span
             >
           </button>
-        </div>
+        </form>
       </div>
     </section>
   </main>
