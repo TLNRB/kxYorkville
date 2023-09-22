@@ -8,6 +8,8 @@ const { isLoggedIn } = defineProps(['isLoggedIn'])
 // Form display
 const loginActive = ref(true)
 const signupActive = ref(false)
+const settingsActive = ref(true)
+const reservedActive = ref(false)
 const active = 'text-primaryColor border-primaryColor'
 const inActive = 'text-textGray border-textGray'
 
@@ -19,6 +21,16 @@ const toggleLogin = () => {
 const toggleSignup = () => {
   loginActive.value = false
   signupActive.value = true
+}
+
+const toggleSettings = () => {
+  settingsActive.value = true
+  reservedActive.value = false
+}
+
+const toggleReserved = () => {
+  settingsActive.value = false
+  reservedActive.value = true
 }
 </script>
 
@@ -140,20 +152,21 @@ const toggleSignup = () => {
         >
           <button
             class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-            :class="loginActive ? active : inActive"
-            @click="toggleLogin"
+            :class="settingsActive ? active : inActive"
+            @click="toggleSettings"
           >
             Settings
           </button>
           <button
             class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-            :class="signupActive ? active : inActive"
-            @click="toggleSignup"
+            :class="reservedActive ? active : inActive"
+            @click="toggleReserved"
           >
             Reserved Classes
           </button>
         </div>
-        <form class="flex flex-col gap-[3rem]">
+        <!-- Settings -->
+        <form v-if="settingsActive" class="flex flex-col gap-[3rem]">
           <!-- Profile Picture -->
           <div class="max-w-[750px]">
             <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Profile Picture</h2>
@@ -175,7 +188,7 @@ const toggleSignup = () => {
                   />
                 </div>
                 <p
-                  class="mt-[3rem] text-[.875rem] text-textNofile italic sm:text-[1rem] md:text-[.875rem] lg:text-[1rem]"
+                  class="mt-[3rem] font-oswald text-[.875rem] text-textNofile italic sm:text-[1rem] md:text-[.875rem] lg:text-[1rem]"
                 >
                   No file selected
                 </p>
@@ -236,6 +249,59 @@ const toggleSignup = () => {
             >
           </button>
         </form>
+        <!-- Reserved Classes -->
+        <div v-else="reservedActive">
+          <!-- <div class="flex items-center gap-[4rem]">
+            <p>Class</p>
+            <p>Coach</p>
+            <p>Name</p>
+            <p>From</p>
+            <p>To</p>
+          </div> -->
+          <div class="bg-bgNormal border-[1px] border-primaryColor xs:flex-row">
+            <div
+              class="flex flex-col gap-[2rem] p-[1.25rem] border-b-[1px] border-bgColorDark sm:gap-[1.5rem] md:gap-[2rem] lg:gap-[1.5rem] xxxl:flex-row xxxl:items-center xxxl:justify-between"
+            >
+              <div class="flex flex-wrap items-center gap-[1.5rem] xxl:gap-[2rem]">
+                <div class="min-w-[100px]">
+                  <h4 class="pb-[.125rem] font-oswald text-textNofile xxl:text-[1.125rem]">
+                    Class
+                  </h4>
+                  <p class="text-textGray xxl:text-[1.125rem]">Crossfit</p>
+                </div>
+                <div class="min-w-[100px]">
+                  <h4 class="pb-[.125rem] font-oswald text-textNofile xxl:text-[1.125rem]">
+                    Coach
+                  </h4>
+                  <p class="text-textGray xxl:text-[1.125rem]">Ross Fernandez</p>
+                </div>
+                <div class="min-w-[100px]">
+                  <h4 class="pb-[.125rem] font-oswald text-textNofile xxl:text-[1.125rem]">Date</h4>
+                  <p class="text-textGray xxl:text-[1.125rem]">12-09-2023</p>
+                </div>
+                <div class="min-w-[100px]">
+                  <h4 class="pb-[.125rem] font-oswald text-textNofile xxl:text-[1.125rem]">
+                    From-To
+                  </h4>
+                  <p class="text-textGray xxl:text-[1.125rem]">15:00-17:00</p>
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mt-0"
+              >
+                <span
+                  class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
+                  >Cancel</span
+                >
+                <span
+                  class="font-[600] w-[0px] py-[.25rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1.125rem] ease-in duration-[.2s] md:py-[.375rem] md:group-hover:px-[1.125rem] md:text-[1.125rem]"
+                  >Cancel</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
