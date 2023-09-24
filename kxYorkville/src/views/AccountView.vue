@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-/* ----- Import assets ----- */
 
 //Handling props
 const { isLoggedIn } = defineProps(['isLoggedIn'])

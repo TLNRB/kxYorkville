@@ -1,6 +1,7 @@
 <script setup>
-//Importing components
+/* ----- Import components ----- */
 import Title from '../../components/UI/Title.vue'
+
 //Prop handling
 const { coachesDB } = defineProps(['coachesDB'])
 </script>

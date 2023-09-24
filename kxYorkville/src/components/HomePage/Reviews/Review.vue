@@ -1,4 +1,5 @@
 <script setup>
+//Prop handling
 const { text, username } = defineProps(['text', 'username'])
 </script>
 

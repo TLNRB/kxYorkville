@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
+/* ----- Import Pages ----- */
 import HomeView from '../views/HomeView.vue'
 import AccountView from '../views/AccountView.vue'
+import ClassView from '../views/ClassView.vue'
+/* ----- Import Database ----- */
+import classes from '../data/classesDB.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,8 +18,36 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: AccountView
+    },
+    {
+      path: '/class-:route',
+      name: 'class',
+      component: ClassView,
+      beforeEnter(to) {
+        const route = to.params.route
+        const localClasses = classes
+        const exists = localClasses.some((classObj) => classObj.route === route)
+
+        if (!exists) {
+          return {
+            name: 'home',
+            params: { pathMatch: to.path.substring(1).split('/') },
+            query: to.query,
+            hash: to.hash
+          }
+        }
+      }
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (to.path.startsWith('/class-')) {
+      // Scroll to top of target page
+      return { top: 0 }
+    } else {
+      // Use default behavior
+      return savedPosition
+    }
+  }
 })
 
 export default router

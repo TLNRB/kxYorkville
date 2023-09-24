@@ -7,21 +7,25 @@ const classesDB = [
   {
     id: 1,
     name: 'Body Building',
+    route: 'bodyBuilding',
     img: bodyImg
   },
   {
     id: 2,
     name: 'Yoga',
+    route: 'yoga',
     img: yogaImg
   },
   {
     id: 3,
     name: 'Boxing',
+    route: 'boxing',
     img: boxingImg
   },
   {
     id: 4,
     name: 'Crossfit',
+    route: 'crossfit',
     img: crossfitImg
   }
 ]
