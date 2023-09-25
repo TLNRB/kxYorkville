@@ -9,7 +9,7 @@ const { content } = defineProps(['content'])
       class="w-[2rem] border-[2px] translate-y-[4px] border-primaryColor xs:w-[2.5rem] xxxxl:w-[3rem] xxxxl:translate-y-[6px]"
     />
     <h2
-      class="text-[2rem] font-semibold drop-shadow-lg xs:text-[3rem] sm:text-[4rem] xxxxl:text-[6rem]"
+      class="text-[2rem] font-semibold drop-shadow-lg xs:text-[2.5rem] sm:text-[4rem] xxxxl:text-[6rem]"
     >
       {{ content }}
     </h2>
