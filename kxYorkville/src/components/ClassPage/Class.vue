@@ -21,47 +21,45 @@ const { singleClass } = defineProps(['singleClass'])
         <div class="flex gap-[2.5rem] sm:gap-[4rem] xxl:gap-[5rem]">
           <div class="min-w-[100px]">
             <h4
-              class="mb-[.25rem] font-oswald text-bgColorLightest sm:text-[1.25rem] xl:mb-[.125rem] xl:text-[1.375rem]"
+              class="mb-[.375rem] font-oswald font-[500] text-bgColorLightest sm:text-[1.25rem] xl:mb-[.5rem] xl:text-[1.375rem]"
             >
               Intensity
             </h4>
-            <p class="font-[500] sm:text-[1.125rem] xl:text-[1.25rem]">
+            <p class="sm:text-[1.125rem] xl:text-[1.25rem]">
               {{ singleClass.intensity }}
             </p>
           </div>
           <div class="min-w-[100px]">
             <h4
-              class="mb-[.25rem] font-oswald text-bgColorLightest sm:text-[1.25rem] xl:mb-[.125rem] xl:text-[1.375rem]"
+              class="mb-[.375rem] font-oswald font-[500] text-bgColorLightest sm:text-[1.25rem] xl:mb-[.5rem] xl:text-[1.375rem]"
             >
-              Time
+              Duration
             </h4>
-            <p class="font-[500] sm:text-[1.125rem] xl:text-[1.25rem]">
-              {{ singleClass.time }} min
-            </p>
+            <p class="sm:text-[1.125rem] xl:text-[1.25rem]">{{ singleClass.duration }} min</p>
           </div>
         </div>
         <div class="flex gap-[2.5rem] sm:gap-[4rem] xxl:gap-[5rem]">
           <div class="min-w-[100px]">
             <h4
-              class="mb-[.25rem] font-oswald text-bgColorLightest sm:text-[1.25rem] xl:mb-[.125rem] xl:text-[1.375rem]"
+              class="mb-[.375rem] font-oswald font-[500] text-bgColorLightest sm:text-[1.25rem] xl:mb-[.5rem] xl:text-[1.375rem]"
             >
-              Coaches
+              Instructors
             </h4>
             <p
               v-for="coach in singleClass.coaches"
               :key="coach"
-              class="font-[500] leading-snug cursor-pointer hover:text-primaryColor duration-[.15s] ease-in-out sm:text-[1.125rem] xl:text-[1.25rem] xl:leading-tight"
+              class="leading-snug cursor-pointer hover:text-primaryColor duration-[.15s] ease-in-out sm:text-[1.125rem] xl:text-[1.25rem] xl:leading-tight"
             >
               {{ coach }}
             </p>
           </div>
           <div class="min-w-[100px]">
             <h4
-              class="mb-[.25rem] font-oswald text-bgColorLightest sm:text-[1.25rem] xl:mb-[.125rem] xl:text-[1.375rem]"
+              class="mb-[.375rem] font-oswald font-[500] text-bgColorLightest sm:text-[1.25rem] xl:mb-[.5rem] xl:text-[1.375rem]"
             >
               Class
             </h4>
-            <p class="font-[500] sm:text-[1.125rem] xl:text-[1.25rem]">{{ singleClass.class }}</p>
+            <p class="sm:text-[1.125rem] xl:text-[1.25rem]">{{ singleClass.class }}</p>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ const classesDB = [
     description:
       "Bodybuilding is the use of progressive resistance exercise to control and develop one's musculature for aesthetic purposes. An individual who engages in this activity is referred to as a bodybuilder.",
     intensity: 'Moderate',
-    time: '60',
+    duration: '60',
     class: 'Private',
     coaches: ['John Doe', 'Jane Doe']
   },
@@ -24,7 +24,7 @@ const classesDB = [
     description:
       'Yoga is a group of physical, mental, and spiritual practices or disciplines which originated in ancient India. Yoga is one of the six orthodox schools of Hindu philosophical traditions.',
     intensity: 'Low',
-    time: '45',
+    duration: '45',
     class: 'Group',
     coaches: ['John Doe', 'Jane Doe']
   },
@@ -36,7 +36,7 @@ const classesDB = [
     description:
       'Boxing is a combat sport in which two people, usually wearing protective gloves, throw punches at each other for a predetermined amount of time in a boxing ring.',
     intensity: 'High',
-    time: '60',
+    duration: '60',
     class: 'Group',
     coaches: ['John Doe', 'Jane Doe']
   },
@@ -48,7 +48,7 @@ const classesDB = [
     description:
       'CrossFit is a branded fitness regimen created by Greg Glassman and is a registered trademark of CrossFit, Inc. which was founded by Greg Glassman and Lauren Jenai in 2000.',
     intensity: 'Extreme',
-    time: '50',
+    duration: '50',
     class: 'Group',
     coaches: ['John Doe', 'Jane Doe']
   }
