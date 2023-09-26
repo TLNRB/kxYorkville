@@ -3,8 +3,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AccountView from '../views/AccountView.vue'
 import ClassView from '../views/ClassView.vue'
+import CoachView from '../views/CoachView.vue'
 /* ----- Import Database ----- */
 import classes from '../data/classesDB.js'
+import coaches from '../data/coachesDB'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +29,25 @@ const router = createRouter({
         const route = to.params.route
         const localClasses = classes
         const exists = localClasses.some((classObj) => classObj.route === route)
+
+        if (!exists) {
+          return {
+            name: 'home',
+            params: { pathMatch: to.path.substring(1).split('/') },
+            query: to.query,
+            hash: to.hash
+          }
+        }
+      }
+    },
+    {
+      path: '/coach-:route',
+      name: 'coach',
+      component: CoachView,
+      beforeEnter(to) {
+        const route = to.params.route
+        const localCoaches = coaches
+        const exists = localCoaches.some((coachObj) => coachObj.route === route)
 
         if (!exists) {
           return {
