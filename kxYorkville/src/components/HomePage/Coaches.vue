@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 /* ----- Import components ----- */
 import Title from '../../components/UI/Title.vue'
 
@@ -10,7 +11,8 @@ const { coachesDB } = defineProps(['coachesDB'])
   <section class="py-[4rem] px-[1rem] md:px-[2rem] xxl:py-[6rem] xxxxl:px-[4rem]">
     <Title content="coaches" />
     <div class="flex flex-wrap justify-center items-center gap-[2rem] my-[4rem] xxxxl:gap-[2rem]">
-      <div
+      <RouterLink
+        :to="`/coach-${coaches.route}`"
         class="relative w-[225px] h-[125px] flex flex-col justify-between py-[.75rem] px-[1rem] bg-cover bg-center-top-mid bg-no-repeat brightness-[85%] border-[1px] border-bgColorDark cursor-pointer drop-shadow-xl group xs:w-[275px] xs:h-[160px] lg:w-[300px] lg:h-[175px] xxl:w-[350px] xxl:h-[200px] xxl:py-[1rem] xxl:px-[1.25rem] xxxxl:w-[375px] xxxxl:h-[225px]"
         :style="`background-image: url('${coaches.img}')`"
         v-for="coaches in coachesDB"
@@ -32,7 +34,7 @@ const { coachesDB } = defineProps(['coachesDB'])
             :icon="['fas', 'arrow-right-long']"
           />
         </div>
-      </div>
+      </RouterLink>
     </div>
   </section>
 </template>
