@@ -8,16 +8,16 @@ const { singleCoach } = defineProps(['singleCoach'])
 
 <template>
   <main
-    class="flex flex-col-reverse pt-[6rem] px-[1rem] md:pt-[8rem] sm:px-[1.5rem] md:px-[2rem] lg:flex-row lg:px-[4rem] xxl:pt-[8rem] xxxxl:pt-[10rem]"
+    class="flex flex-col pt-[6rem] px-[1rem] md:pt-[8rem] sm:px-[1.5rem] md:px-[2rem] lg:flex-row lg:justify-between lg:px-[4rem] xxl:pt-[8rem] xxxxl:pt-[10rem]"
   >
-    <section></section>
-    <section>
+    <section class="w-[100%] lg:w-[48%]">hello</section>
+    <section class="w-[100%] mb-[2rem] sm:mb-[3.5rem] lg:w-[48%]">
       <div
-        class="relative w-[100%] h-[500px] bg-cover bg-no-repeat bg-center-top-mid brightness-[90%] drop-shadow-xl rounded-l-[15px] rounded-br-[15px] sm:h-[600px] md:h-[750px] md:rounded-l-[20px] md:rounded-br-[20px]"
+        class="w-[100%] h-[300px] bg-cover bg-no-repeat bg-center-top-mid brightness-[90%] rounded-[15px] drop-shadow-2xl xs:h-[350px] sm:h-[400px] md:h-[600px] md:rounded-l-[20px] md:rounded-br-[20px] lg:rounded-tl-0 lg:h-[750px]"
         :style="`background-image: url('${singleCoach.img}')`"
       >
         <div
-          class="absolute top-[-.25rem] right-[-.25rem] py-[.75rem] px-[1.5rem] bg-bgDark font-[600] text-textGray md:text-[2rem] rounded-bl-[15px] md:rounded-bl-[17px]"
+          class="absolute top-0 right-[50%] translate-x-[50%] text-center leading-tight py-[.5rem] px-[1.25rem] bg-bgDark font-[600] text-textGray drop-shadow-lg rounded-b-[15px] brightness-[110%] sm:py-[.75rem] sm:px-[1.5rem] sm:text-[1.5rem] md:text-[2rem] md:rounded-b-[17px] lg:text-left lg:rounded-br-[0px] lg:right-0 lg:translate-x-0"
         >
           {{ singleCoach.name }}
         </div>
