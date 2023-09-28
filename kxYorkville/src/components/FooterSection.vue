@@ -2,7 +2,7 @@
 
 <template>
   <footer
-    class="flex flex-col-reverse justify-between items-start py-[2.5rem] px-[1.5rem] text-[.875rem] sm:text-[1rem] sm:px-[2rem] lg:flex-row lg:px-[4rem]"
+    class="flex flex-col-reverse justify-between items-start py-[2.5rem] px-[1rem] text-[.875rem] sm:text-[1rem] sm:px-[1.5rem] md:px-[2rem] lg:flex-row lg:px-[4rem]"
   >
     <div class="w-[100%] pt-[1.5rem] sm:pt-[2rem] lg:py-0 lg:w-fit">
       <p

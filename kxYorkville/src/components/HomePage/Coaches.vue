@@ -8,7 +8,7 @@ const { coachesDB } = defineProps(['coachesDB'])
 </script>
 
 <template>
-  <section class="py-[4rem] px-[1rem] md:px-[2rem] xxl:py-[6rem] xxxxl:px-[4rem]">
+  <section class="py-[4rem] px-[1rem] sm:px-[1.5rem] md:px-[2rem] xxl:py-[6rem] xxxxl:px-[4rem]">
     <Title content="coaches" />
     <div class="flex flex-wrap justify-center items-center gap-[2rem] my-[4rem] xxxxl:gap-[2rem]">
       <RouterLink

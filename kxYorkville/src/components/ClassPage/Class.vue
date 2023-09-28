@@ -8,7 +8,7 @@ const { singleClass } = defineProps(['singleClass'])
 
 <template>
   <main
-    class="flex flex-col pt-[6rem] px-[1.5rem] md:pt-[8rem] md:px-[2rem] lg:flex-row lg:px-[4rem] xxl:pt-[8rem] xxxxl:pt-[10rem]"
+    class="flex flex-col pt-[6rem] px-[1rem] md:pt-[8rem] sm:px-[1.5rem] md:px-[2rem] lg:flex-row lg:px-[4rem] xxl:pt-[8rem] xxxxl:pt-[10rem]"
   >
     <section class="lg:w-[55%] xl:w-[50%] text-textGray">
       <Title class="text-center" :content="singleClass.name" />
