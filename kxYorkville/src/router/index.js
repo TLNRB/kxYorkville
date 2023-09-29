@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import AccountView from '../views/AccountView.vue'
 import ClassView from '../views/ClassView.vue'
 import CoachView from '../views/CoachView.vue'
+import TimetableView from '../views/TimetableView.vue'
 /* ----- Import Database ----- */
 import classes from '../data/classesDB.js'
 import coaches from '../data/coachesDB'
@@ -20,6 +21,11 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: AccountView
+    },
+    {
+      path: '/timetable',
+      name: 'timetable',
+      component: TimetableView
     },
     {
       path: '/class-:route',
