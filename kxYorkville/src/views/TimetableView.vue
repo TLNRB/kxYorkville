@@ -57,27 +57,29 @@ const dates = [
     <Title class="mx-auto md:ml-0" content="Timetable" />
     <section class="mt-[3rem]">
       <!-- Date displayer -->
-      <div class="flex flex-wrap justify-center items-center gap-[.5rem]">
+      <div
+        class="flex flex-wrap justify-center items-center gap-[.5rem] md:gap-[.75rem] lg:gap-[1rem] xxxxl:gap-[1.25rem]"
+      >
         <div
           v-for="date in dates"
           :key="date.id"
-          class="w-[80px] py-[.375rem] flex flex-col justify-center items-center border-[2px] rounded-[8px] cursor-pointer bg-bgHoverDark hover:bg-primaryColor group duration-[.2s] ease-in-out"
+          class="w-[80px] py-[.375rem] flex flex-col justify-center items-center border-[2px] rounded-[8px] cursor-pointer bg-bgHoverDark hover:bg-primaryColor group duration-[.2s] ease-in-out md:w-[85px] lg:w-[100px] xxl:w-[120px] xxxxl:w-[135px]"
           :class="date.date == '1' ? 'border-primaryColor' : 'border-transparent'"
         >
           <p
-            class="font-oswald text-[.75rem] text-bgColorLightest group-hover:text-textLight duration-[.15s] ease-in-out"
+            class="font-oswald text-[.75rem] text-bgColorLightest group-hover:text-textLight duration-[.15s] ease-in-out md:text-[1rem] xxl:text-[1.125rem] xxxxl:text-[1.25rem]"
           >
             {{ date.day }}
           </p>
           <p
-            class="text-[3.5rem] leading-none text-textGray group-hover:text-textLight duration-[.15s] ease-in-out"
+            class="text-[3.5rem] leading-none text-textGray group-hover:text-textLight duration-[.15s] ease-in-out md:text-[4rem] xxl:text-[5rem] xxxxl:text-[6rem]"
           >
             {{ date.date }}
           </p>
         </div>
       </div>
       <h2
-        class="my-[2rem] flex justify-center items-center text-[1.5rem] font-[500] text-primaryColor"
+        class="my-[2rem] flex justify-center items-center text-[1.5rem] font-[500] text-primaryColor sm:text-[2rem] xxxxl:text-[2.5rem]"
       >
         November
       </h2>
