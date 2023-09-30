@@ -6,12 +6,6 @@ import Title from '../components/UI/Title.vue'
 /* ----- Import Database ----- */
 import timetableDB from '../data/timetableDB.js'
 
-//Timetable data handling
-const filteredTimetable = ref(timetableDB[0])
-const handleTimetableFilter = (day) => {
-  filteredTimetable.value = timetableDB.find((timetable) => timetable.day === day)
-}
-
 /*----- Date displayer data handling -----*/
 // Define an array of month names
 const monthNames = [
@@ -37,6 +31,8 @@ const today = new Date()
 const todayDay = today.getDate()
 const todayMonth = monthNames[today.getMonth()]
 const weekDay = weekdays[today.getDay()]
+const clcikedDay = ref(todayDay)
+const clcikedMonth = ref(todayMonth)
 
 const nextDays = [{ date: todayDay, month: todayMonth, weekDay: weekDay }]
 for (let i = 1; i <= 6; i++) {
@@ -48,6 +44,14 @@ for (let i = 1; i <= 6; i++) {
   const weekDay = weekdays[nextDay.getDay()]
 
   nextDays.push({ date: nextDayOfMonth, month: nextMonth, weekDay: weekDay })
+}
+
+//Timetable data handling
+const filteredTimetable = ref(timetableDB[0])
+const handleTimetableFilter = (day, date, month) => {
+  clcikedDay.value = date
+  clcikedMonth.value = month
+  filteredTimetable.value = timetableDB.find((timetable) => timetable.day === day)
 }
 </script>
 
@@ -66,7 +70,7 @@ for (let i = 1; i <= 6; i++) {
           :key="day.id"
           class="w-[80px] py-[.375rem] flex flex-col justify-center items-center border-[2px] rounded-[8px] cursor-pointer bg-bgHoverDark hover:bg-primaryColor group duration-[.2s] ease-in-out md:w-[85px] lg:w-[100px] xxl:w-[120px] xxxxl:w-[135px]"
           :class="day.date === todayDay ? 'border-primaryColor' : 'border-transparent'"
-          @click="handleTimetableFilter(day.weekDay)"
+          @click="handleTimetableFilter(day.weekDay, day.date, day.month)"
         >
           <p
             class="font-oswald text-[.75rem] text-bgColorLightest group-hover:text-textLight duration-[.15s] ease-in-out md:text-[1rem] xxl:text-[1.125rem] xxxxl:text-[1.25rem]"
@@ -83,7 +87,7 @@ for (let i = 1; i <= 6; i++) {
       <h2
         class="my-[2rem] flex justify-center items-center text-[1.5rem] font-[500] text-primaryColor sm:text-[2rem] xxxxl:text-[2.5rem]"
       >
-        {{ todayMonth }}
+        {{ clcikedMonth }} {{ clcikedDay }}
       </h2>
       <!-- Timetable -->
       <div>
