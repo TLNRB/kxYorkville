@@ -1,7 +1,6 @@
 <script setup>
 //Prop handling
 const { singleClass } = defineProps(['singleClass'])
-console.log(singleClass)
 </script>
 
 <template>
