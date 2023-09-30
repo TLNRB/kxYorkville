@@ -34,7 +34,7 @@ const weekDay = weekdays[today.getDay()]
 const clcikedDay = ref(todayDay)
 const clcikedMonth = ref(todayMonth)
 
-const nextDays = [{ date: todayDay, month: todayMonth, weekDay: weekDay }]
+const days = [{ date: todayDay, month: todayMonth, weekDay: weekDay, active: true }]
 for (let i = 1; i <= 6; i++) {
   const nextDay = new Date()
   nextDay.setDate(todayDay + i)
@@ -43,15 +43,16 @@ for (let i = 1; i <= 6; i++) {
   const nextMonth = monthNames[nextDay.getMonth()]
   const weekDay = weekdays[nextDay.getDay()]
 
-  nextDays.push({ date: nextDayOfMonth, month: nextMonth, weekDay: weekDay })
+  days.push({ date: nextDayOfMonth, month: nextMonth, weekDay: weekDay, active: false })
 }
 
 //Timetable data handling
 const filteredTimetable = ref(timetableDB[0])
-const handleTimetableFilter = (day, date, month) => {
+const handleTimetableFilter = (weekday, date, month) => {
+  days.forEach((day) => (day.date === date ? (day.active = true) : (day.active = false)))
   clcikedDay.value = date
   clcikedMonth.value = month
-  filteredTimetable.value = timetableDB.find((timetable) => timetable.day === day)
+  filteredTimetable.value = timetableDB.find((timetable) => timetable.day === weekday)
 }
 </script>
 
@@ -66,19 +67,21 @@ const handleTimetableFilter = (day, date, month) => {
         class="flex flex-wrap justify-center items-center gap-[.5rem] md:gap-[.75rem] lg:gap-[1rem] xxxxl:gap-[1.25rem]"
       >
         <div
-          v-for="day in nextDays"
-          :key="day.id"
-          class="w-[80px] py-[.375rem] flex flex-col justify-center items-center border-[2px] rounded-[8px] cursor-pointer bg-bgHoverDark hover:bg-primaryColor group duration-[.2s] ease-in-out md:w-[85px] lg:w-[100px] xxl:w-[120px] xxxxl:w-[135px]"
-          :class="day.date === todayDay ? 'border-primaryColor' : 'border-transparent'"
+          v-for="day in days"
+          :key="day.date"
+          class="w-[80px] py-[.375rem] flex flex-col justify-center items-center rounded-[8px] cursor-pointer bg-bgHoverDark group duration-[.2s] ease-in-out md:w-[85px] lg:w-[100px] xxl:w-[120px] xxxxl:w-[135px]"
+          :class="[day.active ? 'bg-primaryColor ' : '']"
           @click="handleTimetableFilter(day.weekDay, day.date, day.month)"
         >
           <p
             class="font-oswald text-[.75rem] text-bgColorLightest group-hover:text-textLight duration-[.15s] ease-in-out md:text-[1rem] xxl:text-[1.125rem] xxxxl:text-[1.25rem]"
+            :class="[day.active ? 'text-textLight ' : '']"
           >
             {{ day.weekDay }}
           </p>
           <p
             class="text-[3.5rem] leading-none text-textGray group-hover:text-textLight duration-[.15s] ease-in-out md:text-[4rem] xxl:text-[5rem] xxxxl:text-[6rem]"
+            :class="[day.active ? 'text-textLight ' : '']"
           >
             {{ day.date }}
           </p>
