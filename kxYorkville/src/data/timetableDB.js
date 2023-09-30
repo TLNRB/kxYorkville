@@ -2,7 +2,7 @@ const timetableDB = [
   {
     id: 1,
     day: 'Monday',
-    class: [
+    classes: [
       {
         id: 1,
         name: 'Yoga',
@@ -36,7 +36,7 @@ const timetableDB = [
   {
     id: 2,
     day: 'Tuesday',
-    class: [
+    classes: [
       {
         id: 1,
         name: 'Yoga',
@@ -70,7 +70,7 @@ const timetableDB = [
   {
     id: 3,
     day: 'Wednesday',
-    class: [
+    classes: [
       {
         id: 1,
         name: 'Yoga',
@@ -104,7 +104,7 @@ const timetableDB = [
   {
     id: 4,
     day: 'Thursday',
-    class: [
+    classes: [
       {
         id: 1,
         name: 'Yoga',
@@ -145,7 +145,7 @@ const timetableDB = [
   {
     id: 5,
     day: 'Friday',
-    class: [
+    classes: [
       {
         id: 1,
         name: 'Yoga',
@@ -179,7 +179,7 @@ const timetableDB = [
   {
     id: 6,
     day: 'Saturday',
-    class: [
+    classes: [
       {
         id: 1,
         name: 'Yoga',
@@ -213,7 +213,7 @@ const timetableDB = [
   {
     id: 7,
     day: 'Sunday',
-    class: [
+    classes: [
       {
         id: 1,
         name: 'Yoga',

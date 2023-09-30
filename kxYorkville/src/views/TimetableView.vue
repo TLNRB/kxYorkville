@@ -1,9 +1,16 @@
 <script setup>
+import { ref } from 'vue'
 /* ----- Import components ----- */
 import Timetable from '../components/TimetablePage/Timetable.vue'
 import Title from '../components/UI/Title.vue'
 /* ----- Import Database ----- */
 import timetableDB from '../data/timetableDB.js'
+
+//Timetable data handling
+const filteredTimetable = ref(timetableDB[0])
+const handleTimetableFilter = (day) => {
+  filteredTimetable.value = timetableDB.find((timetable) => timetable.day === day)
+}
 
 const dates = [
   {
@@ -66,6 +73,7 @@ const dates = [
           :key="date.id"
           class="w-[80px] py-[.375rem] flex flex-col justify-center items-center border-[2px] rounded-[8px] cursor-pointer bg-bgHoverDark hover:bg-primaryColor group duration-[.2s] ease-in-out md:w-[85px] lg:w-[100px] xxl:w-[120px] xxxxl:w-[135px]"
           :class="date.date == '1' ? 'border-primaryColor' : 'border-transparent'"
+          @click="handleTimetableFilter(date.day)"
         >
           <p
             class="font-oswald text-[.75rem] text-bgColorLightest group-hover:text-textLight duration-[.15s] ease-in-out md:text-[1rem] xxl:text-[1.125rem] xxxxl:text-[1.25rem]"
@@ -85,7 +93,13 @@ const dates = [
         November
       </h2>
       <!-- Timetable -->
-      <Timetable :timetable="timetableDB" />
+      <div>
+        <Timetable
+          v-for="singleClass in filteredTimetable.classes"
+          :key="singleClass.id"
+          :singleClass="singleClass"
+        />
+      </div>
     </section>
   </main>
 </template>
