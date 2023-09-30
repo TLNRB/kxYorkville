@@ -1,8 +1,9 @@
 <script setup>
 /* ----- Import components ----- */
+import Timetable from '../components/TimetablePage/Timetable.vue'
 import Title from '../components/UI/Title.vue'
 /* ----- Import Database ----- */
-import classesDB from '../data/classesDB'
+import timetableDB from '../data/timetableDB.js'
 
 const dates = [
   {
@@ -84,6 +85,7 @@ const dates = [
         November
       </h2>
       <!-- Timetable -->
+      <Timetable :timetable="timetableDB" />
     </section>
   </main>
 </template>
