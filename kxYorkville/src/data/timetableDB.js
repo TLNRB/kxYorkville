@@ -1,3 +1,5 @@
+import yogaImg from '../assets/images/classes/yoga.jpg'
+
 const timetableDB = [
   {
     id: 0,
@@ -6,6 +8,7 @@ const timetableDB = [
       {
         id: 1,
         name: 'Yoga',
+        img: yogaImg,
         from: '9:00',
         to: '9:45',
         coach: 'John Doe',
