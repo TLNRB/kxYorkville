@@ -88,12 +88,12 @@ const handleTimetableFilter = (weekday, date, month) => {
         </div>
       </div>
       <h2
-        class="mt-[2rem] flex justify-center items-center text-[2rem] font-[500] text-primaryColor sm:text-[2rem] xxxxl:text-[2.5rem]"
+        class="mt-[4rem] mb-[1rem] flex justify-center items-center text-[2rem] font-[500] text-primaryColor sm:text-[2rem] sm:mb-[2rem] xxxxl:text-[2.5rem]"
       >
         {{ clickedMonth }} {{ clickedDay }}
       </h2>
       <!-- Timetable -->
-      <div class="my-[6rem] flex flex-col gap-[1rem]">
+      <div class="mb-[4rem] flex flex-col gap-[1rem] md:mb-[6rem] lg:gap-[1.5rem]">
         <Timetable
           v-for="singleClass in filteredTimetable.classes"
           :key="singleClass.id"
