@@ -88,7 +88,7 @@ const handleTimetableFilter = (weekday, date, month) => {
         </div>
       </div>
       <h2
-        class="mt-[4rem] mb-[1rem] flex justify-center items-center text-[2rem] font-[500] text-primaryColor sm:text-[2rem] sm:mb-[2rem] xxxxl:text-[2.5rem]"
+        class="mt-[4rem] mb-[1rem] flex justify-center items-center text-[2rem] font-[500] text-primaryColor sm:text-[2rem] sm:mb-[2rem] lg:text-[2.5rem] xxxxl:text-[3rem]"
       >
         {{ clickedMonth }} {{ clickedDay }}
       </h2>
