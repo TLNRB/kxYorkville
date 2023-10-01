@@ -31,8 +31,8 @@ const today = new Date()
 const todayDay = today.getDate()
 const todayMonth = monthNames[today.getMonth()]
 const weekDay = weekdays[today.getDay()]
-const clcikedDay = ref(todayDay)
-const clcikedMonth = ref(todayMonth)
+const clickedDay = ref(todayDay)
+const clickedMonth = ref(todayMonth)
 
 const days = [{ date: todayDay, month: todayMonth, weekDay: weekDay, active: true }]
 for (let i = 1; i <= 6; i++) {
@@ -47,11 +47,11 @@ for (let i = 1; i <= 6; i++) {
 }
 
 //Timetable data handling
-const filteredTimetable = ref(timetableDB[0])
+const filteredTimetable = ref(timetableDB[today.getDay()])
 const handleTimetableFilter = (weekday, date, month) => {
   days.forEach((day) => (day.date === date ? (day.active = true) : (day.active = false)))
-  clcikedDay.value = date
-  clcikedMonth.value = month
+  clickedDay.value = date
+  clickedMonth.value = month
   filteredTimetable.value = timetableDB.find((timetable) => timetable.day === weekday)
 }
 </script>
@@ -74,13 +74,13 @@ const handleTimetableFilter = (weekday, date, month) => {
           @click="handleTimetableFilter(day.weekDay, day.date, day.month)"
         >
           <p
-            class="font-oswald text-[.75rem] text-bgColorLightest group-hover:text-textLight duration-[.15s] ease-in-out md:text-[1rem] xxl:text-[1.125rem] xxxxl:text-[1.25rem]"
+            class="font-oswald text-[.75rem] text-bgColorLightest group-hover:text-textLight duration-[.2s] ease-in-out md:text-[1rem] xxl:text-[1.125rem] xxxxl:text-[1.25rem]"
             :class="[day.active ? 'text-textLight ' : '']"
           >
             {{ day.weekDay }}
           </p>
           <p
-            class="text-[3.5rem] leading-none text-textGray group-hover:text-textLight duration-[.15s] ease-in-out md:text-[4rem] xxl:text-[5rem] xxxxl:text-[6rem]"
+            class="text-[3.5rem] leading-none text-textGray group-hover:text-textLight duration-[.2s] ease-in-out md:text-[4rem] xxl:text-[5rem] xxxxl:text-[6rem]"
             :class="[day.active ? 'text-textLight ' : '']"
           >
             {{ day.date }}
@@ -90,7 +90,7 @@ const handleTimetableFilter = (weekday, date, month) => {
       <h2
         class="my-[2rem] flex justify-center items-center text-[1.5rem] font-[500] text-primaryColor sm:text-[2rem] xxxxl:text-[2.5rem]"
       >
-        {{ clcikedMonth }} {{ clcikedDay }}
+        {{ clickedMonth }} {{ clickedDay }}
       </h2>
       <!-- Timetable -->
       <div>

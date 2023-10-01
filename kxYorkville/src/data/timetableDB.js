@@ -1,5 +1,39 @@
 const timetableDB = [
   {
+    id: 0,
+    day: 'Sunday',
+    classes: [
+      {
+        id: 1,
+        name: 'Yoga',
+        from: '9:00',
+        to: '9:45',
+        coach: 'John Doe'
+      },
+      {
+        id: 2,
+        name: 'Crossfit',
+        from: '12:00',
+        to: '12:50',
+        coach: 'Jane Doe'
+      },
+      {
+        id: 3,
+        name: 'Crossfit',
+        from: '15:00',
+        to: '15:50',
+        coach: 'John Doe'
+      },
+      {
+        id: 4,
+        name: 'Boxing',
+        from: '18:00',
+        to: '19:00',
+        coach: 'John Doe'
+      }
+    ]
+  },
+  {
     id: 1,
     day: 'Monday',
     classes: [
@@ -206,40 +240,6 @@ const timetableDB = [
         name: 'Boxing',
         from: '17:45',
         to: '18:45',
-        coach: 'John Doe'
-      }
-    ]
-  },
-  {
-    id: 7,
-    day: 'Sunday',
-    classes: [
-      {
-        id: 1,
-        name: 'Yoga',
-        from: '9:00',
-        to: '9:45',
-        coach: 'John Doe'
-      },
-      {
-        id: 2,
-        name: 'Crossfit',
-        from: '11:00',
-        to: '11:50',
-        coach: 'Jane Doe'
-      },
-      {
-        id: 3,
-        name: 'Crossfit',
-        from: '15:00',
-        to: '15:50',
-        coach: 'John Doe'
-      },
-      {
-        id: 4,
-        name: 'Boxing',
-        from: '18:00',
-        to: '19:00',
         coach: 'John Doe'
       }
     ]
