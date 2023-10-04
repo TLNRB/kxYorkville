@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 //Handling props
 const { isLoggedIn } = defineProps(['isLoggedIn'])
@@ -16,6 +16,59 @@ const toggleLogin = () => {
 
 const toggleSettings = () => {
   settingsActive.value = !settingsActive.value
+}
+
+//----- Form handling -----//
+// Form credentials
+const loginCredentials = reactive({
+  email: '',
+  password: '',
+  error: ''
+})
+
+const registerCredentials = reactive({
+  fName: '',
+  lName: '',
+  username: '',
+  email: '',
+  password: '',
+  error: ''
+})
+
+// Form after submiting the form
+const onSubmit = () => {
+  //Check if the user logs in or registers
+  if (loginActive.value) {
+    //Check if the form fields are empty
+    if (!loginCredentials.email || !loginCredentials.password) {
+      loginCredentials.error = 'Fill in all the fields'
+    } else {
+      console.log('Login')
+      loginCredentials.email = ''
+      loginCredentials.password = ''
+      loginCredentials.error = ''
+    }
+  } else {
+    //Check if the form fields are empty
+    if (
+      !registerCredentials.fName ||
+      !registerCredentials.lName ||
+      !registerCredentials.username ||
+      !registerCredentials.email ||
+      !registerCredentials.password
+    ) {
+      registerCredentials.error = 'Fill in all the fields'
+    } else {
+      console.log('Register')
+      registerCredentials.fName = ''
+      registerCredentials.lName = ''
+      registerCredentials.username = ''
+      registerCredentials.email = ''
+      registerCredentials.password = ''
+      registerCredentials.error = ''
+    }
+  }
+  /* storeAuth.loginUser(credentials.email, credentials.password) */
 }
 </script>
 
@@ -55,20 +108,28 @@ const toggleSettings = () => {
         <div>
           <!-- Login Form -->
           <form
+            @submit.prevent="onSubmit"
             v-if="loginActive"
             class="flex flex-col gap-[1.5rem] text-[.875rem] sm:text-[1rem] lg:text-[1.125rem]"
           >
             <input
+              v-model="loginCredentials.email"
               type="email"
               placeholder="Email"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+              :class="{ 'border-b-red-600': loginCredentials.error }"
             />
 
             <input
+              v-model="loginCredentials.password"
               type="password"
               placeholder="Password"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+              :class="{ 'border-b-red-600': loginCredentials.error }"
             />
+            <p v-if="loginCredentials.error" class="text-red-600">
+              {{ loginCredentials.error }}
+            </p>
             <button
               type="submit"
               class="mt-[.5rem] font-oswald flex flex-col w-fit text-[.875rem] relative group xs:text-[1rem] md:text-[1.125rem] lg:mt-[1rem]"
@@ -83,37 +144,51 @@ const toggleSettings = () => {
               >
             </button>
           </form>
-          <!-- Sign Up Form -->
+          <!-- Register Form -->
           <form
+            @submit.prevent="onSubmit"
             v-else="!loginActive"
             class="flex flex-col gap-[1.5rem] text-[.875rem] sm:text-[1rem] lg:text-[1.125rem]"
           >
             <input
+              v-model="registerCredentials.fName"
               type="text"
               placeholder="First name"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+              :class="{ 'border-b-red-600': registerCredentials.error }"
             />
             <input
+              v-model="registerCredentials.lName"
               type="text"
               placeholder="Last name"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+              :class="{ 'border-b-red-600': registerCredentials.error }"
             />
             <input
+              v-model="registerCredentials.username"
               type="text"
               placeholder="Username"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+              :class="{ 'border-b-red-600': registerCredentials.error }"
             />
             <input
+              v-model="registerCredentials.email"
               type="email"
               placeholder="Email"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+              :class="{ 'border-b-red-600': registerCredentials.error }"
             />
 
             <input
+              v-model="registerCredentials.password"
               type="password"
               placeholder="Password"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
+              :class="{ 'border-b-red-600': registerCredentials.error }"
             />
+            <p v-if="registerCredentials.error" class="text-red-600">
+              {{ registerCredentials.error }}
+            </p>
             <button
               type="submit"
               class="mt-[.5rem] font-oswald flex flex-col w-fit text-[.875rem] relative group xs:text-[1rem] md:text-[1.125rem] lg:mt-[1rem]"
