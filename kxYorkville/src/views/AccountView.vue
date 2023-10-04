@@ -6,7 +6,7 @@ const { isLoggedIn } = defineProps(['isLoggedIn'])
 
 // Form display
 const loginActive = ref(true)
-const signupActive = ref(false)
+const registerActive = ref(false)
 const settingsActive = ref(true)
 const reservedActive = ref(false)
 const active = 'text-primaryColor border-primaryColor'
@@ -14,12 +14,12 @@ const inActive = 'text-textGray border-textGray'
 
 const toggleLogin = () => {
   loginActive.value = true
-  signupActive.value = false
+  registerActive.value = false
 }
 
-const toggleSignup = () => {
+const toggleRegister = () => {
   loginActive.value = false
-  signupActive.value = true
+  registerActive.value = true
 }
 
 const toggleSettings = () => {
@@ -60,10 +60,10 @@ const toggleReserved = () => {
           </button>
           <button
             class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-            :class="signupActive ? active : inActive"
-            @click="toggleSignup"
+            :class="registerActive ? active : inActive"
+            @click="toggleRegister"
           >
-            Sign Up
+            Register
           </button>
         </div>
         <div>

@@ -1,6 +1,9 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
+//Handling props
+const { isLoggedIn } = defineProps(['isLoggedIn'])
+
 //Nav and dropdown click event
 const isMenuOpen = ref(false)
 const isLoginOpen = ref(false)
@@ -90,13 +93,14 @@ onUnmounted(() => {
       >
         K<span class="ml-[-.1125rem] font-[600] drop-shadow-md">X</span> Yorkville
       </div>
-      <button
+      <RouterLink
+        to="account"
         v-if="!isLoginOpen"
-        @click="toggleLogin"
+        @click="isLoggedIn ? toggleLogin : ''"
         class="font-oswald tracking-[1px] drop-shadow-md z-[2]"
       >
         login
-      </button>
+      </RouterLink>
       <button
         v-else
         @click="toggleLogin"
