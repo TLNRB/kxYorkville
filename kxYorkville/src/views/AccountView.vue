@@ -6,30 +6,16 @@ const { isLoggedIn } = defineProps(['isLoggedIn'])
 
 // Form display
 const loginActive = ref(true)
-const registerActive = ref(false)
 const settingsActive = ref(true)
-const reservedActive = ref(false)
 const active = 'text-primaryColor border-primaryColor'
-const inActive = 'text-textGray border-textGray'
+const inactive = 'text-textGray border-textGray'
 
 const toggleLogin = () => {
-  loginActive.value = true
-  registerActive.value = false
-}
-
-const toggleRegister = () => {
-  loginActive.value = false
-  registerActive.value = true
+  loginActive.value = !loginActive.value
 }
 
 const toggleSettings = () => {
-  settingsActive.value = true
-  reservedActive.value = false
-}
-
-const toggleReserved = () => {
-  settingsActive.value = false
-  reservedActive.value = true
+  settingsActive.value = !settingsActive.value
 }
 </script>
 
@@ -53,15 +39,15 @@ const toggleReserved = () => {
         >
           <button
             class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-            :class="loginActive ? active : inActive"
+            :class="loginActive ? active : inactive"
             @click="toggleLogin"
           >
             Login
           </button>
           <button
             class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-            :class="registerActive ? active : inActive"
-            @click="toggleRegister"
+            :class="!loginActive ? active : inactive"
+            @click="toggleLogin"
           >
             Register
           </button>
@@ -99,7 +85,7 @@ const toggleReserved = () => {
           </form>
           <!-- Sign Up Form -->
           <form
-            v-else="signupActive"
+            v-else="!loginActive"
             class="flex flex-col gap-[1.5rem] text-[.875rem] sm:text-[1rem] lg:text-[1.125rem]"
           >
             <input
@@ -151,15 +137,15 @@ const toggleReserved = () => {
         >
           <button
             class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-            :class="settingsActive ? active : inActive"
+            :class="settingsActive ? active : inactive"
             @click="toggleSettings"
           >
             Settings
           </button>
           <button
             class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-            :class="reservedActive ? active : inActive"
-            @click="toggleReserved"
+            :class="!settingsActive ? active : inactive"
+            @click="toggleSettings"
           >
             Reserved Classes
           </button>
@@ -250,7 +236,7 @@ const toggleReserved = () => {
           </button>
         </form>
         <!-- Reserved Classes -->
-        <div v-else="reservedActive">
+        <div v-else="!settingsActive">
           <div class="bg-bgNormal border-[1px] border-primaryColor xs:flex-row">
             <div
               class="flex flex-col gap-[2rem] p-[1.5rem] border-b-[1px] border-bgColorDark sm:gap-[1.5rem] md:gap-[2rem] lg:gap-[1.5rem] xxxl:flex-row xxxl:items-center xxxl:justify-between xxxxl:p-[2rem]"

@@ -95,14 +95,13 @@ onUnmounted(() => {
       </div>
       <RouterLink
         to="account"
-        v-if="!isLoginOpen"
-        @click="isLoggedIn ? toggleLogin : ''"
+        v-if="!isLoggedIn"
         class="font-oswald tracking-[1px] drop-shadow-md z-[2]"
       >
         login
       </RouterLink>
       <button
-        v-else
+        v-else="isLoggedIn"
         @click="toggleLogin"
         class="w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center z-[2]"
       >
