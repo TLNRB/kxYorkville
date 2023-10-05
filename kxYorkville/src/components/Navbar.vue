@@ -6,9 +6,6 @@ import { RouterLink } from 'vue-router'
 import { useStoreAuth } from '../stores/storeAuth.js'
 const storeAuth = useStoreAuth()
 
-//Handling props
-const { isLoggedIn } = defineProps(['isLoggedIn'])
-
 //Nav and dropdown click event
 const isMenuOpen = ref(false)
 const isLoginOpen = ref(false)
@@ -24,6 +21,12 @@ const toggleMenu = () => {
 const toggleLogin = () => {
   isLoginOpen.value = !isLoginOpen.value
   isMenuOpen.value = false
+}
+
+//Logout
+const logout = () => {
+  storeAuth.logOutUser()
+  isLoginOpen.value = false
 }
 
 //Resize handling
@@ -100,13 +103,13 @@ onUnmounted(() => {
       </div>
       <RouterLink
         to="account"
-        v-if="!isLoggedIn"
+        v-if="!storeAuth.user.id"
         class="font-oswald tracking-[1px] drop-shadow-md z-[2]"
       >
         login
       </RouterLink>
       <button
-        v-else="isLoggedIn"
+        v-else="storeAuth.user.id"
         @click="toggleLogin"
         class="w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center z-[2]"
       >
@@ -137,7 +140,7 @@ onUnmounted(() => {
             class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
           >
             <font-awesome-icon class="text-[1.125rem]" :icon="['fas', 'arrow-right-to-bracket']" />
-            <button class="text-[.875rem]" @click="storeAuth.logOutUser">Logout</button>
+            <button class="text-[.875rem]" @click="logout">Logout</button>
           </div>
         </div>
       </div>

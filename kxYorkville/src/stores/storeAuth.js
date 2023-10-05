@@ -3,6 +3,7 @@ import { auth } from '../firebase/firebase.js'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   onAuthStateChanged
 } from 'firebase/auth'
 
@@ -18,20 +19,19 @@ export const useStoreAuth = defineStore('storeAuth', {
         if (user) {
           this.user.id = user.uid
           this.user.email = user.email
+          console.log(user)
           /* this.router.push('/admin') */
         } else {
           this.user = {}
         }
       })
     },
-
     //Register User
     registerUser(credentials) {
       createUserWithEmailAndPassword(auth, credentials.email, credentials.password)
         .then((userCredentials) => {
           //Registered
           const user = userCredentials.user
-          console.log('successfully registered user', user)
           this.error = ''
         })
         .catch((error) => {
@@ -48,7 +48,6 @@ export const useStoreAuth = defineStore('storeAuth', {
         .then((userCredentials) => {
           //Logged in
           const user = userCredentials.user
-          console.log('successfully logged in', user)
           this.error = ''
         })
         .catch((error) => {
@@ -62,10 +61,7 @@ export const useStoreAuth = defineStore('storeAuth', {
     //Logout User
     logOutUser() {
       signOut(auth)
-        .then(() => {
-          console.log('user signed out')
-          this.router.replace('/')
-        })
+        .then(() => {})
         .catch((error) => {
           console.log('error message: ', error.message)
         })

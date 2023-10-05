@@ -5,9 +5,6 @@ import { ref, reactive } from 'vue'
 import { useStoreAuth } from '../stores/storeAuth.js'
 const storeAuth = useStoreAuth()
 
-//Handling props
-const { isLoggedIn } = defineProps(['isLoggedIn'])
-
 // Form display
 const loginActive = ref(true)
 const settingsActive = ref(true)
@@ -26,8 +23,7 @@ const toggleSettings = () => {
 // Form credentials
 const loginCredentials = reactive({
   email: '',
-  password: '',
-  error: ''
+  password: ''
 })
 
 const registerCredentials = reactive({
@@ -35,8 +31,7 @@ const registerCredentials = reactive({
   lName: '',
   username: '',
   email: '',
-  password: '',
-  error: ''
+  password: ''
 })
 
 // Form after submiting the form
@@ -45,12 +40,10 @@ const onSubmit = () => {
   if (loginActive.value) {
     //Check if the form fields are empty
     if (!loginCredentials.email || !loginCredentials.password) {
-      loginCredentials.error = 'Fill in all the fields'
     } else {
       storeAuth.loginUser(loginCredentials)
       loginCredentials.email = ''
       loginCredentials.password = ''
-      loginCredentials.error = ''
     }
   } else {
     //Check if the form fields are empty
@@ -61,7 +54,6 @@ const onSubmit = () => {
       !registerCredentials.email ||
       !registerCredentials.password
     ) {
-      registerCredentials.error = 'Fill in all the fields'
     } else {
       storeAuth.registerUser(registerCredentials)
       registerCredentials.fName = ''
@@ -69,7 +61,6 @@ const onSubmit = () => {
       registerCredentials.username = ''
       registerCredentials.email = ''
       registerCredentials.password = ''
-      registerCredentials.error = ''
     }
   }
 }
@@ -89,7 +80,7 @@ const onSubmit = () => {
         account
       </h1>
       <!-- Login/SignUp -->
-      <div v-if="!isLoggedIn">
+      <div v-if="!storeAuth.user.id">
         <div
           class="flex items-center gap-[1.5rem] my-[2rem] font-oswald text-textGray xs:my-[4rem] sm:mt-[6rem] lg:text-[1.25rem] xxl:mt-[8rem] xxxl:mt-[10rem] xxxxl:mt-[11rem]"
         >
@@ -120,7 +111,7 @@ const onSubmit = () => {
               type="email"
               placeholder="Email"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': loginCredentials.error }"
+              :class="{ 'border-b-red-600': storeAuth.error }"
             />
 
             <input
@@ -128,10 +119,10 @@ const onSubmit = () => {
               type="password"
               placeholder="Password"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': loginCredentials.error }"
+              :class="{ 'border-b-red-600': storeAuth.error }"
             />
-            <p v-if="loginCredentials.error" class="text-red-600">
-              {{ loginCredentials.error }}
+            <p v-if="storeAuth.error" class="text-red-600">
+              {{ storeAuth.error }}
             </p>
             <button
               type="submit"
@@ -158,28 +149,28 @@ const onSubmit = () => {
               type="text"
               placeholder="First name"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': registerCredentials.error }"
+              :class="{ 'border-b-red-600': storeAuth.error }"
             />
             <input
               v-model="registerCredentials.lName"
               type="text"
               placeholder="Last name"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': registerCredentials.error }"
+              :class="{ 'border-b-red-600': storeAuth.error }"
             />
             <input
               v-model="registerCredentials.username"
               type="text"
               placeholder="Username"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': registerCredentials.error }"
+              :class="{ 'border-b-red-600': storeAuth.error }"
             />
             <input
               v-model="registerCredentials.email"
               type="email"
               placeholder="Email"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': registerCredentials.error }"
+              :class="{ 'border-b-red-600': storeAuth.error }"
             />
 
             <input
@@ -187,10 +178,10 @@ const onSubmit = () => {
               type="password"
               placeholder="Password"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': registerCredentials.error }"
+              :class="{ 'border-b-red-600': storeAuth.error }"
             />
-            <p v-if="registerCredentials.error" class="text-red-600">
-              {{ registerCredentials.error }}
+            <p v-if="storeAuth.error" class="text-red-600">
+              {{ storeAuth.error }}
             </p>
             <button
               type="submit"
