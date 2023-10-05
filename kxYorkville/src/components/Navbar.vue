@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 
-//Store handling
+/* ----- Store handling ----- */
 import { useStoreAuth } from '../stores/storeAuth.js'
 const storeAuth = useStoreAuth()
 
