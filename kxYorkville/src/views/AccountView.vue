@@ -1,6 +1,10 @@
 <script setup>
 import { ref, reactive } from 'vue'
 
+//Store handling
+import { useStoreAuth } from '../stores/storeAuth.js'
+const storeAuth = useStoreAuth()
+
 //Handling props
 const { isLoggedIn } = defineProps(['isLoggedIn'])
 
@@ -43,7 +47,7 @@ const onSubmit = () => {
     if (!loginCredentials.email || !loginCredentials.password) {
       loginCredentials.error = 'Fill in all the fields'
     } else {
-      console.log('Login')
+      storeAuth.loginUser(loginCredentials)
       loginCredentials.email = ''
       loginCredentials.password = ''
       loginCredentials.error = ''
@@ -59,7 +63,7 @@ const onSubmit = () => {
     ) {
       registerCredentials.error = 'Fill in all the fields'
     } else {
-      console.log('Register')
+      storeAuth.registerUser(registerCredentials)
       registerCredentials.fName = ''
       registerCredentials.lName = ''
       registerCredentials.username = ''
@@ -68,7 +72,6 @@ const onSubmit = () => {
       registerCredentials.error = ''
     }
   }
-  /* storeAuth.loginUser(credentials.email, credentials.password) */
 }
 </script>
 

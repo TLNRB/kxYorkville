@@ -1,5 +1,10 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { RouterLink } from 'vue-router'
+
+//Store handling
+import { useStoreAuth } from '../stores/storeAuth.js'
+const storeAuth = useStoreAuth()
 
 //Handling props
 const { isLoggedIn } = defineProps(['isLoggedIn'])
@@ -124,13 +129,15 @@ onUnmounted(() => {
             class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
           >
             <font-awesome-icon class="text-[1.125rem] translate-x-[2px]" :icon="['fas', 'gear']" />
-            <p class="text-[.875rem]">Your Account</p>
+            <RouterLink to="account" class="text-[.875rem]" @click="toggleLogin"
+              >Your Account</RouterLink
+            >
           </div>
           <div
             class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
           >
             <font-awesome-icon class="text-[1.125rem]" :icon="['fas', 'arrow-right-to-bracket']" />
-            <p class="text-[.875rem]">Logout</p>
+            <button class="text-[.875rem]" @click="storeAuth.logOutUser">Logout</button>
           </div>
         </div>
       </div>
