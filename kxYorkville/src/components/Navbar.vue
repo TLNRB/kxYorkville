@@ -60,19 +60,25 @@ onUnmounted(() => {
           class="font-oswald absolute translate-y-0 duration-[.25s] ease-in-out left-0 top-0 right-0 flex gap-[2.5rem] flex-wrap pt-[5.5rem] pb-[1.5rem] px-[2rem] bg-bgNavDark text-[1.5rem] text-textDarker drop-shadow-2xl md:px-[2rem] md:text-[1.75rem] lg:gap-0 xxxl:pt-[7rem] xxxl:pb-[2rem]"
           :class="{ menuClosed: !isMenuOpen }"
         >
-          <div
+          <RouterLink
+            to="/"
+            @click="toggleMenu"
             class="mx-auto w-[25%] flex flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
             <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'house']" />
             <p>Home</p>
-          </div>
-          <div
+          </RouterLink>
+          <RouterLink
+            to="/"
+            @click="toggleMenu"
             class="mx-auto flex w-[25%] flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
             <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'dumbbell']" />
             <p>Classes</p>
-          </div>
-          <div
+          </RouterLink>
+          <RouterLink
+            to="/"
+            @click="toggleMenu"
             class="mx-auto flex w-[25%] flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
             <font-awesome-icon
@@ -80,30 +86,37 @@ onUnmounted(() => {
               :icon="['fas', 'people-group']"
             />
             <p>Coaches</p>
-          </div>
-          <div
+          </RouterLink>
+          <RouterLink
+            to="/"
+            @click="toggleMenu"
             class="mx-auto flex w-[25%] flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
             <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'calendar']" />
             <p>Timetable</p>
-          </div>
+          </RouterLink>
         </div>
       </div>
-      <div
+      <RouterLink
+        to="/"
         v-if="screenWidth < 360"
+        @click="isMenuOpen = false"
         class="uppercase font-[600] tracking-[1px] text-[1.25rem] drop-shadow-md absolute ml-[50%] translate-x-[-75%]"
       >
         K<span class="ml-[-.1125rem] font-[600] drop-shadow-md">X</span> Y
-      </div>
-      <div
+      </RouterLink>
+      <RouterLink
+        to="/"
         v-else
+        @click="isMenuOpen = false"
         class="uppercase font-[600] tracking-[1px] text-[1.25rem] drop-shadow-md absolute ml-[50%] translate-x-[-55%] md:translate-x-[-75%] lg:text-[1.5rem]"
       >
         K<span class="ml-[-.1125rem] font-[600] drop-shadow-md">X</span> Yorkville
-      </div>
+      </RouterLink>
       <RouterLink
-        to="account"
+        to="/account"
         v-if="!storeAuth.user.id"
+        @click="isMenuOpen = false"
         class="font-oswald tracking-[1px] drop-shadow-md z-[2]"
       >
         login
@@ -128,19 +141,20 @@ onUnmounted(() => {
           <p class="font-oswald text-[1.125rem]">username</p>
         </div>
         <div class="my-[.5rem]">
-          <div
+          <RouterLink
+            to="/account"
+            @click="toggleLogin"
             class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
           >
             <font-awesome-icon class="text-[1.125rem] translate-x-[2px]" :icon="['fas', 'gear']" />
-            <RouterLink to="account" class="text-[.875rem]" @click="toggleLogin"
-              >Your Account</RouterLink
-            >
-          </div>
+            <p class="text-[.875rem]">Your Account</p>
+          </RouterLink>
           <div
+            @click="logout"
             class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
           >
             <font-awesome-icon class="text-[1.125rem]" :icon="['fas', 'arrow-right-to-bracket']" />
-            <button class="text-[.875rem]" @click="logout">Logout</button>
+            <p class="text-[.875rem]">Logout</p>
           </div>
         </div>
       </div>
