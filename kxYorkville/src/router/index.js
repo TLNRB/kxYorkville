@@ -5,6 +5,7 @@ import AccountView from '../views/AccountView.vue'
 import ClassView from '../views/ClassView.vue'
 import CoachView from '../views/CoachView.vue'
 import TimetableView from '../views/TimetableView.vue'
+import AdminView from '../views/AdminView.vue'
 /* ----- Import Database ----- */
 import classes from '../data/classesDB.js'
 import coaches from '../data/coachesDB'
@@ -64,6 +65,11 @@ const router = createRouter({
           }
         }
       }
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminView
     }
   ],
   scrollBehavior(to, from, savedPosition) {
