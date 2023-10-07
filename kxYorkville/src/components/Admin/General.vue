@@ -1,11 +1,11 @@
 <script setup></script>
 
 <template>
-  <main
+  <section
     class="flex flex-wrap justify-center mt-[3rem] gap-[3rem] pb-[2rem] lg:gap-[4rem] lg:mt-[4rem] lg:pb-[3rem] xxxxl:gap-[6rem] xxxxl:mt-[6rem]"
   >
     <!-- Contact -->
-    <section class="w-[100%] sm:w-[450px] md:w-[600px] lg:w-[750px]">
+    <div class="w-[100%] sm:w-[450px] md:w-[600px] lg:w-[750px]">
       <div>
         <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Contact & Version</h2>
         <div
@@ -67,9 +67,9 @@
           >Edit</span
         >
       </button>
-    </section>
+    </div>
     <!-- Opening -->
-    <section class="w-[100%] sm:w-[450px] md:w-[600px] lg:w-[750px]">
+    <div class="w-[100%] sm:w-[450px] md:w-[600px] lg:w-[750px]">
       <div>
         <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Opening Hours</h2>
         <div
@@ -120,30 +120,8 @@
           >Edit</span
         >
       </button>
-      <!-- <div class="flex gap-[1rem] md:gap-[1.5rem] md:justify-center">
-        <button class="font-oswald flex flex-col w-fit text-[1rem] relative group">
-          <span
-            class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
-            >Edit</span
-          >
-          <span
-            class="font-[500] w-[0px] py-[.25rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1.125rem] ease-in duration-[.2s] md:py-[.375rem] md:group-hover:px-[1.125rem] md:text-[1.125rem]"
-            >Edit</span
-          >
-        </button>
-        <button type="submit" class="font-oswald flex flex-col w-fit text-[1rem] relative group">
-          <span
-            class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
-            >Save</span
-          >
-          <span
-            class="font-[500] w-[0px] py-[.25rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1.125rem] ease-in duration-[.2s] md:py-[.375rem] md:group-hover:px-[1.125rem] md:text-[1.125rem]"
-            >Save</span
-          >
-        </button>
-      </div> -->
-    </section>
-  </main>
+    </div>
+  </section>
 </template>
 
 <style scoped></style>

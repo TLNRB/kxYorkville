@@ -1,10 +1,11 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 /*----- Importing components -----*/
 import General from '../components/Admin/General.vue'
+import EditGeneral from '../components/Admin/EditGeneral.vue'
 
 /*----- Admin section display -----*/
-const generalActive = ref(true)
+const generalActive = ref(false)
 const classesActive = ref(false)
 const coachesActive = ref(false)
 const active = 'text-primaryColor border-primaryColor'
@@ -30,6 +31,21 @@ const toggleCoaches = () => {
   classesActive.value = false
   coachesActive.value = true
 }
+
+//Edit modal testing
+
+const inputs1 = reactive({
+  phone: { title: 'Phone', value: '+1 596-322-7824' },
+  email: { title: 'Email', value: 'INFO@KXYORKVILLE.COM' },
+  address: { title: 'Address', value: '123 Yorkville Ave, Toronto, ON M5R 1C4' },
+  version: { title: 'Version', value: '2023 © KX Yorkville' }
+})
+
+const inputs2 = reactive({
+  mondayFriday: { title: 'Monday - Friday', value: '08H-22H' },
+  saturday: { title: 'Saturday', value: '08H-22H' },
+  sunday: { title: 'Sunday', value: '08H-20H' }
+})
 </script>
 
 <template>
@@ -66,8 +82,21 @@ const toggleCoaches = () => {
         Coaches
       </button>
     </section>
+    <!---- General Section ----->
     <General />
+    <!-- Edit General -->
+    <div
+      v-show="generalActive"
+      class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
+    >
+      <EditGeneral :inputs="inputs2" title="Opening Hours" />
+    </div>
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.modal {
+  background-color: #181818bb;
+  backdrop-filter: blur(6px);
+}
+</style>
