@@ -6,6 +6,7 @@ import EditGeneral from '../components/Admin/EditGeneral.vue'
 import Classes from '../components/Admin/Classes.vue'
 import EditClasses from '../components/Admin/EditClasses.vue'
 import DeleteClasses from '../components/Admin/DeleteClasses.vue'
+import classesDB from '../data/classesDB.js'
 
 /*----- Admin section display -----*/
 const generalActive = ref(true)
@@ -86,7 +87,7 @@ const inputs2 = reactive({
     </section>
     <!---- Sections ----->
     <General v-if="generalActive" />
-    <Classes v-else-if="classesActive" />
+    <Classes v-else-if="classesActive" :classes="classesDB" />
     <!-- Edit General -->
     <div class="hidden modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto">
       <EditGeneral :inputs="inputs1" title="Opening Hours" />
