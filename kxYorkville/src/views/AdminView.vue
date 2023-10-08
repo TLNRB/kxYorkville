@@ -3,9 +3,12 @@ import { ref, reactive } from 'vue'
 /*----- Importing components -----*/
 import General from '../components/Admin/General.vue'
 import EditGeneral from '../components/Admin/EditGeneral.vue'
+import Classes from '../components/Admin/Classes.vue'
+import EditClasses from '../components/Admin/EditClasses.vue'
+import DeleteClasses from '../components/Admin/DeleteClasses.vue'
 
 /*----- Admin section display -----*/
-const generalActive = ref(false)
+const generalActive = ref(true)
 const classesActive = ref(false)
 const coachesActive = ref(false)
 const active = 'text-primaryColor border-primaryColor'
@@ -32,8 +35,7 @@ const toggleCoaches = () => {
   coachesActive.value = true
 }
 
-//Edit modal testing
-
+//Edit general testing
 const inputs1 = reactive({
   phone: { title: 'Phone', value: '+1 596-322-7824' },
   email: { title: 'Email', value: 'INFO@KXYORKVILLE.COM' },
@@ -82,15 +84,17 @@ const inputs2 = reactive({
         Coaches
       </button>
     </section>
-    <!---- General Section ----->
-    <General />
+    <!---- Sections ----->
+    <General v-if="generalActive" />
+    <Classes v-else-if="classesActive" />
     <!-- Edit General -->
-    <div
-      v-show="generalActive"
-      class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
-    >
-      <EditGeneral :inputs="inputs2" title="Opening Hours" />
+    <div class="hidden modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto">
+      <EditGeneral :inputs="inputs1" title="Opening Hours" />
     </div>
+    <!-- Edit Classes -->
+    <!-- Delete Classes -->
+    <!-- Edit Coaches -->
+    <!-- Delete Coaches -->
   </main>
 </template>
 
