@@ -22,7 +22,7 @@ const cancelChanges = () => {
 <template>
   <form
     @submit.prevent="saveChanges"
-    class="flex flex-col h-[100%] w-[100%] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-textNofile sm:w-[500px] md:w-[600px] lg:w-[750px]"
+    class="flex flex-col h-[100%] w-[245px] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-textNofile xs:w-[325px] sm:w-[500px] md:w-[600px] lg:w-[750px]"
   >
     <!-- Name -->
     <div

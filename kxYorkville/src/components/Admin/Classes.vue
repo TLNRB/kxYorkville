@@ -51,7 +51,7 @@ const saveDelete = () => {
           <!-- Class Display -->
           <div
             v-if="editClass !== singleClass.id"
-            class="flex flex-col h-[100%] w-[100%] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor sm:w-[500px] md:w-[600px] lg:w-[750px]"
+            class="flex flex-col h-[100%] w-[245px] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor xs:w-[325px] sm:w-[500px] md:w-[600px] lg:w-[750px]"
           >
             <!-- Name -->
             <div
@@ -191,7 +191,7 @@ const saveDelete = () => {
 
 <style scoped>
 .modal {
-  background-color: #181818bb;
-  backdrop-filter: blur(6px);
+  background-color: #18181860;
+  backdrop-filter: blur(4px);
 }
 </style>

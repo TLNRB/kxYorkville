@@ -15,7 +15,7 @@ const cancelChanges = () => {
 </script>
 
 <template>
-  <section class="absolute top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] my-[2rem]">
+  <section class="absolute top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%]">
     <div
       class="flex flex-col h-[100%] w-[100%] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor sm:w-[500px] md:w-[600px] lg:w-[750px]"
     >
