@@ -74,7 +74,6 @@ const toggleCoaches = () => {
     <!---- Sections ----->
     <General v-if="generalActive" />
     <Classes v-else-if="classesActive" :classes="classesDB" />
-    <!-- Edit General -->
     <!-- <div class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto">
       <EditGeneral :inputs="inputs1" title="Opening Hours" />
     </div> -->

@@ -102,6 +102,7 @@ const inputs2 = reactive({
           </div>
         </div>
       </div>
+      <!-- Edit button -->
       <button
         v-show="!editContactGeneralActive"
         @click="toggleEditContactGeneral"
@@ -117,6 +118,7 @@ const inputs2 = reactive({
         >
       </button>
     </div>
+    <!-- Edit General -->
     <EditGeneral
       v-else="editContactGeneralActive"
       :inputs="inputs1"
@@ -166,6 +168,7 @@ const inputs2 = reactive({
           </div>
         </div>
       </div>
+      <!-- Edit button -->
       <button
         v-show="!editOpeningGeneralActive"
         @click="toggleEditOpeningGeneral"
@@ -181,6 +184,7 @@ const inputs2 = reactive({
         >
       </button>
     </div>
+    <!-- Edit General -->
     <EditGeneral
       v-else="editOpeningGeneralActive"
       :inputs="inputs2"

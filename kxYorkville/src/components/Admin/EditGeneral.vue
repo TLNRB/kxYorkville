@@ -2,14 +2,10 @@
 // Prop handling
 const { inputs, title } = defineProps(['inputs', 'title'])
 
-// Emits
+// Emit handling
 const emit = defineEmits(['saved', 'canceled'])
 
 const saveChanges = (type) => {
-  console.log('test')
-  /* type === 'Opening'
-    ? emit('savedChanges', 'toggleEditOpeningGeneral')
-    : emit('savedChanges', 'toggleEditContactGeneral') */
   emit('savedChanges', type)
 }
 
@@ -44,6 +40,7 @@ const cancelChanges = () => {
       </form>
     </div>
     <div class="flex justify-center gap-[1rem] md:gap-[1.5rem]">
+      <!-- Save button -->
       <button
         type="submit"
         @click="saveChanges(title)"
@@ -58,6 +55,7 @@ const cancelChanges = () => {
           >Save</span
         >
       </button>
+      <!-- Cancel button -->
       <button
         type="button"
         @click="cancelChanges"
