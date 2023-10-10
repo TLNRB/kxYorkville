@@ -8,7 +8,7 @@ const { singleClass } = defineProps(['singleClass'])
 const numOfCoaches = ref(singleClass.coaches.length)
 
 // Emit handling
-const emit = defineEmits(['saved', 'canceled'])
+const emit = defineEmits(['savedChanges', 'canceledChanges'])
 
 const saveChanges = () => {
   emit('savedChanges')

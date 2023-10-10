@@ -3,7 +3,7 @@
 const { inputs, title } = defineProps(['inputs', 'title'])
 
 // Emit handling
-const emit = defineEmits(['saved', 'canceled'])
+const emit = defineEmits(['savedChanges', 'canceledChanges'])
 
 const saveChanges = (type) => {
   emit('savedChanges', type)

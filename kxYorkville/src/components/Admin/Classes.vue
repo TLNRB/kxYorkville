@@ -174,6 +174,7 @@ const saveDelete = () => {
           <!-- Delete Class -->
           <div
             v-if="deleteClass"
+            @click.self="toggleDelete"
             class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
           >
             <DeleteClass
