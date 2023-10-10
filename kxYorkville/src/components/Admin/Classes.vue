@@ -20,6 +20,20 @@ const savedChanges = () => {
   console.log(`Saved changes`)
   toggleEdit()
 }
+
+/*----- Edit Section -----*/
+const deleteClass = ref(false)
+
+// Toggle delete modal
+const toggleDelete = () => {
+  deleteClass.value = !deleteClass.value
+}
+
+// Delete class
+const saveDelete = () => {
+  console.log(`class deleted`)
+  toggleDelete()
+}
 </script>
 
 <template>
@@ -135,7 +149,10 @@ const savedChanges = () => {
                 >
               </button>
               <!-- Delete button -->
-              <button class="font-oswald flex flex-col w-fit text-[1rem] relative group">
+              <button
+                @click="toggleDelete"
+                class="font-oswald flex flex-col w-fit text-[1rem] relative group"
+              >
                 <span
                   class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
                   >Delete</span
@@ -155,11 +172,25 @@ const savedChanges = () => {
             @canceledChanges="toggleEdit"
           />
           <!-- Delete Class -->
-          <!-- <DeleteClass /> -->
+          <div
+            v-if="deleteClass"
+            class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
+          >
+            <DeleteClass
+              :name="singleClass.name"
+              @savedChanges="saveDelete"
+              @canceledChanges="toggleDelete"
+            />
+          </div>
         </div>
       </div>
     </div>
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.modal {
+  background-color: #181818bb;
+  backdrop-filter: blur(6px);
+}
+</style>

@@ -71,19 +71,9 @@ const toggleCoaches = () => {
     <!---- Sections ----->
     <General v-if="generalActive" />
     <Classes v-else-if="classesActive" :classes="classesDB" />
-    <!-- <div class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto">
-      <EditGeneral :inputs="inputs1" title="Opening Hours" />
-    </div> -->
-    <!-- Edit Classes -->
-    <!-- Delete Classes -->
     <!-- Edit Coaches -->
     <!-- Delete Coaches -->
   </main>
 </template>
 
-<style scoped>
-.modal {
-  background-color: #181818bb;
-  backdrop-filter: blur(6px);
-}
-</style>
+<style scoped></style>
