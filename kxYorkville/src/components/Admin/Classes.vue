@@ -16,10 +16,10 @@ const toggleEdit = (index) => {
 }
 
 // Edit saved
-/* const savedChanges = (type) => {
+const savedChanges = () => {
   console.log(`Saved changes`)
   toggleEdit()
-} */
+}
 </script>
 
 <template>
@@ -148,7 +148,12 @@ const toggleEdit = (index) => {
             </div>
           </div>
           <!-- Edit Class -->
-          <EditClass v-else-if="editClass === singleClass.id" />
+          <EditClass
+            v-else-if="editClass === singleClass.id"
+            :singleClass="singleClass"
+            @savedChanges="savedChanges"
+            @canceledChanges="toggleEdit"
+          />
           <!-- Delete Class -->
           <!-- <DeleteClass /> -->
         </div>
