@@ -7,7 +7,7 @@ const classesDB = [
   {
     id: 1,
     name: 'Body Building',
-    route: 'bodyBuilding',
+    route: 'body-building',
     img: bodyImg,
     description:
       "Bodybuilding is the use of progressive resistance exercise to control and develop one's musculature for aesthetic purposes. An individual who engages in this activity is referred to as a bodybuilder.",
