@@ -17,10 +17,10 @@ const cancelChanges = () => {
 <template>
   <section class="w-[100%] sm:w-[450px] md:w-[600px] lg:w-[750px]">
     <div>
-      <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">{{ title }}</h2>
+      <h2 class="mb-[1rem] text-[1.25rem] text-textNofile font-[600]">{{ title }}</h2>
       <!-- Form -->
       <form
-        class="flex flex-col mb-[1.5rem] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor sm:gap-[2rem]"
+        class="flex flex-col mb-[1.5rem] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-textNofile sm:gap-[2rem]"
       >
         <!-- Inputs -->
         <div
