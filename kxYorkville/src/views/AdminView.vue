@@ -1,16 +1,13 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 /*----- Importing components -----*/
 import General from '../components/Admin/General.vue'
-import EditGeneral from '../components/Admin/EditGeneral.vue'
 import Classes from '../components/Admin/Classes.vue'
-import EditClasses from '../components/Admin/EditClasses.vue'
-import DeleteClasses from '../components/Admin/DeleteClasses.vue'
 import classesDB from '../data/classesDB.js'
 
 /*----- Admin section display -----*/
-const generalActive = ref(true)
-const classesActive = ref(false)
+const generalActive = ref(false)
+const classesActive = ref(true)
 const coachesActive = ref(false)
 const active = 'text-primaryColor border-primaryColor'
 const inactive = 'text-textGray border-textGray'
