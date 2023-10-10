@@ -19,7 +19,6 @@ export const useStoreAuth = defineStore('storeAuth', {
         if (user) {
           this.user.id = user.uid
           this.user.email = user.email
-          console.log(user)
           /* this.router.push('/admin') */
         } else {
           this.user = {}

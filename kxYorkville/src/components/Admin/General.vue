@@ -1,11 +1,56 @@
-<script setup></script>
+<script setup>
+import { ref, reactive } from 'vue'
+/*----- Importing components -----*/
+import EditGeneral from '../Admin/EditGeneral.vue'
+
+/*----- Edit Section -----*/
+const editContactGeneralActive = ref(false)
+const editOpeningGeneralActive = ref(false)
+
+// Toggle edit section
+const toggleEditContactGeneral = () => {
+  editContactGeneralActive.value = !editContactGeneralActive.value
+}
+const toggleEditOpeningGeneral = () => {
+  editOpeningGeneralActive.value = !editOpeningGeneralActive.value
+}
+
+// Edit saved
+const savedContactChanges = (type) => {
+  console.log(`Saved ${type} changes`)
+  toggleEditContactGeneral()
+}
+
+const savedOpeningChanges = (type) => {
+  console.log(`Saved ${type} changes`)
+  toggleEditOpeningGeneral()
+}
+
+//Edit general testing
+const inputs1 = reactive({
+  phone: { title: 'Phone', value: '+1 596-322-7824', type: 'text' },
+  email: { title: 'Email', value: 'INFO@KXYORKVILLE.COM', type: 'email' },
+  address: {
+    title: 'Address',
+    value: '263 DAVENPORT RD, TORONTO, ON M5R 1J9, CANADA',
+    type: 'text'
+  },
+  version: { title: 'Version', value: '2023 © KX Yorkville', type: 'text' }
+})
+
+const inputs2 = reactive({
+  mondayFriday: { title: 'Monday-Friday', value: '07H-22H', type: 'text' },
+  saturday: { title: 'Saturday', value: '08H-22H', type: 'text' },
+  sunday: { title: 'Sunday', value: '08H-20H', type: 'text' }
+})
+</script>
 
 <template>
   <section
     class="flex flex-wrap justify-center mt-[3rem] gap-[3rem] pb-[2rem] lg:gap-[4rem] lg:mt-[4rem] lg:pb-[3rem] xxxxl:gap-[6rem] xxxxl:mt-[6rem]"
   >
     <!-- Contact -->
-    <div class="w-[100%] sm:w-[450px] md:w-[600px] lg:w-[750px]">
+    <div v-if="!editContactGeneralActive" class="w-[100%] sm:w-[450px] md:w-[600px] lg:w-[750px]">
       <div>
         <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Contact & Version</h2>
         <div
@@ -57,7 +102,11 @@
           </div>
         </div>
       </div>
-      <button class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mx-auto">
+      <button
+        v-show="!editContactGeneralActive"
+        @click="toggleEditContactGeneral"
+        class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mx-auto"
+      >
         <span
           class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
           >Edit</span
@@ -68,8 +117,15 @@
         >
       </button>
     </div>
+    <EditGeneral
+      v-else="editContactGeneralActive"
+      :inputs="inputs1"
+      title="Contact & Version"
+      @savedChanges="savedContactChanges"
+      @canceledChanges="toggleEditContactGeneral"
+    />
     <!-- Opening -->
-    <div class="w-[100%] sm:w-[450px] md:w-[600px] lg:w-[750px]">
+    <div v-if="!editOpeningGeneralActive" class="w-[100%] sm:w-[450px] md:w-[600px] lg:w-[750px]">
       <div>
         <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Opening Hours</h2>
         <div
@@ -110,7 +166,11 @@
           </div>
         </div>
       </div>
-      <button class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mx-auto">
+      <button
+        v-show="!editOpeningGeneralActive"
+        @click="toggleEditOpeningGeneral"
+        class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mx-auto"
+      >
         <span
           class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
           >Edit</span
@@ -121,6 +181,13 @@
         >
       </button>
     </div>
+    <EditGeneral
+      v-else="editOpeningGeneralActive"
+      :inputs="inputs2"
+      title="Opening Hours"
+      @savedChanges="savedOpeningChanges"
+      @canceledChanges="toggleEditOpeningGeneral"
+    />
   </section>
 </template>
 
