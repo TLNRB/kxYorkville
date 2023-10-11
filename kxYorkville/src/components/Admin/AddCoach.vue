@@ -55,7 +55,7 @@ const cancelChanges = () => {
         <p class="text-[.75rem] text-textDarker italic lg:text-[.875rem]">(short)</p>
       </div>
       <textarea
-        placeholder="Motto..."
+        placeholder="Coach Motto..."
         class="w-[100%] h-[100px] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem] md:h-[75px]"
       />
     </div>

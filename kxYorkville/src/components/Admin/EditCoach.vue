@@ -1,11 +1,6 @@
 <script setup>
-import { ref } from 'vue'
-
 //Prop handling
-const { singleClass } = defineProps(['singleClass'])
-
-// Number of coaches
-const numOfCoaches = ref(singleClass.coaches.length)
+const { singleCoach } = defineProps(['singleCoach'])
 
 // Emit handling
 const emit = defineEmits(['savedChanges', 'canceledChanges'])
@@ -31,7 +26,8 @@ const cancelChanges = () => {
       <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Name</h3>
       <input
         type="text"
-        :value="singleClass.name"
+        :value="singleCoach.name"
+        placeholder="Coach Name..."
         class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       />
     </div>
@@ -43,77 +39,34 @@ const cancelChanges = () => {
       <label
         class="w-[100%] overflow-hidden bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark cursor-pointer sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       >
-        <span>{{ singleClass.img }}</span>
+        <span>{{ singleCoach.img }}</span>
         <input type="file" />
       </label>
     </div>
-    <!-- Description -->
+    <!-- Motto -->
     <div
       class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
     >
-      <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Description</h3>
+      <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Motto</h3>
       <textarea
-        :value="singleClass.description"
-        class="w-[100%] h-[125px] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:h-[200px] sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem] md:h-[125px]"
+        :value="singleCoach.motto"
+        placeholder="Coach Motto..."
+        class="w-[100%] h-[100px] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem] md:h-[75px]"
       />
     </div>
-    <!-- Intensity -->
+    <!-- Profession -->
     <div
       class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
     >
-      <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Intensity</h3>
+      <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Profession</h3>
       <select
         class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       >
-        <option value="low">Low</option>
-        <option value="moderate">Moderate</option>
-        <option value="high">High</option>
+        <option value="bodyBuilding">Body Building</option>
+        <option value="yoga">Yoga</option>
+        <option value="crossfit">Crossfit</option>
+        <option value="boxing">Boxing</option>
       </select>
-    </div>
-
-    <!-- Duration -->
-    <div
-      class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
-    >
-      <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Duration</h3>
-      <input
-        type="number"
-        :value="singleClass.duration"
-        class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
-      />
-    </div>
-    <!-- Class Type -->
-    <div
-      class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
-    >
-      <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Class Type</h3>
-      <select
-        class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
-      >
-        <option value="group">Group</option>
-        <option value="private">Private</option>
-      </select>
-    </div>
-    <!-- Coaches -->
-    <div class="flex flex-col gap-[.5rem]">
-      <div
-        class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
-      >
-        <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Coaches</h3>
-        <input
-          type="number"
-          v-model="numOfCoaches"
-          class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
-        />
-      </div>
-      <input
-        v-for="index in numOfCoaches"
-        type="text"
-        :key="index"
-        :value="singleClass.coaches[index - 1] ? singleClass.coaches[index - 1] : ''"
-        :placeholder="singleClass.coaches[index - 1] ? '' : 'Coach Name...'"
-        class="w-auto bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:ml-[142px] sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem] md:ml-0 lg:ml-[161px]"
-      />
     </div>
     <div class="flex justify-center gap-[1rem] mt-auto md:gap-[1.5rem]">
       <!-- Save button -->

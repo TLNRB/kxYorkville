@@ -34,21 +34,21 @@ const toggleEdit = (index) => {
 // Edit saved
 const savedChanges = () => {
   console.log(`Saved changes`)
-  toggleEdit()
+  toggleEdit(0)
 }
 
 /*----- Delete Section -----*/
-const deleteClass = ref(false)
+const deleteClass = ref(0)
 
 // Toggle delete modal
-const toggleDelete = () => {
-  deleteClass.value = !deleteClass.value
+const toggleDelete = (index) => {
+  deleteClass.value = index
 }
 
 // Delete class
 const saveDelete = () => {
   console.log(`class deleted`)
-  toggleDelete()
+  toggleDelete(0)
 }
 </script>
 
@@ -178,7 +178,7 @@ const saveDelete = () => {
               </button>
               <!-- Delete button -->
               <button
-                @click="toggleDelete"
+                @click="toggleDelete(singleClass.id)"
                 class="font-oswald flex flex-col w-fit text-[1rem] relative group"
               >
                 <span
@@ -197,17 +197,17 @@ const saveDelete = () => {
             v-else-if="editClass === singleClass.id"
             :singleClass="singleClass"
             @savedChanges="savedChanges"
-            @canceledChanges="toggleEdit"
+            @canceledChanges="toggleEdit(0)"
           />
           <!-- Delete Class -->
           <div
-            v-if="deleteClass"
+            v-if="deleteClass === singleClass.id"
             class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
           >
             <DeleteClass
               :name="singleClass.name"
               @savedChanges="saveDelete"
-              @canceledChanges="toggleDelete"
+              @canceledChanges="toggleDelete(0)"
             />
           </div>
         </div>

@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 /*----- Importing components -----*/
 import AddCoach from '../Admin/AddCoach.vue'
-/* import EditCoach from '../Admin/EditCoach.vue'
-import DeleteCoach from '../Admin/DeleteCoach.vue' */
+import EditCoach from '../Admin/EditCoach.vue'
+import DeleteCoach from '../Admin/DeleteCoach.vue'
 import Button from '../UI/Button.vue'
 
 //Prop handling
@@ -34,21 +34,21 @@ const toggleEdit = (index) => {
 // Edit saved
 const savedChanges = () => {
   console.log(`Saved changes`)
-  toggleEdit()
+  toggleEdit(0)
 }
 
 /*----- Delete Section -----*/
-const deleteCoach = ref(false)
+const deleteCoach = ref(0)
 
 // Toggle delete modal
-const toggleDelete = () => {
-  deleteCoach.value = !deleteCoach.value
+const toggleDelete = (index) => {
+  deleteCoach.value = index
 }
 
 // Delete coach
 const saveDelete = () => {
   console.log(`Coach deleted`)
-  toggleDelete()
+  toggleDelete(0)
 }
 </script>
 
@@ -142,7 +142,7 @@ const saveDelete = () => {
               </button>
               <!-- Delete button -->
               <button
-                @click="toggleDelete"
+                @click="toggleDelete(singleCoach.id)"
                 class="font-oswald flex flex-col w-fit text-[1rem] relative group"
               >
                 <span
@@ -161,17 +161,17 @@ const saveDelete = () => {
             v-else-if="editCoach === singleCoach.id"
             :singleCoach="singleCoach"
             @savedChanges="savedChanges"
-            @canceledChanges="toggleEdit"
+            @canceledChanges="toggleEdit(0)"
           />
           <!-- Delete Coach -->
           <div
-            v-if="deleteCoach"
+            v-if="deleteCoach === singleCoach.id"
             class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
           >
             <DeleteCoach
               :name="singleCoach.name"
               @savedChanges="saveDelete"
-              @canceledChanges="toggleDelete"
+              @canceledChanges="toggleDelete(0)"
             />
           </div>
         </div>

@@ -20,7 +20,7 @@ const cancelChanges = () => {
       class="flex flex-col h-[100%] w-[100%] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor sm:w-[500px] md:w-[600px] lg:w-[750px]"
     >
       <h3 class="text-center xs:text-[1.125rem] sm:text-[1.25rem]">
-        Are you sure you want to delete this class?
+        Are you sure you want to delete this coach?
       </h3>
       <p
         class="mt-[-.5rem] text-center text-primaryColor text-[.875rem] xs:text-[1rem] sm:text-[1.125rem]"
