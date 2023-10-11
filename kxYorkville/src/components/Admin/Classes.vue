@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 /*----- Importing components -----*/
+import AddClass from '../Admin/AddClass.vue'
 import EditClass from '../Admin/EditClass.vue'
 import DeleteClass from '../Admin/DeleteClass.vue'
+import Button from '../UI/Button.vue'
 
 //Prop handling
 const { classes } = defineProps(['classes'])
@@ -54,11 +56,21 @@ const saveDelete = () => {
   <section
     class="mt-[3rem] gap-[3rem] pb-[2rem] lg:gap-[4rem] lg:mt-[4rem] lg:pb-[3rem] xxxxl:gap-[6rem] xxxxl:mt-[6rem]"
   >
+    <Button
+      content="Add Class"
+      @click="toggleAdd"
+      class="mx-auto mb-[3rem] lg:mb-[4rem] xxxxl:mb-[5rem]"
+    />
     <!-- Edit Class -->
-    <AddClass v-if="addClassActive" @savedChanges="addClass" @canceledChanges="toggleAdd" />
-    <div v-else="!addClassActive">
+    <div
+      v-if="addClassActive"
+      class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
+    >
+      <AddClass @savedChanges="addClass" @canceledChanges="toggleAdd" />
+    </div>
+    <div>
       <h2
-        class="mb-[1rem] text-[1.25rem] text-textGray font-[600] w-[100%] sm:text-center lg:text-[1.5rem]"
+        class="mb-[1rem] text-[1.25rem] text-textGray font-[600] w-[100%] text-center lg:text-[1.5rem]"
       >
         Current Classes
       </h2>
@@ -190,7 +202,6 @@ const saveDelete = () => {
           <!-- Delete Class -->
           <div
             v-if="deleteClass"
-            @click.self="toggleDelete"
             class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
           >
             <DeleteClass
@@ -207,7 +218,7 @@ const saveDelete = () => {
 
 <style scoped>
 .modal {
-  background-color: #18181860;
-  backdrop-filter: blur(4px);
+  background-color: #181818bb;
+  backdrop-filter: blur(5px);
 }
 </style>
