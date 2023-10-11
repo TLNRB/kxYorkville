@@ -7,6 +7,20 @@ import DeleteClass from '../Admin/DeleteClass.vue'
 //Prop handling
 const { classes } = defineProps(['classes'])
 
+/*----- Add Section -----*/
+const addClassActive = ref(false)
+
+// Toggle add section
+const toggleAdd = () => {
+  addClassActive.value = !addClassActive.value
+}
+
+// Class added
+const addClass = () => {
+  console.log(`Class Added`)
+  toggleAdd()
+}
+
 /*----- Edit Section -----*/
 const editClass = ref(0)
 
@@ -21,7 +35,7 @@ const savedChanges = () => {
   toggleEdit()
 }
 
-/*----- Edit Section -----*/
+/*----- Delete Section -----*/
 const deleteClass = ref(false)
 
 // Toggle delete modal
@@ -40,7 +54,9 @@ const saveDelete = () => {
   <section
     class="mt-[3rem] gap-[3rem] pb-[2rem] lg:gap-[4rem] lg:mt-[4rem] lg:pb-[3rem] xxxxl:gap-[6rem] xxxxl:mt-[6rem]"
   >
-    <div>
+    <!-- Edit Class -->
+    <AddClass v-if="addClassActive" @savedChanges="addClass" @canceledChanges="toggleAdd" />
+    <div v-else="!addClassActive">
       <h2
         class="mb-[1rem] text-[1.25rem] text-textGray font-[600] w-[100%] sm:text-center lg:text-[1.5rem]"
       >
