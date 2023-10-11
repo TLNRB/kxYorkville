@@ -19,7 +19,7 @@ const cancelChanges = () => {
 <template>
   <form
     @submit.prevent="saveChanges"
-    class="absolute top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] flex flex-col w-[245px] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-textNofile xs:w-[325px] sm:w-[500px] md:w-[600px] lg:w-[750px]"
+    class="my-[4rem] mx-auto flex flex-col w-[245px] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-textNofile xs:w-[325px] sm:w-[500px] md:w-[600px] lg:absolute lg:top-[50%] lg:translate-y-[-50%] lg:left-[50%] lg:translate-x-[-50%] lg:my-0 lg:w-[750px]"
   >
     <!-- Name input -->
     <div
