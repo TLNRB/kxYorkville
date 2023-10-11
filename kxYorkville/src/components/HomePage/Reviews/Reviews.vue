@@ -1,10 +1,15 @@
 <script setup>
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
 /* ----- Import assets ----- */
 import Title from '../../UI/Title.vue'
 import Button from '../../UI/Button.vue'
 import Review from '../Reviews/Review.vue'
 import reviewsDB from '../../../data/reviewsDB.js'
+
+//Store handling
+import { useStoreAuth } from '../../../stores/storeAuth.js'
+const storeAuth = useStoreAuth()
 
 //Prop handling
 const { img, imgMobile, isMobile, isDesktopMedium, isDesktopLarge } = defineProps([
@@ -99,6 +104,25 @@ const reviewFilterOne = () => {
   const tempArray = reviewsDB.slice(0, reviewsToShowSmall.value)
   return tempArray
 }
+
+// Leave a review
+const reviewText = ref('')
+
+const cancelReview = () => {
+  reviewText.value = ''
+}
+
+const postReview = () => {
+  console.log(reviewText.value)
+  cancelReview()
+}
+
+// Textarea resizing
+const autoResize = (event) => {
+  const textarea = event.target
+  textarea.style.height = 'auto' // Reset the height to auto
+  textarea.style.height = textarea.scrollHeight + 'px' // Set the height to match the content
+}
 </script>
 
 <template>
@@ -110,6 +134,53 @@ const reviewFilterOne = () => {
       class="absolute left-0 top-0 right-0 bottom-0 brightness-[90%] backdrop-blur-[6px] z-[0] xs:rounded-[20px] sm:backdrop-blur-[8px] md:rounded-[25px] lg:backdrop-blur-[10px]"
     ></div>
     <Title content="testimonials" />
+    <form
+      @submit.prevent="postReview"
+      class="w-[230px] flex flex-col gap-[2rem] mt-[3rem] mx-auto items-center p-[1.5rem] bg-bgNormal border-[1px] border-textDarker rounded-[15px] drop-shadow-xl xs:w-[250px] sm:w-[350px] sm:p-[2rem] md:rounded-[20px] md:w-[400px] lg:w-[824px] xxl:w-[1248px] xxxxl:w-[1548px]"
+    >
+      <textarea
+        :disabled="!storeAuth.user.id"
+        v-model="reviewText"
+        placeholder="Leave a review..."
+        class="w-[100%] min-h-[2rem] max-h-[50rem] py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor text-[.875rem] outline-none placeholder:text-textDarker xs:py-[.375rem] sm:text-[1rem] md:py-[.5rem]"
+        @input="autoResize"
+      ></textarea>
+      <div v-if="storeAuth.user.id" class="flex justify-center gap-[1rem] mt-auto md:gap-[1.5rem]">
+        <!-- Review button -->
+        <button type="submit" class="font-oswald flex flex-col w-fit text-[1rem] relative group">
+          <span
+            class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
+            >Review</span
+          >
+          <span
+            class="font-[500] w-[0px] py-[.25rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1.125rem] ease-in duration-[.2s] md:py-[.375rem] md:group-hover:px-[1.125rem] md:text-[1.125rem]"
+            >Review</span
+          >
+        </button>
+        <!-- Cancel button -->
+        <button
+          type="button"
+          @click="cancelReview"
+          class="font-oswald flex flex-col w-fit text-[1rem] relative group"
+        >
+          <span
+            class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
+            >Cancel</span
+          >
+          <span
+            class="font-[500] w-[0px] py-[.25rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1.125rem] ease-in duration-[.2s] md:py-[.375rem] md:group-hover:px-[1.125rem] md:text-[1.125rem]"
+            >Cancel</span
+          >
+        </button>
+      </div>
+      <RouterLink
+        to="/account"
+        v-else="!storeAuth.user.id"
+        class="text-bgColorLightest italic text-[.875rem] sm:text-[1rem] xl:text-[1.125rem]"
+      >
+        Login to leave a review
+      </RouterLink>
+    </form>
     <!-- SETUP - Column 2 -->
     <div
       v-if="isDesktopMedium"
@@ -185,4 +256,9 @@ const reviewFilterOne = () => {
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+textarea {
+  resize: none;
+  overflow: hidden;
+}
+</style>
