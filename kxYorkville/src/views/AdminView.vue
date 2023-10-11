@@ -3,12 +3,14 @@ import { ref } from 'vue'
 /*----- Importing components -----*/
 import General from '../components/Admin/General.vue'
 import Classes from '../components/Admin/Classes.vue'
+import Coaches from '../components/Admin/Coaches.vue'
 import classesDB from '../data/classesDB.js'
+import coachesDB from '../data/coachesDB.js'
 
 /*----- Admin section display -----*/
 const generalActive = ref(false)
-const classesActive = ref(true)
-const coachesActive = ref(false)
+const classesActive = ref(false)
+const coachesActive = ref(true)
 const active = 'text-primaryColor border-primaryColor'
 const inactive = 'text-textGray border-textGray'
 
@@ -71,8 +73,7 @@ const toggleCoaches = () => {
     <!---- Sections ----->
     <General v-if="generalActive" />
     <Classes v-else-if="classesActive" :classes="classesDB" />
-    <!-- Edit Coaches -->
-    <!-- Delete Coaches -->
+    <Coaches v-else="coachesActive" :coaches="coachesDB" />
   </main>
 </template>
 

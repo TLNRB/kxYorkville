@@ -1,34 +1,34 @@
 <script setup>
 import { ref } from 'vue'
 /*----- Importing components -----*/
-import AddClass from '../Admin/AddClass.vue'
-import EditClass from '../Admin/EditClass.vue'
-import DeleteClass from '../Admin/DeleteClass.vue'
+import AddCoach from '../Admin/AddCoach.vue'
+/* import EditCoach from '../Admin/EditCoach.vue'
+import DeleteCoach from '../Admin/DeleteCoach.vue' */
 import Button from '../UI/Button.vue'
 
 //Prop handling
-const { classes } = defineProps(['classes'])
+const { coaches } = defineProps(['coaches'])
 
 /*----- Add Section -----*/
-const addClassActive = ref(false)
+const addCoachActive = ref(false)
 
 // Toggle add section
 const toggleAdd = () => {
-  addClassActive.value = !addClassActive.value
+  addCoachActive.value = !addCoachActive.value
 }
 
-// Class added
-const addClass = () => {
-  console.log(`Class Added`)
+// Coach added
+const addCoach = () => {
+  console.log(`Coach Added`)
   toggleAdd()
 }
 
 /*----- Edit Section -----*/
-const editClass = ref(0)
+const editCoach = ref(0)
 
 // Toggle edit section
 const toggleEdit = (index) => {
-  editClass.value = index
+  editCoach.value = index
 }
 
 // Edit saved
@@ -38,16 +38,16 @@ const savedChanges = () => {
 }
 
 /*----- Delete Section -----*/
-const deleteClass = ref(false)
+const deleteCoach = ref(false)
 
 // Toggle delete modal
 const toggleDelete = () => {
-  deleteClass.value = !deleteClass.value
+  deleteCoach.value = !deleteCoach.value
 }
 
-// Delete class
+// Delete coach
 const saveDelete = () => {
-  console.log(`class deleted`)
+  console.log(`Coach deleted`)
   toggleDelete()
 }
 </script>
@@ -57,28 +57,28 @@ const saveDelete = () => {
     class="mt-[3rem] gap-[3rem] pb-[2rem] lg:gap-[4rem] lg:mt-[4rem] lg:pb-[3rem] xxxxl:gap-[6rem] xxxxl:mt-[6rem]"
   >
     <Button
-      content="Add Class"
+      content="Add Coach"
       @click="toggleAdd"
       class="mx-auto mb-[3rem] lg:mb-[4rem] xxxxl:mb-[5rem]"
     />
-    <!-- Add Class -->
+    <!-- Add Coach -->
     <div
-      v-if="addClassActive"
+      v-if="addCoachActive"
       class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
     >
-      <AddClass @savedChanges="addClass" @canceledChanges="toggleAdd" />
+      <AddCoach @savedChanges="addCoach" @canceledChanges="toggleAdd" />
     </div>
     <div>
       <h2
         class="mb-[1rem] text-[1.25rem] text-textGray font-[600] w-[100%] text-center lg:text-[1.5rem]"
       >
-        Current Classes
+        Current Coaches
       </h2>
       <div class="flex flex-wrap justify-center gap-[1.5rem]">
-        <div v-for="singleClass in classes" :key="singleClass.id">
-          <!-- Class Display -->
+        <div v-for="singleCoach in coaches" :key="singleCoach.id">
+          <!-- Coach Display -->
           <div
-            v-if="editClass !== singleClass.id"
+            v-if="editCoach !== singleCoach.id"
             class="flex flex-col h-[100%] w-[245px] gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor xs:w-[325px] sm:w-[500px] md:w-[600px] lg:w-[750px]"
           >
             <!-- Name -->
@@ -89,7 +89,7 @@ const saveDelete = () => {
               <p
                 class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
               >
-                {{ singleClass.name }}
+                {{ singleCoach.name }}
               </p>
             </div>
             <!-- Image -->
@@ -100,71 +100,35 @@ const saveDelete = () => {
               <p
                 class="w-[100%] overflow-hidden bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
               >
-                {{ singleClass.img }}
+                {{ singleCoach.img }}
               </p>
             </div>
-            <!-- Description -->
+            <!-- Motto -->
             <div
               class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
             >
-              <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Description</h3>
+              <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Motto</h3>
               <p
                 class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
               >
-                {{ singleClass.description }}
+                {{ singleCoach.motto }}
               </p>
             </div>
-            <!-- Intensity -->
+            <!-- Profession -->
             <div
               class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
             >
-              <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Intensity</h3>
+              <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Profession</h3>
               <p
                 class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
               >
-                {{ singleClass.intensity }}
+                {{ singleCoach.profession }}
               </p>
-            </div>
-
-            <!-- Duration -->
-            <div
-              class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
-            >
-              <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Duration</h3>
-              <p
-                class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
-              >
-                {{ singleClass.duration }}
-              </p>
-            </div>
-            <!-- Class Type -->
-            <div
-              class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
-            >
-              <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Class Type</h3>
-              <p
-                class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
-              >
-                {{ singleClass.class }}
-              </p>
-            </div>
-            <!-- Coaches -->
-            <div
-              class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
-            >
-              <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Coaches</h3>
-              <div
-                class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
-              >
-                <span v-for="(coach, index) in singleClass.coaches" :key="coach"
-                  >{{ coach }}{{ index !== singleClass.coaches.length - 1 ? ', ' : '' }}
-                </span>
-              </div>
             </div>
             <div class="flex justify-center gap-[1rem] mt-auto md:gap-[1.5rem]">
               <!-- Edit button -->
               <button
-                @click="toggleEdit(singleClass.id)"
+                @click="toggleEdit(singleCoach.id)"
                 class="font-oswald flex flex-col w-fit text-[1rem] relative group"
               >
                 <span
@@ -192,20 +156,20 @@ const saveDelete = () => {
               </button>
             </div>
           </div>
-          <!-- Edit Class -->
-          <EditClass
-            v-else-if="editClass === singleClass.id"
-            :singleClass="singleClass"
+          <!-- Edit Coach -->
+          <EditCoach
+            v-else-if="editCoach === singleCoach.id"
+            :singleCoach="singleCoach"
             @savedChanges="savedChanges"
             @canceledChanges="toggleEdit"
           />
-          <!-- Delete Class -->
+          <!-- Delete Coach -->
           <div
-            v-if="deleteClass"
+            v-if="deleteCoach"
             class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
           >
-            <DeleteClass
-              :name="singleClass.name"
+            <DeleteCoach
+              :name="singleCoach.name"
               @savedChanges="saveDelete"
               @canceledChanges="toggleDelete"
             />
