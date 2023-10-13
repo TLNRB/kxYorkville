@@ -8,9 +8,12 @@ import FooterSection from './components/FooterSection.vue'
 /* ----- Store handling ----- */
 import { useStoreAuth } from './stores/storeAuth.js'
 const storeAuth = useStoreAuth()
+import { useStoreClasses } from './stores/storeClasses.js'
+const storeClasses = useStoreClasses()
 
 onMounted(() => {
   storeAuth.init()
+  storeClasses.getClasses()
 })
 </script>
 

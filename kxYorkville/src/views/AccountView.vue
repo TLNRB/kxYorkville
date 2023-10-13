@@ -1,7 +1,6 @@
 <script setup>
 import { ref, reactive } from 'vue'
-
-//Store handling
+/* ----- Import stores ----- */
 import { useStoreAuth } from '../stores/storeAuth.js'
 const storeAuth = useStoreAuth()
 

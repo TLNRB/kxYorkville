@@ -1,21 +1,58 @@
 <script setup>
 import { ref } from 'vue'
+/* ----- Import stores ----- */
+import { useStoreClasses } from '../../stores/storeClasses.js'
+const storeClasses = useStoreClasses()
 
 //Prop handling
-const { singleClass } = defineProps(['singleClass'])
+const { newClass } = defineProps(['newClass'])
 
 // Number of coaches
-const numOfCoaches = ref(singleClass.coaches.length)
+const numOfCoaches = ref(newClass.coaches.length)
 
-// Emit handling
-const emit = defineEmits(['savedChanges', 'canceledChanges'])
+//Emit handling
+const emit = defineEmits(['savedChanges', 'canceledChanges', 'imageSelected'])
 
-const saveChanges = () => {
-  emit('savedChanges')
+//--Temporary data
+const error = ref('')
+const image = ref('')
+
+//--Handle image selection
+const handleChange = (e) => {
+  const file = e.target.files[0]
+  image.value = file
+  emit('imageSelected', image)
 }
 
+//--Handle form submission
+const saveChanges = () => {
+  if (
+    !newClass.name ||
+    !newClass.description ||
+    !newClass.intensity ||
+    !newClass.duration ||
+    !newClass.classType ||
+    !newClass.coaches ||
+    (!storeClasses.imgName && storeClasses.img) ||
+    (storeClasses.imgName && !storeClasses.img)
+  ) {
+    error.value = 'Fill in every information or wait for image upload (5s)'
+  } else {
+    emit('savedChanges')
+    error.value = ''
+    image.value = ''
+  }
+}
+
+//--Handle form cancelation
 const cancelChanges = () => {
-  emit('canceledChanges')
+  if ((!storeClasses.imgName && !storeClasses.img) || (storeClasses.imgName && storeClasses.img)) {
+    emit('canceledChanges')
+    error.value = ''
+    image.value = ''
+  } else {
+    error.value = 'Wait for image upload'
+  }
 }
 </script>
 
@@ -31,7 +68,8 @@ const cancelChanges = () => {
       <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Name</h3>
       <input
         type="text"
-        :value="singleClass.name"
+        v-model="newClass.name"
+        placeholder="Class Name..."
         class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       />
     </div>
@@ -43,8 +81,8 @@ const cancelChanges = () => {
       <label
         class="w-[100%] overflow-hidden bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark cursor-pointer sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       >
-        <span>{{ singleClass.img }}</span>
-        <input type="file" />
+        <span>{{ image ? image.name : newClass.imgName }}</span>
+        <input type="file" @change="handleChange" />
       </label>
     </div>
     <!-- Description -->
@@ -53,7 +91,8 @@ const cancelChanges = () => {
     >
       <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Description</h3>
       <textarea
-        :value="singleClass.description"
+        v-model="newClass.description"
+        placeholder="Description..."
         class="w-[100%] h-[125px] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:h-[200px] sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem] md:h-[125px]"
       />
     </div>
@@ -63,6 +102,7 @@ const cancelChanges = () => {
     >
       <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Intensity</h3>
       <select
+        v-model="newClass.intensity"
         class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       >
         <option value="low">Low</option>
@@ -78,7 +118,8 @@ const cancelChanges = () => {
       <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Duration</h3>
       <input
         type="number"
-        :value="singleClass.duration"
+        v-model="newClass.duration"
+        placeholder="Duration..."
         class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       />
     </div>
@@ -88,6 +129,7 @@ const cancelChanges = () => {
     >
       <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Class Type</h3>
       <select
+        v-model="newClass.classType"
         class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       >
         <option value="group">Group</option>
@@ -110,11 +152,18 @@ const cancelChanges = () => {
         v-for="index in numOfCoaches"
         type="text"
         :key="index"
-        :value="singleClass.coaches[index - 1] ? singleClass.coaches[index - 1] : ''"
-        :placeholder="singleClass.coaches[index - 1] ? '' : 'Coach Name...'"
+        v-model="newClass.coaches[index - 1]"
+        :placeholder="newClass.coaches[index - 1] ? '' : 'Coach Name...'"
         class="w-auto bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:ml-[142px] sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem] md:ml-0 lg:ml-[161px]"
       />
     </div>
+    <!-- Error -->
+    <p
+      v-show="error"
+      class="text-[.75rem] text-red-500 sm:text-[.875rem] sm:text-center xl:text-[1rem]"
+    >
+      {{ error }}
+    </p>
     <div class="flex justify-center gap-[1rem] mt-auto md:gap-[1.5rem]">
       <!-- Save button -->
       <button type="submit" class="font-oswald flex flex-col w-fit text-[1rem] relative group">

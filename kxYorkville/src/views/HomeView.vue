@@ -15,6 +15,9 @@ import smallDumbbell from '../assets/images/home/smallDumbbell.jpg'
 import ring from '../assets/images/home/ring.jpg'
 
 import coachesDB from '../data/coachesDB.js'
+/* ----- Import stores ----- */
+import { useStoreClasses } from '../stores/storeClasses.js'
+const storeClasses = useStoreClasses()
 
 //Checking if the screen size is mobile
 const isMobile = ref(window.innerWidth < 560 ? true : false)
@@ -30,6 +33,7 @@ function handleResize() {
 
 // Add resize event listener when component is mounted
 onMounted(() => {
+  storeClasses.getClasses()
   window.addEventListener('resize', handleResize)
 })
 // Remove resize event listener when component is mounted

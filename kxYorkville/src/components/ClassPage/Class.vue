@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 /* ----- Import assets ----- */
 import Title from '../UI/Title.vue'
 import Button from '../UI/Button.vue'
@@ -11,9 +12,9 @@ const { singleClass } = defineProps(['singleClass'])
     class="flex flex-col pt-[6rem] px-[1rem] md:pt-[8rem] sm:px-[1.5rem] md:px-[2rem] lg:flex-row lg:px-[4rem] xxl:pt-[8rem] xxxxl:pt-[10rem]"
   >
     <section class="lg:w-[55%] xl:w-[50%] text-textGray">
-      <Title class="text-center" :content="singleClass.name" />
+      <Title class="text-center" :content="singleClass?.name" />
       <p class="py-[4rem] lg:text-[1.125rem] xl:text-[1.25rem] xl:py-[5rem]">
-        {{ singleClass.description }}
+        {{ singleClass?.description }}
       </p>
       <div
         class="flex flex-col gap-[2rem] sm:gap-[3rem] md:flex-row md:gap-[4rem] lg:justify-start xxl:gap-[5rem]"
@@ -26,7 +27,7 @@ const { singleClass } = defineProps(['singleClass'])
               Intensity
             </h4>
             <p class="sm:text-[1.125rem] xl:text-[1.25rem]">
-              {{ singleClass.intensity }}
+              {{ singleClass?.intensity }}
             </p>
           </div>
           <div class="min-w-[100px]">
@@ -35,7 +36,7 @@ const { singleClass } = defineProps(['singleClass'])
             >
               Duration
             </h4>
-            <p class="sm:text-[1.125rem] xl:text-[1.25rem]">{{ singleClass.duration }} min</p>
+            <p class="sm:text-[1.125rem] xl:text-[1.25rem]">{{ singleClass?.duration }} min</p>
           </div>
         </div>
         <div class="flex gap-[2.5rem] sm:gap-[4rem] xxl:gap-[5rem]">
@@ -46,11 +47,11 @@ const { singleClass } = defineProps(['singleClass'])
               Instructors
             </h4>
             <p
-              v-for="coach in singleClass.coaches"
+              v-for="coach in singleClass?.coaches"
               :key="coach"
               class="leading-snug cursor-pointer hover:text-primaryColor duration-[.15s] ease-in-out sm:text-[1.125rem] xl:text-[1.25rem] xl:leading-tight"
             >
-              {{ coach }}
+              <RouterLink to="/">{{ coach }}</RouterLink>
             </p>
           </div>
           <div class="min-w-[100px]">
@@ -59,7 +60,7 @@ const { singleClass } = defineProps(['singleClass'])
             >
               Class
             </h4>
-            <p class="sm:text-[1.125rem] xl:text-[1.25rem]">{{ singleClass.class }}</p>
+            <p class="sm:text-[1.125rem] xl:text-[1.25rem]">{{ singleClass?.classType }}</p>
           </div>
         </div>
       </div>
@@ -73,7 +74,7 @@ const { singleClass } = defineProps(['singleClass'])
       ></div>
       <div
         class="bg-cover bg-center-top-mid bg-no-repeat relative w-[200px] h-[200px] p-[.5rem] rounded-full xs:w-[250px] xs:h-[250px] sm:w-[300px] sm:h-[300px] md:w-[350px] md:h-[350px] xl:w-[400px] xl:h-[400px] xxl:w-[450px] xxl:h-[450px] xxxl:w-[500px] xxxl:h-[500px] xxxxl:w-[600px] xxxxl:h-[600px]"
-        :style="`background-image: url('${singleClass.img}')`"
+        :style="`background-image: url('${singleClass?.img}')`"
       ></div>
     </div>
   </main>

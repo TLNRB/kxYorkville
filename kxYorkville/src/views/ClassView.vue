@@ -1,12 +1,16 @@
 <script setup>
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 /* ----- Import components ----- */
 import Class from '../components/ClassPage/Class.vue'
-/* ----- Import Database ----- */
-import classesDB from '../data/classesDB'
+/* ----- Import stores ----- */
+import { useStoreClasses } from '../stores/storeClasses.js'
+const storeClasses = useStoreClasses()
 
 const route = useRoute()
-const singleClass = classesDB.find((classObj) => classObj.route === route.params.route)
+const singleClass = computed(() => {
+  return storeClasses.classes.find((classObj) => classObj.routing === route.params.route)
+})
 </script>
 
 <template>

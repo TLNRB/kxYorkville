@@ -1,54 +1,146 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 /*----- Importing components -----*/
 import AddClass from '../Admin/AddClass.vue'
 import EditClass from '../Admin/EditClass.vue'
 import DeleteClass from '../Admin/DeleteClass.vue'
 import Button from '../UI/Button.vue'
+/* ----- Import stores ----- */
+import { useStoreClasses } from '../../stores/storeClasses.js'
+const storeClasses = useStoreClasses()
 
 //Prop handling
 const { classes } = defineProps(['classes'])
 
+/* ===== Classes ===== */
+//--V-model for class inputs
+const newClass = reactive({
+  name: '',
+  description: '',
+  intensity: '',
+  duration: '',
+  classType: '',
+  coaches: [],
+  img: '',
+  imgName: ''
+})
+
+//--Temporary values
+const image = ref(null)
+const tempID = ref()
+
+//--Clear values for class inputs
+const valueClear = () => {
+  ;(newClass.name = ''),
+    (newClass.description = ''),
+    (newClass.intensity = ''),
+    (newClass.duration = ''),
+    (newClass.classType = ''),
+    (newClass.coaches = []),
+    (newClass.img = ''),
+    (newClass.imgName = ''),
+    (image.value = null)
+}
+
 /*----- Add Section -----*/
 const addClassActive = ref(false)
 
-// Toggle add section
+//--Toggle add section
 const toggleAdd = () => {
   addClassActive.value = !addClassActive.value
 }
 
-// Class added
-const addClass = () => {
-  console.log(`Class Added`)
+//--Add class
+const addNewClass = () => {
+  storeClasses.addClass(newClass)
   toggleAdd()
+  valueClear()
+}
+
+//--Close Add class
+const closeAddClass = () => {
+  storeClasses.closeAddClass()
+  toggleAdd()
+  valueClear()
+}
+
+//--Image upload class
+const handleImageUpload = (file) => {
+  image.value = file
+  storeClasses.getImageUrl(file.value.name, file.value)
 }
 
 /*----- Edit Section -----*/
 const editClass = ref(0)
 
-// Toggle edit section
+//--Toggle edit section
 const toggleEdit = (index) => {
   editClass.value = index
 }
 
-// Edit saved
-const savedChanges = () => {
-  console.log(`Saved changes`)
+//--Edit class
+const editSingleClass = (id) => {
+  toggleEdit(id)
+  for (let i = 0; i < storeClasses.classes.length; i++) {
+    // Getting the input values by id
+    if (storeClasses.classes[i].id === id) {
+      newClass.name = storeClasses.classes[i].name
+      newClass.description = storeClasses.classes[i].description
+      newClass.intensity = storeClasses.classes[i].intensity
+      newClass.duration = storeClasses.classes[i].duration
+      newClass.classType = storeClasses.classes[i].classType
+      newClass.coaches = storeClasses.classes[i].coaches
+      newClass.img = storeClasses.classes[i].img
+      newClass.imgName = storeClasses.classes[i].imgName
+      // Storing the ID temporarily
+      tempID.value = storeClasses.classes[i].id
+    }
+  }
+}
+
+//--Save class editing
+const saveEditClass = async () => {
+  // Checking if the image changed
+  storeClasses.updateImage(tempID.value)
+  storeClasses.updateClass(newClass, tempID.value)
+  valueClear()
+  tempID.value = ''
+  toggleEdit(0)
+}
+
+//--Close class editing
+const closeEditClass = () => {
+  storeClasses.closeEditing(tempID.value)
+  valueClear()
+  tempID.value = ''
   toggleEdit(0)
 }
 
 /*----- Delete Section -----*/
 const deleteClass = ref(0)
+const deleteID = ref('')
 
-// Toggle delete modal
+//--Toggle delete modal
 const toggleDelete = (index) => {
   deleteClass.value = index
 }
 
-// Delete class
-const saveDelete = () => {
-  console.log(`class deleted`)
+//--Open Delete Modal
+const openDeleteModal = (id) => {
+  deleteID.value = id
+  toggleDelete(id)
+}
+
+//--Close Delete Modal
+const closeDeleteModal = () => {
   toggleDelete(0)
+  deleteID.value = ''
+}
+
+//--Confirm Delete Modal events
+const confirmDelete = () => {
+  storeClasses.deleteClass(deleteID.value)
+  closeDeleteModal()
 }
 </script>
 
@@ -66,7 +158,12 @@ const saveDelete = () => {
       v-if="addClassActive"
       class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
     >
-      <AddClass @savedChanges="addClass" @canceledChanges="toggleAdd" />
+      <AddClass
+        :newClass="newClass"
+        @savedChanges="addNewClass"
+        @canceledChanges="closeAddClass"
+        @imageSelected="handleImageUpload"
+      />
     </div>
     <div>
       <h2
@@ -74,8 +171,8 @@ const saveDelete = () => {
       >
         Current Classes
       </h2>
-      <div class="flex flex-wrap justify-center gap-[1.5rem]">
-        <div v-for="singleClass in classes" :key="singleClass.id">
+      <div v-if="storeClasses.classes" class="flex flex-wrap justify-center gap-[1.5rem]">
+        <div v-for="singleClass in storeClasses.classes" :key="singleClass.id">
           <!-- Class Display -->
           <div
             v-if="editClass !== singleClass.id"
@@ -100,7 +197,7 @@ const saveDelete = () => {
               <p
                 class="w-[100%] overflow-hidden bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
               >
-                {{ singleClass.img }}
+                {{ singleClass.imgName }}
               </p>
             </div>
             <!-- Description -->
@@ -145,7 +242,7 @@ const saveDelete = () => {
               <p
                 class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
               >
-                {{ singleClass.class }}
+                {{ singleClass.classType }}
               </p>
             </div>
             <!-- Coaches -->
@@ -164,7 +261,7 @@ const saveDelete = () => {
             <div class="flex justify-center gap-[1rem] mt-auto md:gap-[1.5rem]">
               <!-- Edit button -->
               <button
-                @click="toggleEdit(singleClass.id)"
+                @click="editSingleClass(singleClass.id)"
                 class="font-oswald flex flex-col w-fit text-[1rem] relative group"
               >
                 <span
@@ -178,7 +275,7 @@ const saveDelete = () => {
               </button>
               <!-- Delete button -->
               <button
-                @click="toggleDelete(singleClass.id)"
+                @click="openDeleteModal(singleClass.id)"
                 class="font-oswald flex flex-col w-fit text-[1rem] relative group"
               >
                 <span
@@ -195,9 +292,10 @@ const saveDelete = () => {
           <!-- Edit Class -->
           <EditClass
             v-else-if="editClass === singleClass.id"
-            :singleClass="singleClass"
-            @savedChanges="savedChanges"
-            @canceledChanges="toggleEdit(0)"
+            :newClass="newClass"
+            @savedChanges="saveEditClass"
+            @canceledChanges="closeEditClass"
+            @imageSelected="handleImageUpload"
           />
           <!-- Delete Class -->
           <div
@@ -206,11 +304,17 @@ const saveDelete = () => {
           >
             <DeleteClass
               :name="singleClass.name"
-              @savedChanges="saveDelete"
-              @canceledChanges="toggleDelete(0)"
+              @savedChanges="confirmDelete"
+              @canceledChanges="closeDeleteModal"
             />
           </div>
         </div>
+      </div>
+      <div
+        v-else="!storeClasses.classes"
+        class="mt-[2.5rem] text-center italic text-textNofile lg:text-[1.25rem]"
+      >
+        No classes found
       </div>
     </div>
   </section>

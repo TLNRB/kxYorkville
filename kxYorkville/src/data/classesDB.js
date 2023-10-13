@@ -47,7 +47,7 @@ const classesDB = [
     img: crossfitImg,
     description:
       'CrossFit is a branded fitness regimen created by Greg Glassman and is a registered trademark of CrossFit, Inc. which was founded by Greg Glassman and Lauren Jenai in 2000.',
-    intensity: 'Extreme',
+    intensity: 'High',
     duration: '50',
     class: 'Group',
     coaches: ['John Doe', 'Jane Doe']

@@ -9,8 +9,8 @@ import coachesDB from '../data/coachesDB.js'
 
 /*----- Admin section display -----*/
 const generalActive = ref(false)
-const classesActive = ref(false)
-const coachesActive = ref(true)
+const classesActive = ref(true)
+const coachesActive = ref(false)
 const active = 'text-primaryColor border-primaryColor'
 const inactive = 'text-textGray border-textGray'
 
