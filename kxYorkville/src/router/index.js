@@ -39,14 +39,14 @@ const router = createRouter({
         const localClasses = storeClasses.classes
         const exists = localClasses.some((classObj) => classObj.routing === route)
 
-        if (!exists) {
+        /* if (!exists) {
           return {
             name: 'home',
             params: { pathMatch: to.path.substring(1).split('/') },
             query: to.query,
             hash: to.hash
           }
-        }
+        } */
       }
     },
     {
@@ -60,14 +60,14 @@ const router = createRouter({
         const localCoaches = storeCoaches.coaches
         const exists = localCoaches.some((coachObj) => coachObj.routing === route)
 
-        if (!exists) {
+        /* if (!exists) {
           return {
             name: 'home',
             params: { pathMatch: to.path.substring(1).split('/') },
             query: to.query,
             hash: to.hash
           }
-        }
+        } */
       }
     },
     {
