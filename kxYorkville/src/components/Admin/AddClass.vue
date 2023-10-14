@@ -46,12 +46,12 @@ const saveChanges = () => {
 
 //--Handle form cancelation
 const cancelChanges = () => {
-  if (!storeClasses.imgName || !storeClasses.img) {
-    error.value = 'Wait for image upload'
-  } else {
+  if ((!storeClasses.imgName && !storeClasses.img) || (storeClasses.imgName && storeClasses.img)) {
     emit('canceledChanges')
     error.value = ''
     image.value = ''
+  } else {
+    error.value = 'Wait for image upload'
   }
 }
 </script>
