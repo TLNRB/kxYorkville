@@ -4,8 +4,6 @@ import { ref } from 'vue'
 import General from '../components/Admin/General.vue'
 import Classes from '../components/Admin/Classes.vue'
 import Coaches from '../components/Admin/Coaches.vue'
-import classesDB from '../data/classesDB.js'
-import coachesDB from '../data/coachesDB.js'
 
 /*----- Admin section display -----*/
 const generalActive = ref(false)

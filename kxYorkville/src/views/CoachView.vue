@@ -1,12 +1,16 @@
 <script setup>
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 /* ----- Import components ----- */
 import Coach from '../components/CoachPage/Coach.vue'
-/* ----- Import Database ----- */
-import coachesDB from '../data/coachesDB'
+/* ----- Import stores ----- */
+import { useStoreCoaches } from '../stores/storeCoaches.js'
+const storeCoaches = useStoreCoaches()
 
 const route = useRoute()
-const singleCoach = coachesDB.find((coachObj) => coachObj.route === route.params.route)
+const singleCoach = computed(() => {
+  return storeCoaches.coaches.find((coachObj) => coachObj.routing === route.params.route)
+})
 </script>
 
 <template>

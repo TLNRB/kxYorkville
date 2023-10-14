@@ -6,9 +6,9 @@ import ClassView from '../views/ClassView.vue'
 import CoachView from '../views/CoachView.vue'
 import TimetableView from '../views/TimetableView.vue'
 import AdminView from '../views/AdminView.vue'
-/* ----- Import Database ----- */
-import classes from '../data/classesDB.js'
-import coaches from '../data/coachesDB'
+/* ---------- Import Stores ---------- */
+import { useStoreClasses } from '../stores/storeClasses'
+import { useStoreCoaches } from '../stores/storeCoaches'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,9 +33,11 @@ const router = createRouter({
       name: 'class',
       component: ClassView,
       beforeEnter(to) {
+        /* ---------- Stores ---------- */
+        const storeClasses = useStoreClasses()
         const route = to.params.route
-        const localClasses = classes
-        const exists = localClasses.some((classObj) => classObj.route === route)
+        const localClasses = storeClasses.classes
+        const exists = localClasses.some((classObj) => classObj.routing === route)
 
         if (!exists) {
           return {
@@ -52,9 +54,11 @@ const router = createRouter({
       name: 'coach',
       component: CoachView,
       beforeEnter(to) {
+        /* ---------- Stores ---------- */
+        const storeCoaches = useStoreCoaches()
         const route = to.params.route
-        const localCoaches = coaches
-        const exists = localCoaches.some((coachObj) => coachObj.route === route)
+        const localCoaches = storeCoaches.coaches
+        const exists = localCoaches.some((coachObj) => coachObj.routing === route)
 
         if (!exists) {
           return {

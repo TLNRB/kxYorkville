@@ -1,6 +1,5 @@
 <script setup>
 /* ----- Import assets ----- */
-import Title from '../UI/Title.vue'
 import Button from '../UI/Button.vue'
 //Prop handling
 const { singleCoach } = defineProps(['singleCoach'])
@@ -19,12 +18,12 @@ const { singleCoach } = defineProps(['singleCoach'])
       <p
         class="mt-[1rem] font-oswald text-[1.5rem] text-textGray leading-tight sm:text-[2rem] md:mt-0 md:text-[2.5rem] lg:mt-[2rem] xxl:text-[3rem] xxxxl:text-[4rem]"
       >
-        "{{ singleCoach.motto }}"
+        "{{ singleCoach?.motto }}"
       </p>
       <div
         class="mt-[2rem] flex flex-col gap-[2rem] sm:mt-[3rem] md:mt-[4rem] xxl:mt-[4rem] xxxxl:mt-[5rem]"
         :class="
-          singleCoach.profession !== 'Body Building'
+          singleCoach?.profession !== 'Body Building'
             ? 'sm:flex-row sm:items-center sm:gap-[3rem] xxl:gap-[4rem] xxxxl:mt-[5rem]'
             : 'sm:gap-[3rem] xxxxl:gap-[4rem]'
         "
@@ -32,10 +31,10 @@ const { singleCoach } = defineProps(['singleCoach'])
         <p
           class="text-primaryColor font-[500] sm:text-[1.125rem] md:text-[1.25rem] xxl:text-[1.5rem] xxxxl:text-[1.75rem]"
         >
-          {{ singleCoach.profession }}
+          {{ singleCoach?.profession }}
         </p>
         <form
-          v-if="singleCoach.profession === 'Body Building'"
+          v-if="singleCoach?.profession === 'Body Building'"
           class="w-[100%] flex flex-col sm:gap-[.25rem] md:gap-[.125rem] xxxxl:gap-[.25rem]"
         >
           <div
@@ -101,7 +100,7 @@ const { singleCoach } = defineProps(['singleCoach'])
           </button>
         </form>
         <button
-          v-else="singleCoach.profession !== 'Body Building'"
+          v-else
           class="font-oswald flex flex-col w-fit text-[1rem] relative group overflow-hidden"
         >
           <span
@@ -118,12 +117,12 @@ const { singleCoach } = defineProps(['singleCoach'])
     <section class="w-[100%] lg:my-auto lg:w-[48%]">
       <div
         class="w-[100%] h-[300px] bg-cover bg-no-repeat bg-center-top-mid brightness-[90%] rounded-[15px] drop-shadow-2xl xs:h-[350px] sm:h-[400px] md:h-[600px] md:rounded-l-[20px] md:rounded-br-[20px] lg:rounded-tl-0 lg:h-[750px] xxl:h-[850px] xxxl:h-[900px] xxxxl:h-[1000px]"
-        :style="`background-image: url('${singleCoach.img}')`"
+        :style="`background-image: url('${singleCoach?.img}')`"
       >
         <h2
           class="absolute top-0 right-[50%] translate-x-[50%] text-center leading-tight py-[.5rem] px-[1.25rem] bg-bgDark font-[600] text-textGray rounded-b-[15px] brightness-[110%] sm:py-[.75rem] sm:px-[1.5rem] sm:text-[1.5rem] md:text-[2rem] md:rounded-b-[17px] lg:text-left lg:rounded-br-[0px] lg:right-0 lg:translate-x-0 xxxl:text-[2.5rem] xxxxl:text-[3rem]"
         >
-          {{ singleCoach.name }}
+          {{ singleCoach?.name }}
         </h2>
       </div>
     </section>
