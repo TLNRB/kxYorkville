@@ -9,9 +9,6 @@ import Button from '../UI/Button.vue'
 import { useStoreClasses } from '../../stores/storeClasses.js'
 const storeClasses = useStoreClasses()
 
-//Prop handling
-const { classes } = defineProps(['classes'])
-
 /* ===== Classes ===== */
 //--V-model for class inputs
 const newClass = reactive({

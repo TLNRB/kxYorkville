@@ -9,8 +9,8 @@ import coachesDB from '../data/coachesDB.js'
 
 /*----- Admin section display -----*/
 const generalActive = ref(false)
-const classesActive = ref(true)
-const coachesActive = ref(false)
+const classesActive = ref(false)
+const coachesActive = ref(true)
 const active = 'text-primaryColor border-primaryColor'
 const inactive = 'text-textGray border-textGray'
 
@@ -72,8 +72,8 @@ const toggleCoaches = () => {
     </section>
     <!---- Sections ----->
     <General v-if="generalActive" />
-    <Classes v-else-if="classesActive" :classes="classesDB" />
-    <Coaches v-else="coachesActive" :coaches="coachesDB" />
+    <Classes v-else-if="classesActive" />
+    <Coaches v-else="coachesActive" />
   </main>
 </template>
 

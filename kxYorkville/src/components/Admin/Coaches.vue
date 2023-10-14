@@ -5,50 +5,130 @@ import AddCoach from '../Admin/AddCoach.vue'
 import EditCoach from '../Admin/EditCoach.vue'
 import DeleteCoach from '../Admin/DeleteCoach.vue'
 import Button from '../UI/Button.vue'
+/* ----- Import stores ----- */
+import { useStoreCoaches } from '../../stores/storeCoaches.js'
+const storeCoaches = useStoreCoaches()
 
-//Prop handling
-const { coaches } = defineProps(['coaches'])
+/* ===== Coaches ===== */
+//--V-model for coach inputs
+const newCoach = reactive({
+  name: '',
+  motto: '',
+  profession: '',
+  img: '',
+  imgName: ''
+})
+
+//--Temporary values
+const image = ref(null)
+const tempID = ref()
+
+//--Clear values for class inputs
+const valueClear = () => {
+  ;(newCoach.name = ''),
+    (newCoach.motto = ''),
+    (newCoach.profession = ''),
+    (newCoach.img = ''),
+    (newCoach.imgName = ''),
+    (image.value = null)
+}
 
 /*----- Add Section -----*/
 const addCoachActive = ref(false)
 
-// Toggle add section
+//--Toggle add section
 const toggleAdd = () => {
   addCoachActive.value = !addCoachActive.value
 }
 
-// Coach added
-const addCoach = () => {
-  console.log(`Coach Added`)
+//--Add coach
+const addNewCoach = () => {
+  storeCoaches.addCoach(newCoach)
   toggleAdd()
+  valueClear()
+}
+
+//--Close Add coach
+const closeAddClass = () => {
+  storeClasses.closeAddCoach()
+  toggleAdd()
+  valueClear()
+}
+
+//--Image upload class
+const handleImageUpload = (file) => {
+  image.value = file
+  storeCoaches.getImageUrl(file.value.name, file.value)
 }
 
 /*----- Edit Section -----*/
 const editCoach = ref(0)
 
-// Toggle edit section
+//--Toggle edit section
 const toggleEdit = (index) => {
   editCoach.value = index
 }
 
-// Edit saved
-const savedChanges = () => {
-  console.log(`Saved changes`)
+//--Edit coach
+const editSingleCoach = (id) => {
+  toggleEdit(id)
+  for (let i = 0; i < storeCoaches.coaches.length; i++) {
+    // Getting the input values by id
+    if (storeCoaches.coaches[i].id === id) {
+      newCoach.name = storeCoaches.coaches[i].name
+      newCoach.motto = storeCoaches.coaches[i].motto
+      newCoach.profession = storeCoaches.coaches[i].profession
+      newCoach.img = storeCoaches.coaches[i].img
+      newCoach.imgName = storeCoaches.coaches[i].imgName
+      // Storing the ID temporarily
+      tempID.value = storeClasses.classes[i].id
+    }
+  }
+}
+
+//--Save coach editing
+const saveEditCoach = async () => {
+  // Checking if the image changed
+  storeCoaches.updateImage(tempID.value)
+  storeCoaches.updateClass(newCoach, tempID.value)
+  valueClear()
+  tempID.value = ''
+  toggleEdit(0)
+}
+
+//--Close coach editing
+const closeEditCoach = () => {
+  storeCoaches.closeEditing(tempID.value)
+  valueClear()
+  tempID.value = ''
   toggleEdit(0)
 }
 
 /*----- Delete Section -----*/
 const deleteCoach = ref(0)
+const deleteID = ref('')
 
-// Toggle delete modal
+//--Toggle delete modal
 const toggleDelete = (index) => {
   deleteCoach.value = index
 }
 
-// Delete coach
-const saveDelete = () => {
-  console.log(`Coach deleted`)
+//--Open Delete Modal
+const openDeleteModal = (id) => {
+  deleteID.value = id
+  toggleDelete(id)
+}
+
+//--Close Delete Modal
+const closeDeleteModal = () => {
   toggleDelete(0)
+  deleteID.value = ''
+}
+
+//--Confirm Delete Modal events
+const confirmDelete = () => {
+  storeCoaches.deleteClass(deleteID.value)
+  closeDeleteModal()
 }
 </script>
 
@@ -66,7 +146,12 @@ const saveDelete = () => {
       v-if="addCoachActive"
       class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
     >
-      <AddCoach @savedChanges="addCoach" @canceledChanges="toggleAdd" />
+      <AddCoach
+        :newCoach="newCoach"
+        @savedChanges="addNewCoach"
+        @canceledChanges="closeAddCoach"
+        @imageSelected="handleImageUpload"
+      />
     </div>
     <div>
       <h2
@@ -74,8 +159,8 @@ const saveDelete = () => {
       >
         Current Coaches
       </h2>
-      <div class="flex flex-wrap justify-center gap-[1.5rem]">
-        <div v-for="singleCoach in coaches" :key="singleCoach.id">
+      <div v-if="storeCoaches.coaches" class="flex flex-wrap justify-center gap-[1.5rem]">
+        <div v-for="singleCoach in storeCoaches.coaches" :key="singleCoach.id">
           <!-- Coach Display -->
           <div
             v-if="editCoach !== singleCoach.id"
@@ -128,7 +213,7 @@ const saveDelete = () => {
             <div class="flex justify-center gap-[1rem] mt-auto md:gap-[1.5rem]">
               <!-- Edit button -->
               <button
-                @click="toggleEdit(singleCoach.id)"
+                @click="editSingleCoach(singleCoach.id)"
                 class="font-oswald flex flex-col w-fit text-[1rem] relative group"
               >
                 <span
@@ -142,7 +227,7 @@ const saveDelete = () => {
               </button>
               <!-- Delete button -->
               <button
-                @click="toggleDelete(singleCoach.id)"
+                @click="openDeleteModal(singleCoach.id)"
                 class="font-oswald flex flex-col w-fit text-[1rem] relative group"
               >
                 <span
@@ -159,9 +244,10 @@ const saveDelete = () => {
           <!-- Edit Coach -->
           <EditCoach
             v-else-if="editCoach === singleCoach.id"
-            :singleCoach="singleCoach"
-            @savedChanges="savedChanges"
-            @canceledChanges="toggleEdit(0)"
+            :newCoach="newCoach"
+            @savedChanges="saveEditCoach"
+            @canceledChanges="closeEditCoach"
+            @imageSelected="handleImageUpload"
           />
           <!-- Delete Coach -->
           <div
@@ -170,11 +256,17 @@ const saveDelete = () => {
           >
             <DeleteCoach
               :name="singleCoach.name"
-              @savedChanges="saveDelete"
-              @canceledChanges="toggleDelete(0)"
+              @savedChanges="confirmDelete"
+              @canceledChanges="closeDeleteModal"
             />
           </div>
         </div>
+      </div>
+      <div
+        v-else="!storeCoaches.coaches"
+        class="mt-[2.5rem] text-center italic text-textNofile lg:text-[1.25rem]"
+      >
+        No coaches found
       </div>
     </div>
   </section>
