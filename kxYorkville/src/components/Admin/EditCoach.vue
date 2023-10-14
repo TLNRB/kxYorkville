@@ -103,7 +103,7 @@ const cancelChanges = () => {
       >
         <option
           v-for="profession in storeClasses.classes"
-          :value="profession.routing"
+          :value="profession.name"
           :key="profession.name"
         >
           {{ profession.name }}
