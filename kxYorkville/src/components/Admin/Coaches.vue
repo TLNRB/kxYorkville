@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 /*----- Importing components -----*/
 import AddCoach from '../Admin/AddCoach.vue'
 import EditCoach from '../Admin/EditCoach.vue'
@@ -49,8 +49,8 @@ const addNewCoach = () => {
 }
 
 //--Close Add coach
-const closeAddClass = () => {
-  storeClasses.closeAddCoach()
+const closeAddCoach = () => {
+  storeCoaches.closeAddCoach()
   toggleAdd()
   valueClear()
 }
@@ -81,7 +81,7 @@ const editSingleCoach = (id) => {
       newCoach.img = storeCoaches.coaches[i].img
       newCoach.imgName = storeCoaches.coaches[i].imgName
       // Storing the ID temporarily
-      tempID.value = storeClasses.classes[i].id
+      tempID.value = storeCoaches.coaches[i].id
     }
   }
 }
@@ -90,7 +90,7 @@ const editSingleCoach = (id) => {
 const saveEditCoach = async () => {
   // Checking if the image changed
   storeCoaches.updateImage(tempID.value)
-  storeCoaches.updateClass(newCoach, tempID.value)
+  storeCoaches.updateCoach(newCoach, tempID.value)
   valueClear()
   tempID.value = ''
   toggleEdit(0)
@@ -127,7 +127,7 @@ const closeDeleteModal = () => {
 
 //--Confirm Delete Modal events
 const confirmDelete = () => {
-  storeCoaches.deleteClass(deleteID.value)
+  storeCoaches.deleteCoach(deleteID.value)
   closeDeleteModal()
 }
 </script>
@@ -159,7 +159,10 @@ const confirmDelete = () => {
       >
         Current Coaches
       </h2>
-      <div v-if="storeCoaches.coaches" class="flex flex-wrap justify-center gap-[1.5rem]">
+      <div
+        v-if="storeCoaches.coaches.length > 0"
+        class="flex flex-wrap justify-center gap-[1.5rem]"
+      >
         <div v-for="singleCoach in storeCoaches.coaches" :key="singleCoach.id">
           <!-- Coach Display -->
           <div
@@ -185,7 +188,7 @@ const confirmDelete = () => {
               <p
                 class="w-[100%] overflow-hidden bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
               >
-                {{ singleCoach.img }}
+                {{ singleCoach.imgName }}
               </p>
             </div>
             <!-- Motto -->
@@ -262,10 +265,7 @@ const confirmDelete = () => {
           </div>
         </div>
       </div>
-      <div
-        v-else="!storeCoaches.coaches"
-        class="mt-[2.5rem] text-center italic text-textNofile lg:text-[1.25rem]"
-      >
+      <div v-else class="mt-[2.5rem] text-center italic text-textNofile lg:text-[1.25rem]">
         No coaches found
       </div>
     </div>

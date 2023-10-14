@@ -1,16 +1,54 @@
 <script setup>
+import { ref } from 'vue'
+/* ----- Import stores ----- */
+import { useStoreCoaches } from '../../stores/storeCoaches.js'
+import { useStoreClasses } from '../../stores/storeClasses.js'
+const storeClasses = useStoreClasses()
+const storeCoaches = useStoreCoaches()
+
 //Prop handling
-const { singleCoach } = defineProps(['singleCoach'])
+const { newCoach } = defineProps(['newCoach'])
 
-// Emit handling
-const emit = defineEmits(['savedChanges', 'canceledChanges'])
+//Emit handling
+const emit = defineEmits(['savedChanges', 'canceledChanges', 'imageSelected'])
 
-const saveChanges = () => {
-  emit('savedChanges')
+//--Temporary data
+const error = ref('')
+const image = ref('')
+
+//--Handle image selection
+const handleChange = (e) => {
+  const file = e.target.files[0]
+  image.value = file
+  emit('imageSelected', image)
 }
 
+//--Handle form submission
+const saveChanges = () => {
+  if (
+    !newCoach.name ||
+    !newCoach.motto ||
+    !newCoach.profession ||
+    (!storeCoaches.imgName && storeCoaches.img) ||
+    (storeCoaches.imgName && !storeCoaches.img)
+  ) {
+    error.value = 'Fill in every information or wait for image upload (5s)'
+  } else {
+    emit('savedChanges')
+    error.value = ''
+    image.value = ''
+  }
+}
+
+//--Handle form cancelation
 const cancelChanges = () => {
-  emit('canceledChanges')
+  if ((!storeCoaches.imgName && !storeCoaches.img) || (storeCoaches.imgName && storeCoaches.img)) {
+    emit('canceledChanges')
+    error.value = ''
+    image.value = ''
+  } else {
+    error.value = 'Wait for image upload'
+  }
 }
 </script>
 
@@ -26,7 +64,7 @@ const cancelChanges = () => {
       <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Name</h3>
       <input
         type="text"
-        :value="singleCoach.name"
+        v-model="newCoach.name"
         placeholder="Coach Name..."
         class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       />
@@ -39,8 +77,8 @@ const cancelChanges = () => {
       <label
         class="w-[100%] overflow-hidden bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark cursor-pointer sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       >
-        <span>{{ singleCoach.img }}</span>
-        <input type="file" />
+        <span>{{ image ? image.name : newCoach.imgName }}</span>
+        <input type="file" @change="handleChange" />
       </label>
     </div>
     <!-- Motto -->
@@ -49,7 +87,7 @@ const cancelChanges = () => {
     >
       <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Motto</h3>
       <textarea
-        :value="singleCoach.motto"
+        v-model="newCoach.motto"
         placeholder="Coach Motto..."
         class="w-[100%] h-[100px] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem] md:h-[75px]"
       />
@@ -60,14 +98,25 @@ const cancelChanges = () => {
     >
       <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Profession</h3>
       <select
+        v-model="newCoach.profession"
         class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
       >
-        <option value="bodyBuilding">Body Building</option>
-        <option value="yoga">Yoga</option>
-        <option value="crossfit">Crossfit</option>
-        <option value="boxing">Boxing</option>
+        <option
+          v-for="profession in storeClasses.classes"
+          :value="profession.routing"
+          :key="profession.name"
+        >
+          {{ profession.name }}
+        </option>
       </select>
     </div>
+    <!-- Error -->
+    <p
+      v-show="error"
+      class="text-[.75rem] text-red-500 sm:text-[.875rem] sm:text-center xl:text-[1rem]"
+    >
+      {{ error }}
+    </p>
     <div class="flex justify-center gap-[1rem] mt-auto md:gap-[1.5rem]">
       <!-- Save button -->
       <button type="submit" class="font-oswald flex flex-col w-fit text-[1rem] relative group">
