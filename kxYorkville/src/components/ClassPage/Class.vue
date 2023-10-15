@@ -18,10 +18,10 @@ const { singleClass } = defineProps(['singleClass'])
         {{ singleClass?.description }}
       </p>
       <div
-        class="flex flex-col gap-[2rem] sm:gap-[3rem] md:flex-row md:gap-[4rem] lg:justify-start xxl:gap-[5rem]"
+        class="flex flex-col gap-[2rem] sm:gap-[3rem] md:flex-row lg:flex-col lg:justify-start xxl:flex-row"
       >
-        <div class="flex gap-[2.5rem] sm:gap-[4rem] xxl:gap-[5rem]">
-          <div class="min-w-[100px]">
+        <div class="flex gap-[2rem] sm:gap-[3rem]">
+          <div class="w-[130px] sm:w-[150px] xl:w-[160px]">
             <h4
               class="mb-[.375rem] font-oswald font-[500] text-bgColorLightest sm:text-[1.25rem] xl:mb-[.5rem] xl:text-[1.375rem]"
             >
@@ -31,7 +31,7 @@ const { singleClass } = defineProps(['singleClass'])
               {{ singleClass?.intensity }}
             </p>
           </div>
-          <div class="min-w-[100px]">
+          <div class="w-[130px] sm:w-[150px] xl:w-[160px]">
             <h4
               class="mb-[.375rem] font-oswald font-[500] text-bgColorLightest sm:text-[1.25rem] xl:mb-[.5rem] xl:text-[1.375rem]"
             >
@@ -40,8 +40,16 @@ const { singleClass } = defineProps(['singleClass'])
             <p class="sm:text-[1.125rem] xl:text-[1.25rem]">{{ singleClass?.duration }} min</p>
           </div>
         </div>
-        <div class="flex gap-[2.5rem] sm:gap-[4rem] xxl:gap-[5rem]">
-          <div class="min-w-[100px]">
+        <div class="flex gap-[2rem] sm:gap-[3rem]">
+          <div class="w-[130px] sm:w-[150px] xl:w-[160px]">
+            <h4
+              class="mb-[.375rem] font-oswald font-[500] text-bgColorLightest sm:text-[1.25rem] xl:mb-[.5rem] xl:text-[1.375rem]"
+            >
+              Class
+            </h4>
+            <p class="sm:text-[1.125rem] xl:text-[1.25rem]">{{ singleClass?.classType }}</p>
+          </div>
+          <div class="w-[130px] sm:w-[150px] xl:w-[160px]">
             <h4
               class="mb-[.375rem] font-oswald font-[500] text-bgColorLightest sm:text-[1.25rem] xl:mb-[.5rem] xl:text-[1.375rem]"
             >
@@ -52,16 +60,10 @@ const { singleClass } = defineProps(['singleClass'])
               :key="coach"
               class="leading-snug cursor-pointer hover:text-primaryColor duration-[.15s] ease-in-out sm:text-[1.125rem] xl:text-[1.25rem] xl:leading-tight"
             >
-              <RouterLink to="/">{{ coach }}</RouterLink>
+              <RouterLink :to="`coach-${coach.replace(/ /g, '-').toLowerCase()}`">{{
+                coach
+              }}</RouterLink>
             </p>
-          </div>
-          <div class="min-w-[100px]">
-            <h4
-              class="mb-[.375rem] font-oswald font-[500] text-bgColorLightest sm:text-[1.25rem] xl:mb-[.5rem] xl:text-[1.375rem]"
-            >
-              Class
-            </h4>
-            <p class="sm:text-[1.125rem] xl:text-[1.25rem]">{{ singleClass?.classType }}</p>
           </div>
         </div>
       </div>
