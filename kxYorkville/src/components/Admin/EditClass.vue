@@ -7,9 +7,6 @@ const storeClasses = useStoreClasses()
 //Prop handling
 const { newClass } = defineProps(['newClass'])
 
-// Number of coaches
-const numOfCoaches = ref(newClass.coaches.length)
-
 //Emit handling
 const emit = defineEmits(['savedChanges', 'canceledChanges', 'imageSelected'])
 
@@ -144,12 +141,12 @@ const cancelChanges = () => {
         <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Coaches</h3>
         <input
           type="number"
-          v-model="numOfCoaches"
+          v-model="newClass.coaches.length"
           class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
         />
       </div>
       <input
-        v-for="index in numOfCoaches"
+        v-for="index in newClass.coaches.length"
         type="text"
         :key="index"
         v-model="newClass.coaches[index - 1]"
