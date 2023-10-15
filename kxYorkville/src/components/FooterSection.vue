@@ -1,4 +1,8 @@
-<script setup></script>
+<script setup>
+/*----- Importing stores -----*/
+import { useStoreGeneral } from '../stores/storeGeneral.js'
+const storeGeneral = useStoreGeneral()
+</script>
 
 <template>
   <footer
@@ -10,7 +14,7 @@
       >
         Version
       </p>
-      <p class="font-oswald text-textGray">2023 &copy; KX Yorkville</p>
+      <p class="font-oswald text-textGray">{{ storeGeneral.version }}</p>
     </div>
     <div
       class="w-[100%] py-[1.5rem] border-b-[1px] border-y-bgColorLightest sm:py-[2rem] lg:py-0 lg:border-none lg:w-[300px] xxxl:w-[350px]"
@@ -27,9 +31,9 @@
           <p class="font-[500]">Sunday/Holiday</p>
         </div>
         <div class="flex flex-col text-primaryColor">
-          <p class="font-[500]">07H-22H</p>
-          <p class="font-[500]">08H-22H</p>
-          <p class="font-[500]">08H-20H</p>
+          <p class="font-[500]">{{ storeGeneral.mondayFriday }}</p>
+          <p class="font-[500]">{{ storeGeneral.saturday }}</p>
+          <p class="font-[500]">{{ storeGeneral.sunday }}</p>
         </div>
       </div>
     </div>
@@ -48,9 +52,9 @@
           <p class="font-[500]">Address</p>
         </div>
         <div class="flex flex-col text-primaryColor">
-          <p class="font-[500]">+1 596-322-7824</p>
-          <p class="font-[500]">info@kxyorkville.com</p>
-          <p class="font-[500]">263 Davenport Rd, Toronto, ON M5R 1J9, Canada</p>
+          <p class="font-[500]">{{ storeGeneral.phone }}</p>
+          <p class="font-[500]">{{ storeGeneral.email }}</p>
+          <p class="font-[500]">{{ storeGeneral.address }}</p>
         </div>
       </div>
     </div>
