@@ -26,6 +26,12 @@ function handleResize() {
   isDesktopLarge.value = window.innerWidth > 1440 ? true : false
 }
 
+//Handle navbar navigation on clicking
+const handleSelectSection = (id) => {
+  const section = document.getElementById(id)
+  section.scrollIntoView({ behavior: 'smooth' })
+}
+
 // Add resize event listener when component is mounted
 onMounted(() => {
   window.addEventListener('resize', handleResize)
@@ -37,12 +43,19 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Hero :videoDesktop="videoDesktop" :videoMobile="videoMobile" :isMobile="isMobile" />
-  <Classes />
-  <About :img="studio" />
-  <Coaches />
-  <Info />
+  <Hero
+    id="home"
+    :videoDesktop="videoDesktop"
+    :videoMobile="videoMobile"
+    :isMobile="isMobile"
+    @section-selected="handleSelectSection"
+  />
+  <Classes id="classes" />
+  <About id="about" :img="studio" />
+  <Coaches id="coaches" />
+  <Info id="info" @section-selected="handleSelectSection" />
   <Reviews
+    id="reviews"
     :img="smallDumbbell"
     :imgMobile="ring"
     :isMobile="isMobile"

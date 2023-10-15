@@ -8,12 +8,14 @@ import mosaicCardioImage from '../../assets/images/mosaic/mosaic-cardio.jpg'
 const gridClassNameArray = [
   {
     id: 1,
+    route: null,
     class: 'grid-one bg-cover bg-center-top-mid bg-no-repeat',
     style: `background-image: url('${mosaicBallImage}')`,
     text: null
   },
   {
     id: 2,
+    route: 'classes',
     class:
       'grid-two bg-bgColorLight cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent xxxl:hover:scale-[102.5%]',
     text: 'Our',
@@ -21,20 +23,23 @@ const gridClassNameArray = [
   },
   {
     id: 3,
+    route: null,
     class: 'grid-three bg-cover bg-center-top-mid bg-no-repeat',
     style: `background-image: url('${mosaicBoxImage}')`,
     text: null
   },
   {
     id: 4,
+    route: 'coaches',
     class:
       'grid-four bg-bgColorLightest cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent xxxl:hover:scale-[102.5%]',
-    text: 'View',
-    textTwo: 'available',
-    textThree: 'classes.'
+    text: 'Meet',
+    textTwo: 'the',
+    textThree: 'coaches.'
   },
   {
     id: 5,
+    route: 'about',
     class:
       'grid-five bg-bgColorDark cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent xxxl:hover:scale-[102.5%]',
     text: 'About',
@@ -42,28 +47,38 @@ const gridClassNameArray = [
   },
   {
     id: 6,
+    route: null,
     class: 'grid-six bg-cover bg-center-top-mid bg-no-repeat',
     style: `background-image: url('${mosaicCardioImage}')`,
     text: null
   },
   {
     id: 7,
+    route: 'reviews',
     class:
       'grid-seven bg-bgColorLighter cursor-pointer hover:scale-[105%] hover:drop-shadow-xl duration-[.2s] ease-in-out sm:hover:border-transparent xxxl:hover:scale-[102.5%] ',
-    text: 'Meet the',
-    textTwo: 'coaches.'
+    text: 'Check the',
+    textTwo: 'reviews.'
   }
 ]
+
+//Emit handling
+const emit = defineEmits(['section-selected'])
+
+const sectionSelected = (id) => {
+  emit('section-selected', id)
+}
 </script>
 
 <template>
   <section class="grid-container py-[4rem] xxxxl:py-[6rem]">
     <div
       v-for="gridClassName in gridClassNameArray"
+      @click="gridClassName.route ? sectionSelected(gridClassName.route) : null"
       :key="gridClassName.id"
       class="flex flex-col justify-center items-start font-oswald text-[1.75rem] leading-tight border-[1px] border-bgDark sm:text-[2rem] lg:text-[2.5rem] xxxxl:text-[3rem]"
       :class="gridClassName.class"
-      :style="gridClassName.style"
+      :style="gridClassName?.style"
     >
       <p v-if="gridClassName.text" class="mx-auto font-[400] drop-shadow-lg">
         {{ gridClassName.text }}<br />

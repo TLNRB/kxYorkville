@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 /* ----- Import components ----- */
 import Button from '../../components/UI/Button.vue'
 
@@ -8,6 +9,13 @@ const { videoDesktop, videoMobile, isMobile } = defineProps([
   'videoMobile',
   'isMobile'
 ])
+
+//Emit handling
+const emit = defineEmits(['section-selected'])
+
+const sectionSelected = (id) => {
+  emit('section-selected', id)
+}
 </script>
 
 <template>
@@ -29,8 +37,10 @@ const { videoDesktop, videoMobile, isMobile } = defineProps([
       <div
         class="flex flex-wrap justify-center gap-[1.5rem] mt-[2.5rem] xs:gap-[2rem] lg:mt-[3rem]"
       >
-        <Button :content="'Classes'" />
-        <Button :content="'Timetable'" />
+        <Button @click="sectionSelected('classes')" :content="'Classes'" />
+        <RouterLink to="/timetable">
+          <Button :content="'Timetable'" />
+        </RouterLink>
       </div>
     </div>
   </section>

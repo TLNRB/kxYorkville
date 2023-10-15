@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { RouterLink } from 'vue-router'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 
 /* ----- Store handling ----- */
 import { useStoreAuth } from '../stores/storeAuth.js'
@@ -10,6 +10,22 @@ const storeAuth = useStoreAuth()
 const isMenuOpen = ref(false)
 const isLoginOpen = ref(false)
 const screenWidth = ref(window.innerWidth)
+
+//Watch for route changes
+const route = ref('')
+const router = useRouter()
+
+watch(router.currentRoute, () => {
+  route.value = router.currentRoute.value.name
+  console.log(route.value)
+})
+
+//Handle navbar navigation on clicking
+const handleSelectSection = (id) => {
+  const section = document.getElementById(id)
+  section.scrollIntoView({ behavior: 'smooth' })
+  toggleMenu()
+}
 
 //Toggle menu dropdown
 const toggleMenu = () => {
@@ -47,10 +63,10 @@ onUnmounted(() => {
 <template>
   <header class="fixed top-0 right-0 left-0 z-[10]">
     <nav
-      class="flex justify-between items-center w-[100%] py-[1rem] px-[1rem] backdrop-blur-[14px] md:px-[2rem]"
+      class="min-h-[62px] flex justify-between items-center w-[100%] py-[1rem] px-[1rem] backdrop-blur-[14px] md:px-[2rem]"
       :class="{ 'nav-active': isMenuOpen }"
     >
-      <div>
+      <div v-if="route === 'home'">
         <div @click="toggleMenu" class="menu-icon">
           <span class="menu-icon__line menu-icon__line-top"></span>
           <span class="menu-icon__line menu-icon__line-middle"></span>
@@ -68,17 +84,15 @@ onUnmounted(() => {
             <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'house']" />
             <p>Home</p>
           </RouterLink>
-          <RouterLink
-            to="/"
-            @click="toggleMenu"
+          <div
+            @click="handleSelectSection('classes')"
             class="mx-auto flex w-[25%] flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
             <font-awesome-icon class="text-[2rem] md:text-[2.5rem]" :icon="['fas', 'dumbbell']" />
             <p>Classes</p>
-          </RouterLink>
-          <RouterLink
-            to="/"
-            @click="toggleMenu"
+          </div>
+          <div
+            @click="handleSelectSection('coaches')"
             class="mx-auto flex w-[25%] flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
             <font-awesome-icon
@@ -86,9 +100,9 @@ onUnmounted(() => {
               :icon="['fas', 'people-group']"
             />
             <p>Coaches</p>
-          </RouterLink>
+          </div>
           <RouterLink
-            to="/"
+            to="/timetable"
             @click="toggleMenu"
             class="mx-auto flex w-[25%] flex-col items-center gap-[.5rem] hover:text-textLight ease-out duration-[.2s] cursor-pointer"
           >
@@ -117,14 +131,14 @@ onUnmounted(() => {
         to="/account"
         v-if="!storeAuth.user.id"
         @click="isMenuOpen = false"
-        class="font-oswald tracking-[1px] drop-shadow-md z-[2]"
+        class="ml-auto font-oswald tracking-[1px] drop-shadow-md z-[2]"
       >
         login
       </RouterLink>
       <button
         v-else="storeAuth.user.id"
         @click="toggleLogin"
-        class="w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center z-[2]"
+        class="ml-auto w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center z-[2]"
       >
         <font-awesome-icon class="text-[1rem]" :icon="['fas', 'user']" />
       </button>

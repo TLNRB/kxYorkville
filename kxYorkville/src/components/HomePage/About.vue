@@ -24,7 +24,9 @@ const bgImg = `background-image: url('${img}')`
         We are growing for over a decade now, and we are not even close to stop it. Start today and
         join the community.
       </p>
-      <Button class="sm:mt-[1rem] xxxl:mt-[2rem] xxxl:mx-auto" content="Timetable" />
+      <RouterLink to="/timetable">
+        <Button class="sm:mt-[1rem] xxxl:mt-[2rem] xxxl:mx-auto" content="Timetable" />
+      </RouterLink>
     </div>
     <div
       class="h-[350px] bg-cover bg-center-bottom-mid bg-no-repeat sm:w-[50%] sm:h-auto"

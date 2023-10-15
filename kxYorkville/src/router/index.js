@@ -77,13 +77,7 @@ const router = createRouter({
     }
   ],
   scrollBehavior(to, from, savedPosition) {
-    if (to.path.startsWith('/class-')) {
-      // Scroll to top of target page
-      return { top: 0 }
-    } else {
-      // Use default behavior
-      return savedPosition
-    }
+    return { top: 0 }
   }
 })
 
