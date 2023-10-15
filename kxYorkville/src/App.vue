@@ -9,14 +9,17 @@ import FooterSection from './components/FooterSection.vue'
 import { useStoreAuth } from './stores/storeAuth.js'
 import { useStoreClasses } from './stores/storeClasses.js'
 import { useStoreCoaches } from './stores/storeCoaches.js'
+import { useStoreGeneral } from './stores/storeGeneral.js'
 const storeAuth = useStoreAuth()
 const storeClasses = useStoreClasses()
 const storeCoaches = useStoreCoaches()
+const storeGeneral = useStoreGeneral()
 
 onMounted(() => {
   storeAuth.init()
   storeClasses.getClasses()
   storeCoaches.getCoaches()
+  storeGeneral.getGeneral()
 })
 </script>
 

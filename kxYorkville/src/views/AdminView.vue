@@ -6,9 +6,9 @@ import Classes from '../components/Admin/Classes.vue'
 import Coaches from '../components/Admin/Coaches.vue'
 
 /*----- Admin section display -----*/
-const generalActive = ref(false)
+const generalActive = ref(true)
 const classesActive = ref(false)
-const coachesActive = ref(true)
+const coachesActive = ref(false)
 const active = 'text-primaryColor border-primaryColor'
 const inactive = 'text-textGray border-textGray'
 

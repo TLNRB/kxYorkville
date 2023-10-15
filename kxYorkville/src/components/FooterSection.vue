@@ -4,7 +4,7 @@
   <footer
     class="flex flex-col-reverse justify-between items-start py-[2.5rem] px-[1rem] text-[.875rem] sm:text-[1rem] sm:px-[1.5rem] md:px-[2rem] lg:flex-row lg:px-[4rem]"
   >
-    <div class="w-[100%] pt-[1.5rem] sm:pt-[2rem] lg:py-0 lg:w-fit">
+    <div class="w-[100%] pt-[1.5rem] sm:pt-[2rem] lg:py-0 lg:w-[300px] xxxl:w-[350px]">
       <p
         class="mb-[.375rem] text-[.75rem] font-[600] uppercase text-bgColorLightest sm:text-[.875rem]"
       >
@@ -13,7 +13,7 @@
       <p class="font-oswald text-textGray">2023 &copy; KX Yorkville</p>
     </div>
     <div
-      class="w-[100%] py-[1.5rem] border-b-[1px] border-y-bgColorLightest sm:py-[2rem] lg:py-0 lg:border-none lg:w-fit"
+      class="w-[100%] py-[1.5rem] border-b-[1px] border-y-bgColorLightest sm:py-[2rem] lg:py-0 lg:border-none lg:w-[300px] xxxl:w-[350px]"
     >
       <p
         class="mb-[.375rem] text-[.75rem] font-[600] uppercase text-bgColorLightest sm:text-[.875rem]"
@@ -34,7 +34,7 @@
       </div>
     </div>
     <div
-      class="w-[100%] pb-[1.5rem] border-b-[1px] border-y-bgColorLightest sm:pb-[2rem] lg:py-0 lg:border-none lg:w-fit"
+      class="w-[100%] pb-[1.5rem] border-b-[1px] border-y-bgColorLightest sm:pb-[2rem] lg:py-0 lg:border-none lg:w-[300px] xxxl:w-[350px]"
     >
       <p
         class="mb-[.375rem] text-[.75rem] font-[600] uppercase text-bgColorLightest sm:text-[.875rem]"
