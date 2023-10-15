@@ -1,8 +1,41 @@
 <script setup>
+import { ref, reactive } from 'vue'
 /* ----- Import assets ----- */
 import Button from '../UI/Button.vue'
-//Prop handling
+//--Prop handling
 const { singleCoach } = defineProps(['singleCoach'])
+
+/*----- Form handling -----*/
+// Form data
+const formData = reactive({
+  name: '',
+  phone: '',
+  email: ''
+})
+
+// Temporary data
+const error = ref('')
+const message = ref('')
+
+// Form validation
+const submitForm = () => {
+  if (!formData.name && !formData.phone) {
+    error.value = 'Please fill out the information'
+  } else if (!formData.name && !formData.email) {
+    error.value = 'Please fill out the information'
+  } else if (!formData.name) {
+    error.value = 'Please enter your name'
+  } else if (!formData.phone && !formData.email) {
+    error.value = 'Please enter your phone number or email'
+  } else {
+    message.value = 'Thank you for your message!'
+    error.value = ''
+    formData.name = ''
+    formData.phone = ''
+    formData.email = ''
+    console.log('Form submitted')
+  }
+}
 </script>
 
 <template>
@@ -34,6 +67,7 @@ const { singleCoach } = defineProps(['singleCoach'])
           {{ singleCoach?.profession }}
         </p>
         <form
+          @submit.prevent="submitForm"
           v-if="singleCoach?.profession === 'Body Building'"
           class="w-[100%] flex flex-col sm:gap-[.25rem] md:gap-[.125rem] xxxxl:gap-[.25rem]"
         >
@@ -47,6 +81,7 @@ const { singleCoach } = defineProps(['singleCoach'])
             </p>
             <input
               type="text"
+              v-model="formData.name"
               placeholder="First and Last..."
               class="bg-transparent text-[1.125rem] font-[500] outline-none xs:text-[1.25rem] sm:w-[100%] md:text-[1.5rem] xxxl:text-[1.75rem] xxxxl:text-[2rem]"
             />
@@ -67,6 +102,7 @@ const { singleCoach } = defineProps(['singleCoach'])
             </p>
             <input
               type="phone"
+              v-model="formData.phone"
               placeholder="Phone..."
               class="bg-transparent text-[1.125rem] font-[500] outline-none xs:text-[1.25rem] sm:w-[100%] md:text-[1.5rem] xxxl:text-[1.75rem] xxxxl:text-[2rem]"
             />
@@ -81,23 +117,36 @@ const { singleCoach } = defineProps(['singleCoach'])
             </p>
             <input
               type="email"
+              v-model="formData.email"
               placeholder="Email..."
               class="bg-transparent text-[1.125rem] font-[500] outline-none xs:text-[1.25rem] sm:w-[100%] md:text-[1.5rem] xxxl:text-[1.75rem] xxxxl:text-[2rem]"
             />
           </div>
-          <button
-            type="submit"
-            class="mt-[2rem] font-oswald flex flex-col w-fit text-[1rem] relative group overflow-hidden"
+          <!-- Error -->
+          <p
+            v-show="error"
+            class="mt-[1rem] text-[.75rem] text-red-500 sm:text-[.875rem] md:mt-[1.5rem] xl:text-[1rem]"
           >
-            <span
-              class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem] xxl:text-[1.25rem] xxxxl:text-[1.5rem]"
-              >Send</span
+            {{ error }}
+          </p>
+          <div class="flex flex-col gap-[2rem] mt-[2rem]">
+            <button
+              type="submit"
+              class="font-oswald flex flex-col w-fit text-[1rem] relative group overflow-hidden"
             >
-            <span
-              class="font-[500] w-[0px] py-[.25rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1rem] ease-in duration-[.2s] md:py-[.375rem] md:group-hover:px-[1.125rem] md:text-[1.125rem] xxl:text-[1.25rem] xxxxl:text-[1.5rem]"
-              >Send</span
-            >
-          </button>
+              <span
+                class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem] xxl:text-[1.25rem] xxxxl:text-[1.5rem]"
+                >Send</span
+              >
+              <span
+                class="font-[500] w-[0px] py-[.25rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1rem] ease-in duration-[.2s] md:py-[.375rem] md:group-hover:px-[1.125rem] md:text-[1.125rem] xxl:text-[1.25rem] xxxxl:text-[1.5rem]"
+                >Send</span
+              >
+            </button>
+            <p v-show="message" class="text-[.75rem] italic sm:text-[.875rem] xl:text-[1rem]">
+              {{ message }}
+            </p>
+          </div>
         </form>
         <button
           v-else
