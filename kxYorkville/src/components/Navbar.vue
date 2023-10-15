@@ -17,7 +17,6 @@ const router = useRouter()
 
 watch(router.currentRoute, () => {
   route.value = router.currentRoute.value.name
-  console.log(route.value)
 })
 
 //Handle navbar navigation on clicking

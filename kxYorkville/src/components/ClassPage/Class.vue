@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router'
 /* ----- Import assets ----- */
 import Title from '../UI/Title.vue'
 import Button from '../UI/Button.vue'
+
 //Prop handling
 const { singleClass } = defineProps(['singleClass'])
 </script>
@@ -64,7 +65,9 @@ const { singleClass } = defineProps(['singleClass'])
           </div>
         </div>
       </div>
-      <Button class="my-[4rem] sm:mt-[6rem] md:mt-[4rem] xl:my-[5rem]" content="Timetable" />
+      <RouterLink to="/timetable">
+        <Button class="my-[4rem] sm:mt-[6rem] md:mt-[4rem] xl:my-[5rem]" content="Timetable" />
+      </RouterLink>
     </section>
     <div
       class="relative flex justify-center items-center mt-[2rem] mb-[4rem] sm:mb-[6rem] lg:w-[45%] lg:my-[6rem] xl:w-[50%] xxxxl:my-[7rem]"

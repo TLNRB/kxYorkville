@@ -33,7 +33,6 @@ const submitForm = () => {
     formData.name = ''
     formData.phone = ''
     formData.email = ''
-    console.log('Form submitted')
   }
 }
 </script>
@@ -148,19 +147,20 @@ const submitForm = () => {
             </p>
           </div>
         </form>
-        <button
-          v-else
-          class="font-oswald flex flex-col w-fit text-[1rem] relative group overflow-hidden"
-        >
-          <span
-            class="font-[500] py-[.375rem] px-[1.125rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] xs:text-[1.125rem] md:py-[.5rem] md:px-[1.25rem] md:text-[1.25rem] xxl:text-[1.5rem] xxxxl:text-[1.75rem]"
-            >Schedule class</span
+        <RouterLink v-else to="/timetable">
+          <button
+            class="font-oswald flex flex-col w-fit text-[1rem] relative group overflow-hidden"
           >
-          <span
-            class="font-[500] w-[0px] py-[.375rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1.125rem] ease-in duration-[.2s] xs:text-[1.125rem] md:py-[.5rem] md:group-hover:px-[1.25rem] md:text-[1.25rem] xxl:text-[1.5rem] xxxxl:text-[1.75rem]"
-            >Schedule class</span
-          >
-        </button>
+            <span
+              class="font-[500] py-[.375rem] px-[1.125rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] xs:text-[1.125rem] md:py-[.5rem] md:px-[1.25rem] md:text-[1.25rem] xxl:text-[1.5rem] xxxxl:text-[1.75rem]"
+              >Check Timetable</span
+            >
+            <span
+              class="font-[500] w-[0px] py-[.375rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1.125rem] ease-in duration-[.2s] xs:text-[1.125rem] md:py-[.5rem] md:group-hover:px-[1.25rem] md:text-[1.25rem] xxl:text-[1.5rem] xxxxl:text-[1.75rem]"
+              >Check Timetable</span
+            >
+          </button>
+        </RouterLink>
       </div>
     </section>
     <section class="w-[100%] lg:my-auto lg:w-[48%]">
