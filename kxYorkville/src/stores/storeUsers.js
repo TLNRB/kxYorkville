@@ -6,7 +6,7 @@ import { db } from '../firebase/firebase.js'
 import { useStoreAuth } from '../stores/storeAuth.js'
 
 const usersCollectionRef = collection(db, 'users')
-let singleUserCollectionRef
+let singleUserDocRef
 let getUserSnapshot = null
 
 export const useStoreUsers = defineStore('storeUsers', {
@@ -20,30 +20,28 @@ export const useStoreUsers = defineStore('storeUsers', {
 
   actions: {
     init() {
-      // Initialize the auth store
+      // Initialize the stores
       const storeAuth = useStoreAuth()
-      // Initialize the users collection ref
-      singleUserCollectionRef = collection(db, 'users', storeAuth.user.id)
+      // Initialize the users document ref
+      singleUserDocRef = doc(db, 'users', storeAuth.user.id)
       // Get the user
       this.getUser()
     },
     // Get User
     async getUser() {
-      getUserSnapshot = onSnapshot(singleUserCollectionRef, (querySnapshot) => {
-        let singleUser = {}
-        querySnapshot.forEach((doc) => {
-          singleUser = {
-            id: doc.id,
-            firstName: doc.data().firstName,
-            lastName: doc.data().lastName,
-            username: doc.data().username,
-            email: doc.data().email,
-            favouriteClass: doc.data().favouriteClass,
-            reservedClasses: doc.data().reservedClasses,
-            imgName: doc.data().imgName,
-            img: doc.data().img
-          }
-        })
+      // Get the user document
+      getUserSnapshot = onSnapshot(singleUserDocRef, (doc) => {
+        let singleUser = {
+          id: doc.id,
+          firstName: doc.data().firstName,
+          lastName: doc.data().lastName,
+          username: doc.data().username,
+          email: doc.data().email,
+          favouriteClass: doc.data().favouriteClass,
+          reservedClasses: doc.data().reservedClasses,
+          imgName: doc.data().imgName,
+          img: doc.data().img
+        }
         this.user = singleUser
       })
     },
@@ -100,7 +98,7 @@ export const useStoreUsers = defineStore('storeUsers', {
     },
     // Update Settings
     async updateSettings(userContent) {
-      await updateDoc(doc(singleUserCollectionRef /* this.user.id */), {
+      await updateDoc(doc(singleUserDocRef), {
         username: userContent.username,
         favouriteClass: userContent.favouriteClass
       })
@@ -121,7 +119,7 @@ export const useStoreUsers = defineStore('storeUsers', {
           deleteObject(imageRef)
         }
 
-        await updateDoc(doc(singleUserCollectionRef /* this.user.id */), {
+        await updateDoc(doc(singleUserDocRef), {
           imgName: this.imgName,
           img: this.img
         })

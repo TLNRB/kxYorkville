@@ -8,7 +8,8 @@ const usernamesCollectionRef = collection(db, 'usernames')
 export const useStoreUsernames = defineStore('storeUsernames', {
   state: () => {
     return {
-      usernames: []
+      usernames: [],
+      message: ''
     }
   },
 
@@ -58,9 +59,9 @@ export const useStoreUsernames = defineStore('storeUsernames', {
         await updateDoc(doc(usernamesCollectionRef, id), {
           username: username
         })
-        return 'Username updated'
+        message = 'Username updated'
       } else {
-        return 'Username already exists'
+        message = 'Username already exists'
       }
     }
   }
