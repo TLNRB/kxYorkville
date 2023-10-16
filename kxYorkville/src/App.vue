@@ -6,17 +6,17 @@ import Navbar from './components/Navbar.vue'
 import FooterSection from './components/FooterSection.vue'
 
 /* ----- Store handling ----- */
-import { useStoreAuth } from './stores/storeAuth.js'
 import { useStoreClasses } from './stores/storeClasses.js'
 import { useStoreCoaches } from './stores/storeCoaches.js'
 import { useStoreGeneral } from './stores/storeGeneral.js'
-const storeAuth = useStoreAuth()
+import { useStoreUserService } from './stores/storeUserService.js'
 const storeClasses = useStoreClasses()
 const storeCoaches = useStoreCoaches()
 const storeGeneral = useStoreGeneral()
+const storeUserService = useStoreUserService()
 
 onMounted(() => {
-  storeAuth.init()
+  storeUserService.init()
   storeClasses.getClasses()
   storeCoaches.getCoaches()
   storeGeneral.getGeneral()

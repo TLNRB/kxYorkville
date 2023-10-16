@@ -8,8 +8,8 @@ import Review from '../Reviews/Review.vue'
 import reviewsDB from '../../../data/reviewsDB.js'
 
 //Store handling
-import { useStoreAuth } from '../../../stores/storeAuth.js'
-const storeAuth = useStoreAuth()
+import { useStoreUserService } from '../../../stores/storeUserService.js'
+const storeUserService = useStoreUserService()
 
 //Prop handling
 const { img, imgMobile, isMobile, isDesktopMedium, isDesktopLarge } = defineProps([
@@ -139,13 +139,16 @@ const autoResize = (event) => {
       class="w-[230px] flex flex-col gap-[2rem] mt-[3rem] mx-auto items-center p-[1.5rem] bg-bgNormal border-[1px] border-textDarker rounded-[15px] drop-shadow-xl xs:w-[250px] sm:w-[350px] sm:p-[2rem] md:rounded-[20px] md:w-[400px] lg:w-[824px] xxl:w-[1248px] xxxxl:w-[1548px]"
     >
       <textarea
-        :disabled="!storeAuth.user.id"
+        :disabled="!storeUserService.userAuth.id"
         v-model="reviewText"
         placeholder="Leave a review..."
         class="w-[100%] min-h-[2rem] max-h-[50rem] py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor text-[.875rem] outline-none placeholder:text-textDarker xs:py-[.375rem] sm:text-[1rem] md:py-[.5rem]"
         @input="autoResize"
       ></textarea>
-      <div v-if="storeAuth.user.id" class="flex justify-center gap-[1rem] mt-auto md:gap-[1.5rem]">
+      <div
+        v-if="storeUserService.userAuth.id"
+        class="flex justify-center gap-[1rem] mt-auto md:gap-[1.5rem]"
+      >
         <!-- Review button -->
         <button type="submit" class="font-oswald flex flex-col w-fit text-[1rem] relative group">
           <span
@@ -175,7 +178,7 @@ const autoResize = (event) => {
       </div>
       <RouterLink
         to="/account"
-        v-else="!storeAuth.user.id"
+        v-else
         class="text-bgColorLightest italic text-[.875rem] sm:text-[1rem] xl:text-[1.125rem]"
       >
         Login to leave a review

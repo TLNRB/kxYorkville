@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
 import { collection, onSnapshot, doc, updateDoc, setDoc } from 'firebase/firestore'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
-import { db } from '../firebase/firebase.js'
-/* ----- Import stores ----- */
-import { useStoreAuth } from '../stores/storeAuth.js'
+import { auth, db } from '../firebase/firebase.js'
+import { onAuthStateChanged } from 'firebase/auth'
 
 const usersCollectionRef = collection(db, 'users')
 let singleUserDocRef
@@ -12,7 +11,8 @@ let getUserSnapshot = null
 export const useStoreUsers = defineStore('storeUsers', {
   state: () => {
     return {
-      user: {},
+      userAuth: {},
+      userData: {},
       imgName: null,
       img: null
     }
@@ -20,8 +20,20 @@ export const useStoreUsers = defineStore('storeUsers', {
 
   actions: {
     init() {
-      // Initialize the stores
-      const storeAuth = useStoreAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.user.id = user.uid
+          this.user.email = user.email
+          // Get the user by unique id
+          storeUsers.init()
+          /* this.router.push('/admin') */
+        } else {
+          this.user = {}
+          storeUsers.clearUser()
+        }
+      })
+    },
+    init2() {
       // Initialize the users document ref
       singleUserDocRef = doc(db, 'users', storeAuth.user.id)
       // Get the user
@@ -49,15 +61,15 @@ export const useStoreUsers = defineStore('storeUsers', {
       this.user = []
       if (getUserSnapshot) getUserSnapshot() // unsubscribe from any active listener
     },
-    // Add User ***** NOT DONE *****
+    // Add User
     async addUser(userContent) {
       await setDoc(doc(usersCollectionRef, storeAuth.user.id), {
         firstName: userContent.firstName,
         lastName: userContent.lastName,
         username: userContent.username,
         email: userContent.email,
-        favouriteClass: userContent.favouriteClass,
-        reservedClasses: userContent.reservedClasses,
+        favouriteClass: '',
+        reservedClasses: [],
         imgName: this.imgName,
         img: this.img
       })

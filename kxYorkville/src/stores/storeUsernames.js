@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, doc, addDoc, deleteDoc, updateDoc } from 'firebase/firestore'
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
+import { collection, onSnapshot, doc, addDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase/firebase.js'
 
 const usernamesCollectionRef = collection(db, 'usernames')
@@ -9,7 +8,8 @@ export const useStoreUsernames = defineStore('storeUsernames', {
   state: () => {
     return {
       usernames: [],
-      message: ''
+      message: '',
+      error: ''
     }
   },
 
@@ -41,9 +41,8 @@ export const useStoreUsernames = defineStore('storeUsernames', {
         await addDoc(usernamesCollectionRef, {
           username: username
         })
-        return 'Username created'
       } else {
-        return 'Username already exists'
+        error = 'Username already exists'
       }
     },
     // Update Username
@@ -61,7 +60,7 @@ export const useStoreUsernames = defineStore('storeUsernames', {
         })
         message = 'Username updated'
       } else {
-        message = 'Username already exists'
+        error = 'Username already exists'
       }
     }
   }

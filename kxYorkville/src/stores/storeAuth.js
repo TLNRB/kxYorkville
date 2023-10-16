@@ -1,43 +1,33 @@
 import { defineStore } from 'pinia'
 import { auth } from '../firebase/firebase.js'
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from 'firebase/auth'
-/* ----- Import stores ----- */
-import { useStoreUsers } from '../stores/storeUsers.js'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 export const useStoreAuth = defineStore('storeAuth', {
   state: () => ({
-    user: {},
+    userData: {},
     error: null
   }),
 
   actions: {
-    init() {
-      const storeUsers = useStoreUsers()
-
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          this.user.id = user.uid
-          this.user.email = user.email
-          // Get the user by unique id
-          storeUsers.init()
-          /* this.router.push('/admin') */
-        } else {
-          this.user = {}
-          storeUsers.clearUser()
-        }
-      })
-    },
+    init() {},
     //Register User
     registerUser(credentials) {
+      // Setting temp user data
+      const userData = {
+        firstName: credentials.firstName,
+        lastName: credentials.lastName,
+        username: credentials.username,
+        email: credentials.email,
+        favouriteClass: '',
+        reservedClasses: [],
+        imgName: '',
+        img: ''
+      }
       createUserWithEmailAndPassword(auth, credentials.email, credentials.password)
-        .then((userCredentials) => {
+        .then(() => {
           //Registered
-          const user = userCredentials.user
+          // Adding user data to state
+          this.userData = userData
           this.error = ''
         })
         .catch((error) => {
@@ -51,9 +41,8 @@ export const useStoreAuth = defineStore('storeAuth', {
     //Login User
     loginUser(credentials) {
       signInWithEmailAndPassword(auth, credentials.email, credentials.password)
-        .then((userCredentials) => {
+        .then(() => {
           //Logged in
-          const user = userCredentials.user
           this.error = ''
         })
         .catch((error) => {

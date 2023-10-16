@@ -4,7 +4,9 @@ import { RouterLink, useRouter } from 'vue-router'
 
 /* ----- Store handling ----- */
 import { useStoreAuth } from '../stores/storeAuth.js'
+import { useStoreUserService } from '../stores/storeUserService.js'
 const storeAuth = useStoreAuth()
+const storeUserService = useStoreUserService()
 
 //Nav and dropdown click event
 const isMenuOpen = ref(false)
@@ -128,14 +130,14 @@ onUnmounted(() => {
       </RouterLink>
       <RouterLink
         to="/account"
-        v-if="!storeAuth.user.id"
+        v-if="!storeUserService.userAuth.id"
         @click="isMenuOpen = false"
         class="ml-auto font-oswald tracking-[1px] drop-shadow-md z-[2]"
       >
         login
       </RouterLink>
       <button
-        v-else="storeAuth.user.id"
+        v-else
         @click="toggleLogin"
         class="ml-auto w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center z-[2]"
       >
@@ -151,7 +153,7 @@ onUnmounted(() => {
           >
             <font-awesome-icon class="text-[1.25rem]" :icon="['fas', 'user']" />
           </div>
-          <p class="font-oswald text-[1.125rem]">username</p>
+          <p class="font-oswald text-[1.125rem]">{{ storeUserService.userData.username }}</p>
         </div>
         <div class="my-[.5rem]">
           <RouterLink
