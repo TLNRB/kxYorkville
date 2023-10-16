@@ -153,7 +153,13 @@ onUnmounted(() => {
           >
             <font-awesome-icon class="text-[1.25rem]" :icon="['fas', 'user']" />
           </div>
-          <p class="font-oswald text-[1.125rem]">{{ storeUserService.userData.username }}</p>
+          <p class="font-oswald text-[1.125rem]">
+            {{
+              storeUserService.userData.username === undefined
+                ? storeAuth.userData.username
+                : storeUserService.userData.username
+            }}
+          </p>
         </div>
         <div class="my-[.5rem]">
           <RouterLink
