@@ -6,6 +6,8 @@ import {
   signOut,
   onAuthStateChanged
 } from 'firebase/auth'
+/* ----- Import stores ----- */
+import { useStoreUsers } from '../stores/storeUsers.js'
 
 export const useStoreAuth = defineStore('storeAuth', {
   state: () => ({
@@ -15,13 +17,18 @@ export const useStoreAuth = defineStore('storeAuth', {
 
   actions: {
     init() {
+      const storeUsers = useStoreUsers()
+
       onAuthStateChanged(auth, (user) => {
         if (user) {
           this.user.id = user.uid
           this.user.email = user.email
+          // Get the user by unique id
+          storeUsers.init()
           /* this.router.push('/admin') */
         } else {
           this.user = {}
+          storeUsers.clearUser()
         }
       })
     },

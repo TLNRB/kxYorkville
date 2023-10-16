@@ -2,7 +2,9 @@
 import { ref, reactive } from 'vue'
 /* ----- Import stores ----- */
 import { useStoreAuth } from '../stores/storeAuth.js'
+import { useStoreUsers } from '../stores/storeUsers.js'
 const storeAuth = useStoreAuth()
+const storeUsers = useStoreUsers()
 
 // Form display
 const loginActive = ref(true)
