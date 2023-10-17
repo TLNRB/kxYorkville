@@ -5,6 +5,7 @@ import { auth, db } from '../firebase/firebase.js'
 import { onAuthStateChanged } from 'firebase/auth'
 /*----- Import store -----*/
 import { useStoreAuth } from './storeAuth.js'
+import { useStoreUsernames } from './storeUsernames.js'
 
 const usersCollectionRef = collection(db, 'users')
 
@@ -64,6 +65,7 @@ export const useStoreUserService = defineStore('storeUserService', {
     },
     //--Add User Data
     async addUserData(userData) {
+      useStoreUsernames().addUsername(userData.username, this.userAuth.id)
       await setDoc(doc(usersCollectionRef, this.userAuth.id), {
         firstName: userData.firstName,
         lastName: userData.lastName,

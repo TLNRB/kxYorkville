@@ -52,6 +52,9 @@ const registerCredentials = reactive({
   password: ''
 })
 
+// Temporary values
+let error = ref('')
+
 // Edit handler
 const editUserActive = ref(false)
 
@@ -61,6 +64,10 @@ const onSubmit = () => {
   if (loginActive.value) {
     //Check if the form fields are empty
     if (!loginCredentials.email || !loginCredentials.password) {
+      storeAuth.error = 'Please fill in all the fields'
+      setInterval(() => {
+        storeAuth.error = ''
+      }, 5000)
     } else {
       storeAuth.loginUser(loginCredentials)
       loginCredentials.email = ''
@@ -77,15 +84,27 @@ const onSubmit = () => {
       !registerCredentials.email ||
       !registerCredentials.password
     ) {
+      storeAuth.error = 'Please fill in all the fields'
+      setInterval(() => {
+        storeAuth.error = ''
+      }, 5000)
     } else {
-      storeAuth.registerUser(registerCredentials)
-      registerCredentials.firstName = ''
-      registerCredentials.lastName = ''
-      registerCredentials.username = ''
-      registerCredentials.email = ''
-      registerCredentials.password = ''
-      // Disable the edit section for possible editing from prvious user
-      editUserActive.value = false
+      // Check if the username already exists
+      if (storeUsernames.checkUsername(registerCredentials.username)) {
+        error.value = 'Username already exists'
+        setInterval(() => {
+          error.value = ''
+        }, 5000)
+      } else {
+        storeAuth.registerUser(registerCredentials)
+        registerCredentials.firstName = ''
+        registerCredentials.lastName = ''
+        registerCredentials.username = ''
+        registerCredentials.email = ''
+        registerCredentials.password = ''
+        // Disable the edit section for possible editing from prvious user
+        editUserActive.value = false
+      }
     }
   }
 }
@@ -140,6 +159,8 @@ const editUserSettings = () => {
 const saveEditUserSettings = async () => {
   // Checking if the image changed
   storeUserService.updateImage(tempID.value)
+  // Updating the username
+  storeUsernames.updateUsername(user.username, tempID.value)
   storeUserService.updateSettings(user, tempID.value)
   valueClear()
   tempID.value = ''
@@ -153,11 +174,6 @@ const closeEditUserSettings = () => {
   tempID.value = ''
   toggleEdit()
 }
-
-onMounted(() => {
-  // Get all the used useranmes
-  storeUsernames.getUsernames()
-})
 </script>
 
 <template>
@@ -243,28 +259,28 @@ onMounted(() => {
               type="text"
               placeholder="First name"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': storeAuth.error || storeUsernames.error }"
+              :class="{ 'border-b-red-600': storeAuth.error || error }"
             />
             <input
               v-model="registerCredentials.lastName"
               type="text"
               placeholder="Last name"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': storeAuth.error || storeUsernames.error }"
+              :class="{ 'border-b-red-600': storeAuth.error || error }"
             />
             <input
               v-model="registerCredentials.username"
               type="text"
               placeholder="Username"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': storeAuth.error || storeUsernames.error }"
+              :class="{ 'border-b-red-600': storeAuth.error || error }"
             />
             <input
               v-model="registerCredentials.email"
               type="email"
               placeholder="Email"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': storeAuth.error || storeUsernames.error }"
+              :class="{ 'border-b-red-600': storeAuth.error || error }"
             />
 
             <input
@@ -272,13 +288,13 @@ onMounted(() => {
               type="password"
               placeholder="Password"
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
-              :class="{ 'border-b-red-600': storeAuth.error || storeUsernames.error }"
+              :class="{ 'border-b-red-600': storeAuth.error || error }"
             />
             <p v-if="storeAuth.error" class="text-red-600">
               {{ storeAuth.error }}
             </p>
-            <p v-else-if="storeUsernames.error" class="text-red-600">
-              {{ storeAuth.error }}
+            <p v-else-if="error" class="text-red-600">
+              {{ error }}
             </p>
             <button
               type="submit"

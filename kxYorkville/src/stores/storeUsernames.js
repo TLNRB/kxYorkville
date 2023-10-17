@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, doc, addDoc, updateDoc } from 'firebase/firestore'
+import { collection, onSnapshot, doc, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase/firebase.js'
 
 const usernamesCollectionRef = collection(db, 'usernames')
@@ -32,7 +32,7 @@ export const useStoreUsernames = defineStore('storeUsernames', {
       for (let i = 0; i < this.usernames.length; i++) {
         if (this.usernames[i].username === username) {
           condition = true
-          return
+          break
         }
       }
       if (condition) {
@@ -41,8 +41,8 @@ export const useStoreUsernames = defineStore('storeUsernames', {
       }
     },
     // Add Username
-    async addUsername(username) {
-      await addDoc(usernamesCollectionRef, {
+    async addUsername(username, id) {
+      await setDoc(doc(usernamesCollectionRef, id), {
         username: username
       })
     },

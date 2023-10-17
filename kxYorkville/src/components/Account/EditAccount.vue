@@ -2,10 +2,11 @@
 import { ref } from 'vue'
 /* ----- Import stores ----- */
 import { useStoreAuth } from '../../stores/storeAuth.js'
-
 import { useStoreUserService } from '../../stores/storeUserService.js'
+import { useStoreUsernames } from '../../stores/storeUsernames.js'
 const storeAuth = useStoreAuth()
 const storeUserServices = useStoreUserService()
+const storeUsernames = useStoreUsernames()
 
 //Prop handling
 const { user } = defineProps(['user'])
@@ -27,16 +28,23 @@ const handleChange = (e) => {
 //--Handle form submission
 const saveChanges = () => {
   if (
-    !user.username ||
-    !user.favouriteClass ||
     (!storeUserServices.imgName && storeUserServices.img) ||
     (storeUserServices.imgName && !storeUserServices.img)
   ) {
     error.value = 'Fill in every information or wait for image upload (5s)'
+    setInterval(() => {
+      error.value = ''
+    }, 5000)
   } else {
-    emit('savedChanges')
-    error.value = ''
-    image.value = ''
+    if (storeUsernames.checkUsername(user.username)) {
+      error.value = 'Username already exists'
+      setInterval(() => {
+        error.value = ''
+      }, 5000)
+    } else {
+      emit('savedChanges')
+      image.value = ''
+    }
   }
 }
 
