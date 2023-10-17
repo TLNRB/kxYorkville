@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, doc, updateDoc, getDoc, setDoc } from 'firebase/firestore'
+import { collection, doc, updateDoc, getDoc, setDoc } from 'firebase/firestore'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
 import { auth, db } from '../firebase/firebase.js'
 import { onAuthStateChanged } from 'firebase/auth'
