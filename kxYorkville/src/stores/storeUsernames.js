@@ -7,9 +7,7 @@ const usernamesCollectionRef = collection(db, 'usernames')
 export const useStoreUsernames = defineStore('storeUsernames', {
   state: () => {
     return {
-      usernames: [],
-      message: '',
-      error: ''
+      usernames: []
     }
   },
 
@@ -28,8 +26,8 @@ export const useStoreUsernames = defineStore('storeUsernames', {
         this.usernames = usernames
       })
     },
-    // Add Username
-    async addUsername(username) {
+    // Check Username
+    checkUsername(username) {
       let condition = false
       for (let i = 0; i < this.usernames.length; i++) {
         if (this.usernames[i].username === username) {
@@ -37,31 +35,22 @@ export const useStoreUsernames = defineStore('storeUsernames', {
           return
         }
       }
-      if (condition === false) {
-        await addDoc(usernamesCollectionRef, {
-          username: username
-        })
-      } else {
-        error = 'Username already exists'
+      if (condition) {
+        // Username already exists
+        return true
       }
+    },
+    // Add Username
+    async addUsername(username) {
+      await addDoc(usernamesCollectionRef, {
+        username: username
+      })
     },
     // Update Username
     async updateUsername(username, id) {
-      let condition = false
-      for (let i = 0; i < this.usernames.length; i++) {
-        if (this.usernames[i].username === username) {
-          condition = true
-          return
-        }
-      }
-      if (condition === false) {
-        await updateDoc(doc(usernamesCollectionRef, id), {
-          username: username
-        })
-        message = 'Username updated'
-      } else {
-        error = 'Username already exists'
-      }
+      await updateDoc(doc(usernamesCollectionRef, id), {
+        username: username
+      })
     }
   }
 })
