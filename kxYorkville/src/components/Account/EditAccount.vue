@@ -1,7 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 /* ----- Import stores ----- */
-import { useStoreUserService } from '../../stores/storeUserServices.js'
+import { useStoreAuth } from '../../stores/storeAuth.js'
+
+import { useStoreUserService } from '../../stores/storeUserService.js'
+const storeAuth = useStoreAuth()
 const storeUserServices = useStoreUserService()
 
 //Prop handling
@@ -25,7 +28,7 @@ const handleChange = (e) => {
 const saveChanges = () => {
   if (
     !user.username ||
-    !user.favouritClass ||
+    !user.favouriteClass ||
     (!storeUserServices.imgName && storeUserServices.img) ||
     (storeUserServices.imgName && !storeUserServices.img)
   ) {
@@ -60,9 +63,22 @@ const cancelChanges = () => {
       <div
         class="flex flex-col gap-[1.25rem] items-center p-[1.25rem] bg-bgNormal border-[1px] border-textNofile xs:flex-row lg:gap-[1.5rem]"
       >
-        <div
-          class="min-w-[75px] min-h-[75px] bg-textGray rounded-full xs:min-w-[100px] xs:min-h-[100px] sm:min-w-[125px] sm:min-h-[125px] md:min-w-[100px] md:min-h-[100px] lg:min-w-[125px] lg:min-h-[125px]"
-        ></div>
+        <div>
+          <div
+            v-if="!user.img"
+            class="flex justify-center items-center min-w-[75px] min-h-[75px] bg-primaryColor rounded-full xs:min-w-[100px] xs:min-h-[100px] sm:min-w-[125px] sm:min-h-[125px] md:min-w-[100px] md:min-h-[100px] lg:min-w-[125px] lg:min-h-[125px]"
+          >
+            <font-awesome-icon
+              class="text-[2.5rem] xs:text-[3.25rem] sm:text-[4rem] md:text-[3.25rem] lg:text-[4rem]"
+              :icon="['fas', 'user']"
+            />
+          </div>
+          <div
+            v-else
+            class="flex justify-center items-center w-[75px] h-[75px] bg-cover bg-center-top-mid bg-no-repeat rounded-full xs:w-[100px] xs:h-[100px] sm:w-[125px] sm:h-[125px] md:w-[100px] md:h-[100px] lg:w-[125px] lg:h-[125px]"
+            :style="`background-image: url('${user.img}')`"
+          ></div>
+        </div>
         <div class="flex flex-col my-auto">
           <div class="relative">
             <label
@@ -97,7 +113,7 @@ const cancelChanges = () => {
           <input
             type="text"
             v-model="user.username"
-            placeholder="Username..."
+            :placeholder="user.username ? user.username : storeAuth.userData.username"
             class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
           />
         </div>
@@ -105,16 +121,16 @@ const cancelChanges = () => {
         <div
           class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
         >
-          <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Favourit class</h3>
+          <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Favourite class</h3>
           <div class="w-[100%] relative">
             <select
-              v-model="user.favouritClass"
+              v-model="user.favouriteClass"
               class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
             >
               <option disabled>Classes</option>
-              <option value="yoga">Yoga</option>
-              <option value="box">Box</option>
-              <option value="crossfit">Crossfit</option>
+              <option value="Yoga">Yoga</option>
+              <option value="Box">Box</option>
+              <option value="Crossfit">Crossfit</option>
             </select>
             <font-awesome-icon
               :icon="['fas', 'caret-down']"
@@ -125,10 +141,7 @@ const cancelChanges = () => {
       </div>
     </div>
     <!-- Error -->
-    <p
-      v-show="error"
-      class="text-[.75rem] text-red-500 sm:text-[.875rem] sm:text-center xl:text-[1rem]"
-    >
+    <p v-show="error" class="text-[.75rem] text-red-500 sm:text-[.875rem] xl:text-[1rem]">
       {{ error }}
     </p>
     <div class="flex justify-start gap-[1rem] mt-[-1rem] sm:mt-0 md:mt-[-1rem] md:gap-[1.5rem]">
@@ -170,9 +183,20 @@ input:-webkit-autofill:focus {
   transition: background-color 10000s ease-in-out 0s;
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}
+
 input[type=file], /* FF, IE7+, chrome (except button) */
 input[type=file]::-webkit-file-upload-button {
   /* chromes and blink button */
   cursor: pointer;
+}
+
+::placeholder {
+  color: #606060;
 }
 </style>

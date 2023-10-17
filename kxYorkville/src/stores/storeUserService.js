@@ -58,6 +58,7 @@ export const useStoreUserService = defineStore('storeUserService', {
         else {
           this.userAuth = {}
           this.userData = {}
+          useStoreAuth().userData = {}
         }
       })
     },
@@ -73,6 +74,76 @@ export const useStoreUserService = defineStore('storeUserService', {
         imgName: '',
         img: ''
       })
+    },
+    //--Get Image Url
+    async getImageUrl(imageName, file) {
+      // Create a root reference
+      const storage = getStorage()
+      // Create a reference to the image
+      const imageRef = ref(storage, imageName)
+
+      this.imgName = imageName
+      await uploadBytes(imageRef, file)
+      await getDownloadURL(ref(storage, imageName)).then((url) => {
+        this.img = url
+      })
+    },
+    //--Close Settings Editing
+    closeEditingSettings() {
+      // Check if the image has been changed
+      if (this.userData.img !== this.img && this.imgName != null && this.img != null) {
+        // Create a reference to the image
+        const imageRef = ref(getStorage(), this.imgName)
+        //Check if another class uses the same picture
+        let imageCondition = false
+        if (this.userData.imgName === this.imgName) {
+          imageCondition = true
+        }
+
+        if (!imageCondition) {
+          deleteObject(imageRef)
+        }
+      }
+      this.img = null
+      this.imgName = null
+    },
+    // Update Settings
+    async updateSettings(userContent, id) {
+      await updateDoc(doc(usersCollectionRef, id), {
+        username: userContent.username,
+        favouriteClass: userContent.favouriteClass
+      })
+    },
+    // Update Settings Image
+    async updateImage(id) {
+      // Check if the image has been changed
+      if (this.userData.img) {
+      }
+      if (this.userData.img !== this.img && this.imgName != null && this.img != null) {
+        // Create a reference to the image
+        const imageRef = ref(getStorage(), this.userData.imgName)
+        //Check if another class uses the same picture
+        let imageCondition = false
+        // If the user didn't have an image before
+        if (this.userData.imgName === '') {
+          imageCondition = true
+        }
+        // If the user had an image before
+        else if (this.userData.imgName === this.imgName) {
+          imageCondition = true
+        }
+
+        if (!imageCondition) {
+          deleteObject(imageRef)
+        }
+
+        await updateDoc(doc(usersCollectionRef, id), {
+          imgName: this.imgName,
+          img: this.img
+        })
+      }
+      this.imgName = null
+      this.img = null
     }
   }
 })

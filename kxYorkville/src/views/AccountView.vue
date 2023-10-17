@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import EditAccount from '../components/Account/EditAccount.vue'
 /* ----- Import stores ----- */
 import { useStoreAuth } from '../stores/storeAuth.js'
 import { useStoreUsernames } from '../stores/storeUsernames.js'
@@ -10,16 +11,30 @@ const storeUserService = useStoreUserService()
 
 // Form display
 const loginActive = ref(true)
+const registerActive = ref(false)
 const settingsActive = ref(true)
+const reservedActive = ref(false)
 const active = 'text-primaryColor border-primaryColor'
 const inactive = 'text-textGray border-textGray'
 
 const toggleLogin = () => {
-  loginActive.value = !loginActive.value
+  loginActive.value = true
+  registerActive.value = false
+}
+
+const toggleRegister = () => {
+  loginActive.value = false
+  registerActive.value = true
 }
 
 const toggleSettings = () => {
-  settingsActive.value = !settingsActive.value
+  settingsActive.value = true
+  reservedActive.value = false
+}
+
+const toggleReserved = () => {
+  settingsActive.value = false
+  reservedActive.value = true
 }
 
 //----- Form handling -----//
@@ -37,6 +52,9 @@ const registerCredentials = reactive({
   password: ''
 })
 
+// Edit handler
+const editUserActive = ref(false)
+
 // Form after submiting the form
 const onSubmit = () => {
   //Check if the user logs in or registers
@@ -47,8 +65,10 @@ const onSubmit = () => {
       storeAuth.loginUser(loginCredentials)
       loginCredentials.email = ''
       loginCredentials.password = ''
+      // Disable the edit section for possible editing from prvious user
+      editUserActive.value = false
     }
-  } else {
+  } else if (registerActive.value) {
     //Check if the form fields are empty
     if (
       !registerCredentials.firstName ||
@@ -64,6 +84,8 @@ const onSubmit = () => {
       registerCredentials.username = ''
       registerCredentials.email = ''
       registerCredentials.password = ''
+      // Disable the edit section for possible editing from prvious user
+      editUserActive.value = false
     }
   }
 }
@@ -72,7 +94,7 @@ const onSubmit = () => {
 //--V-model for coach inputs
 const user = reactive({
   username: '',
-  favouritClass: '',
+  favouriteClass: '',
   img: '',
   imgName: ''
 })
@@ -84,7 +106,7 @@ const tempID = ref()
 //--Clear values for class inputs
 const valueClear = () => {
   ;(user.username = ''),
-    (user.favouritClass = ''),
+    (user.favouriteClass = ''),
     (user.img = ''),
     (user.imgName = ''),
     (image.value = null)
@@ -94,10 +116,8 @@ const valueClear = () => {
 //--Image upload
 const handleImageUpload = (file) => {
   image.value = file
-  storeCoaches.getImageUrl(file.value.name, file.value)
+  storeUserService.getImageUrl(file.value.name, file.value)
 }
-
-const editUserActive = ref(false)
 
 //--Toggle edit section
 const toggleEdit = () => {
@@ -105,11 +125,11 @@ const toggleEdit = () => {
 }
 
 //--Edit coach
-const editUserSettings = (id) => {
+const editUserSettings = () => {
   toggleEdit()
   // Set the user data
   user.username = storeUserService.userData.username
-  user.favouritClass = storeUserService.userData.favouritClass
+  user.favouriteClass = storeUserService.userData.favouriteClass
   user.img = storeUserService.userData.img
   user.imgName = storeUserService.userData.imgName
   // Storing the ID temporarily
@@ -120,7 +140,7 @@ const editUserSettings = (id) => {
 const saveEditUserSettings = async () => {
   // Checking if the image changed
   storeUserService.updateImage(tempID.value)
-  storeUserService.updateUserSettings(user, tempID.value)
+  storeUserService.updateSettings(user, tempID.value)
   valueClear()
   tempID.value = ''
   toggleEdit()
@@ -128,7 +148,7 @@ const saveEditUserSettings = async () => {
 
 //--Close user editing
 const closeEditUserSettings = () => {
-  storeCoaches.closeEditing(tempID.value)
+  storeUserService.closeEditingSettings()
   valueClear()
   tempID.value = ''
   toggleEdit()
@@ -167,8 +187,8 @@ onMounted(() => {
           </button>
           <button
             class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-            :class="!loginActive ? active : inactive"
-            @click="toggleLogin"
+            :class="registerActive ? active : inactive"
+            @click="toggleRegister"
           >
             Register
           </button>
@@ -277,7 +297,7 @@ onMounted(() => {
         </div>
       </div>
       <!-- Account -->
-      <div v-else="isLoggedIn">
+      <div v-else>
         <div
           class="flex items-center gap-[1.5rem] my-[2rem] font-oswald text-textGray xs:my-[4rem] sm:mt-[6rem] lg:text-[1.25rem] xxl:mt-[8rem] xxxl:mt-[10rem] xxxxl:mt-[11rem]"
         >
@@ -290,8 +310,8 @@ onMounted(() => {
           </button>
           <button
             class="pb-[.125rem] border-b-[1px] duration-[.15s] ease-in-out z-[5] cursor-pointer"
-            :class="!settingsActive ? active : inactive"
-            @click="toggleSettings"
+            :class="reservedActive ? active : inactive"
+            @click="toggleReserved"
           >
             Reserved Classes
           </button>
@@ -307,7 +327,7 @@ onMounted(() => {
               >
                 <div>
                   <div
-                    v-if="!storeUserService.userData.imgName"
+                    v-if="!storeUserService.userData.img"
                     class="flex justify-center items-center min-w-[75px] min-h-[75px] bg-primaryColor rounded-full xs:min-w-[100px] xs:min-h-[100px] sm:min-w-[125px] sm:min-h-[125px] md:min-w-[100px] md:min-h-[100px] lg:min-w-[125px] lg:min-h-[125px]"
                   >
                     <font-awesome-icon
@@ -317,13 +337,9 @@ onMounted(() => {
                   </div>
                   <div
                     v-else
-                    class="flex justify-center items-center min-w-[75px] min-h-[75px] rounded-full xs:min-w-[100px] xs:min-h-[100px] sm:min-w-[125px] sm:min-h-[125px] md:min-w-[100px] md:min-h-[100px] lg:min-w-[125px] lg:min-h-[125px]"
-                  >
-                    <img
-                      :src="storeUserService.userData.img"
-                      :alt="storeUserService.userData.imgName"
-                    />
-                  </div>
+                    class="flex justify-center items-center w-[75px] h-[75px] bg-cover bg-center-top-mid bg-no-repeat rounded-full xs:w-[100px] xs:h-[100px] sm:w-[125px] sm:h-[125px] md:w-[100px] md:h-[100px] lg:w-[125px] lg:h-[125px]"
+                    :style="`background-image: url('${storeUserService.userData.img}')`"
+                  ></div>
                 </div>
 
                 <p
@@ -351,7 +367,11 @@ onMounted(() => {
                   <p
                     class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
                   >
-                    {{ storeUserService.userData.username }}
+                    {{
+                      storeUserService.userData.username === undefined
+                        ? storeAuth.userData.username
+                        : storeUserService.userData.username
+                    }}
                   </p>
                 </div>
                 <!-- Favourit Class -->
@@ -359,15 +379,15 @@ onMounted(() => {
                   class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
                 >
                   <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">
-                    Favourit class
+                    Favourite class
                   </h3>
                   <div class="w-[100%] relative">
                     <p
                       class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
                     >
                       {{
-                        storeUserService.userData.favouritClass
-                          ? storeUserService.userData.favouritClass
+                        storeUserService.userData.favouriteClass
+                          ? storeUserService.userData.favouriteClass
                           : 'No class selected'
                       }}
                     </p>
@@ -389,7 +409,7 @@ onMounted(() => {
               >
             </button>
           </div>
-          <EditSettings
+          <EditAccount
             v-else
             :user="user"
             @savedChanges="saveEditUserSettings"
@@ -398,7 +418,7 @@ onMounted(() => {
           />
         </div>
         <!-- Reserved Classes -->
-        <div v-else="!settingsActive">
+        <div v-else="">
           <div class="bg-bgNormal border-[1px] border-primaryColor xs:flex-row">
             <div
               class="flex flex-col gap-[2rem] p-[1.5rem] border-b-[1px] border-bgColorDark sm:gap-[1.5rem] md:gap-[2rem] lg:gap-[1.5rem] xxxl:flex-row xxxl:items-center xxxl:justify-between xxxxl:p-[2rem]"
@@ -490,5 +510,9 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
   -webkit-text-fill-color: #e1e1e1;
   transition: background-color 10000s ease-in-out 0s;
+}
+
+::placeholder {
+  color: #606060;
 }
 </style>

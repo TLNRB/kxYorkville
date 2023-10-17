@@ -136,22 +136,36 @@ onUnmounted(() => {
       >
         login
       </RouterLink>
-      <button
-        v-else
-        @click="toggleLogin"
-        class="ml-auto w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center z-[2]"
-      >
-        <font-awesome-icon class="text-[1rem]" :icon="['fas', 'user']" />
-      </button>
+      <div v-else @click="toggleLogin" class="ml-auto z-[2]">
+        <button
+          v-if="!storeUserService.userData.img"
+          class="w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center"
+        >
+          <font-awesome-icon class="text-[1rem]" :icon="['fas', 'user']" />
+        </button>
+        <button
+          v-else
+          class="w-[30px] h-[30px] rounded-full flex justify-center items-center bg-cover bg-center-top-mid bg-no-repeat"
+          :style="`background-image: url('${storeUserService.userData.img}')`"
+        ></button>
+      </div>
       <div
         class="w-[250px] absolute top-[3rem] right-[1rem] rounded-[10px] bg-bgNavDark drop-shadow-2xl"
         :class="{ hidden: !isLoginOpen }"
       >
         <div class="p-[1rem] flex items-center gap-[1rem] border-b border-textDarker">
-          <div
-            class="w-[40px] h-[40px] rounded-full bg-primaryColor flex justify-center items-center"
-          >
-            <font-awesome-icon class="text-[1.25rem]" :icon="['fas', 'user']" />
+          <div>
+            <div
+              v-if="!storeUserService.userData.img"
+              class="w-[40px] h-[40px] rounded-full bg-primaryColor flex justify-center items-center"
+            >
+              <font-awesome-icon class="text-[1.25rem]" :icon="['fas', 'user']" />
+            </div>
+            <div
+              v-else
+              class="w-[40px] h-[40px] rounded-full flex justify-center items-center bg-cover bg-center-top-mid bg-no-repeat"
+              :style="`background-image: url('${storeUserService.userData.img}')`"
+            ></div>
           </div>
           <p class="font-oswald text-[1.125rem]">
             {{
