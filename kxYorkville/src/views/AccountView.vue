@@ -68,6 +68,72 @@ const onSubmit = () => {
   }
 }
 
+/* ===== User Settings ===== */
+//--V-model for coach inputs
+const user = reactive({
+  username: '',
+  favouritClass: '',
+  img: '',
+  imgName: ''
+})
+
+//--Temporary values
+const image = ref(null)
+const tempID = ref()
+
+//--Clear values for class inputs
+const valueClear = () => {
+  ;(user.username = ''),
+    (user.favouritClass = ''),
+    (user.img = ''),
+    (user.imgName = ''),
+    (image.value = null)
+}
+
+/*----- Edit Section -----*/
+//--Image upload
+const handleImageUpload = (file) => {
+  image.value = file
+  storeCoaches.getImageUrl(file.value.name, file.value)
+}
+
+const editUserActive = ref(false)
+
+//--Toggle edit section
+const toggleEdit = () => {
+  editUserActive.value = !editUserActive.value
+}
+
+//--Edit coach
+const editUserSettings = (id) => {
+  toggleEdit()
+  // Set the user data
+  user.username = storeUserService.userData.username
+  user.favouritClass = storeUserService.userData.favouritClass
+  user.img = storeUserService.userData.img
+  user.imgName = storeUserService.userData.imgName
+  // Storing the ID temporarily
+  tempID.value = storeUserService.userData.id
+}
+
+//--Save user editing
+const saveEditUserSettings = async () => {
+  // Checking if the image changed
+  storeUserService.updateImage(tempID.value)
+  storeUserService.updateUserSettings(user, tempID.value)
+  valueClear()
+  tempID.value = ''
+  toggleEdit()
+}
+
+//--Close user editing
+const closeEditUserSettings = () => {
+  storeCoaches.closeEditing(tempID.value)
+  valueClear()
+  tempID.value = ''
+  toggleEdit()
+}
+
 onMounted(() => {
   // Get all the used useranmes
   storeUsernames.getUsernames()
@@ -231,90 +297,106 @@ onMounted(() => {
           </button>
         </div>
         <!-- Settings -->
-        <form v-if="settingsActive" class="flex flex-col gap-[3rem]">
-          <!-- Profile Picture -->
-          <div class="max-w-[750px]">
-            <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Profile Picture</h2>
-            <div
-              class="flex flex-col gap-[1.25rem] items-center p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor xs:flex-row lg:gap-[1.5rem]"
-            >
+        <div v-if="settingsActive">
+          <div v-if="!editUserActive" class="flex flex-col gap-[3rem]">
+            <!-- Profile Picture -->
+            <div class="max-w-[750px]">
+              <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Profile Picture</h2>
               <div
-                class="min-w-[75px] min-h-[75px] bg-textGray rounded-full xs:min-w-[100px] xs:min-h-[100px] sm:min-w-[125px] sm:min-h-[125px] md:min-w-[100px] md:min-h-[100px] lg:min-w-[125px] lg:min-h-[125px]"
-              ></div>
-              <div class="flex flex-col my-auto">
-                <div class="relative">
-                  <label
-                    class="absolute top-0 left-[50%] translate-x-[-50%] py-[.375rem] px-[1rem] bg-bgColorDark text-[.875rem] xs:left-0 xs:translate-x-[0] sm:text-[1rem] sm:px-[1.25em] md:text-[.875rem] md:px-[1rem] lg:text-[1rem] lg:px-[1.25em]"
-                    >Update</label
+                class="flex flex-col gap-[1.25rem] items-center p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor xs:flex-row lg:gap-[1.5rem]"
+              >
+                <div>
+                  <div
+                    v-if="!storeUserService.userData.imgName"
+                    class="flex justify-center items-center min-w-[75px] min-h-[75px] bg-primaryColor rounded-full xs:min-w-[100px] xs:min-h-[100px] sm:min-w-[125px] sm:min-h-[125px] md:min-w-[100px] md:min-h-[100px] lg:min-w-[125px] lg:min-h-[125px]"
                   >
-                  <input
-                    class="absolute w-[83px] h-[33px] opacity-0 top-0 left-[50%] translate-x-[-50%] xs:left-0 xs:translate-x-[0] sm:w-[99px] sm:h-[36px] md:w-[83px] md:h-[33px] lg:w-[99px] lg:h-[36px]"
-                    type="file"
-                  />
+                    <font-awesome-icon
+                      class="text-[2.5rem] xs:text-[3.25rem] sm:text-[4rem] md:text-[3.25rem] lg:text-[4rem]"
+                      :icon="['fas', 'user']"
+                    />
+                  </div>
+                  <div
+                    v-else
+                    class="flex justify-center items-center min-w-[75px] min-h-[75px] rounded-full xs:min-w-[100px] xs:min-h-[100px] sm:min-w-[125px] sm:min-h-[125px] md:min-w-[100px] md:min-h-[100px] lg:min-w-[125px] lg:min-h-[125px]"
+                  >
+                    <img
+                      :src="storeUserService.userData.img"
+                      :alt="storeUserService.userData.imgName"
+                    />
+                  </div>
                 </div>
+
                 <p
-                  class="mt-[3rem] font-oswald text-[.875rem] text-textNofile italic sm:text-[1rem] md:text-[.875rem] lg:text-[1rem]"
+                  class="font-oswald text-[.875rem] text-textNofile italic sm:text-[1rem] md:text-[.875rem] lg:text-[1rem]"
                 >
-                  No file selected
+                  {{
+                    storeUserService.userData.imgName
+                      ? storeUserService.userData.imgName
+                      : 'No file selected'
+                  }}
                 </p>
               </div>
             </div>
-          </div>
-          <!-- Profile Settings -->
-          <div class="max-w-[750px]">
-            <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Profile Settings</h2>
-            <div
-              class="flex flex-col gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor sm:gap-[2rem]"
-            >
-              <!-- Username -->
+            <!-- Profile Settings -->
+            <div class="max-w-[750px]">
+              <h2 class="mb-[1rem] text-[1.25rem] text-textGray font-[600]">Profile Settings</h2>
               <div
-                class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
+                class="flex flex-col gap-[1.5rem] p-[1.25rem] bg-bgNormal border-[1px] border-primaryColor sm:gap-[2rem]"
               >
-                <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Username</h3>
-                <input
-                  type="text"
-                  value="tlnrb"
-                  class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
-                />
-              </div>
-              <!-- Favourit Class -->
-              <div
-                class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
-              >
-                <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">
-                  Favourit class
-                </h3>
-                <div class="w-[100%] relative">
-                  <select
+                <!-- Username -->
+                <div
+                  class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
+                >
+                  <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Username</h3>
+                  <p
                     class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
                   >
-                    <option disabled>Classes</option>
-                    <option value="yoga">Yoga</option>
-                    <option value="box">Box</option>
-                    <option value="crossfit">Crossfit</option>
-                  </select>
-                  <font-awesome-icon
-                    :icon="['fas', 'caret-down']"
-                    class="absolute top-[50%] translate-y-[-50%] right-[1rem] text-textGray"
-                  />
+                    {{ storeUserService.userData.username }}
+                  </p>
+                </div>
+                <!-- Favourit Class -->
+                <div
+                  class="flex flex-col gap-[.5rem] sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center"
+                >
+                  <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">
+                    Favourit class
+                  </h3>
+                  <div class="w-[100%] relative">
+                    <p
+                      class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
+                    >
+                      {{
+                        storeUserService.userData.favouritClass
+                          ? storeUserService.userData.favouritClass
+                          : 'No class selected'
+                      }}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
+            <button
+              @click="editUserSettings"
+              class="font-oswald flex flex-col w-fit mt-[-1rem] text-[1rem] relative group sm:mt-0 md:mt-[-1rem]"
+            >
+              <span
+                class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
+                >Edit</span
+              >
+              <span
+                class="font-[500] w-[0px] py-[.25rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1.125rem] ease-in duration-[.2s] md:py-[.375rem] md:group-hover:px-[1.125rem] md:text-[1.125rem]"
+                >Edit</span
+              >
+            </button>
           </div>
-          <button
-            type="submit"
-            class="font-oswald flex flex-col w-fit mt-[-1rem] text-[1rem] relative group sm:mt-0 md:mt-[-1rem]"
-          >
-            <span
-              class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
-              >Save</span
-            >
-            <span
-              class="font-[500] w-[0px] py-[.25rem] text-transparent bg-bgColorDark border-y-[1px] border-transparent absolute group-hover:w-[100%] group-hover:px-[1.125rem] ease-in duration-[.2s] md:py-[.375rem] md:group-hover:px-[1.125rem] md:text-[1.125rem]"
-              >Save</span
-            >
-          </button>
-        </form>
+          <EditSettings
+            v-else
+            :user="user"
+            @savedChanges="saveEditUserSettings"
+            @canceledChanges="closeEditUserSettings"
+            @imageSelected="handleImageUpload"
+          />
+        </div>
         <!-- Reserved Classes -->
         <div v-else="!settingsActive">
           <div class="bg-bgNormal border-[1px] border-primaryColor xs:flex-row">
@@ -345,10 +427,7 @@ onMounted(() => {
                   <p class="text-textGray xxl:text-[1.125rem]">15:00-17:00</p>
                 </div>
               </div>
-              <button
-                type="submit"
-                class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mt-0"
-              >
+              <button class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mt-0">
                 <span
                   class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
                   >Cancel</span
@@ -387,10 +466,7 @@ onMounted(() => {
                   <p class="text-textGray xxl:text-[1.125rem]">15:00-17:00</p>
                 </div>
               </div>
-              <button
-                type="submit"
-                class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mt-0"
-              >
+              <button class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mt-0">
                 <span
                   class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
                   >Cancel</span
@@ -414,17 +490,5 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
   -webkit-text-fill-color: #e1e1e1;
   transition: background-color 10000s ease-in-out 0s;
-}
-
-input[type=file], /* FF, IE7+, chrome (except button) */
-input[type=file]::-webkit-file-upload-button {
-  /* chromes and blink button */
-  cursor: pointer;
-}
-
-select {
-  -moz-appearance: none; /* Firefox */
-  -webkit-appearance: none; /* Safari and Chrome */
-  appearance: none;
 }
 </style>
