@@ -11,11 +11,13 @@ import { useStoreClasses } from './stores/storeClasses.js'
 import { useStoreCoaches } from './stores/storeCoaches.js'
 import { useStoreGeneral } from './stores/storeGeneral.js'
 import { useStoreUsernames } from './stores/storeUsernames.js'
+import { useStoreTimetable } from './stores/storeTimetable.js'
 const storeUserService = useStoreUserService()
 const storeClasses = useStoreClasses()
 const storeCoaches = useStoreCoaches()
 const storeGeneral = useStoreGeneral()
 const storeUsernames = useStoreUsernames()
+const storeTimetable = useStoreTimetable()
 
 onMounted(() => {
   // Initialize the user service
@@ -28,6 +30,8 @@ onMounted(() => {
   storeGeneral.getGeneral()
   // Get all the used useranmes
   storeUsernames.getUsernames()
+  // Get all the timetable data
+  storeTimetable.getTimetable()
 })
 </script>
 

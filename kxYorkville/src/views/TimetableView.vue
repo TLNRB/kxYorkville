@@ -1,10 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, watch } from 'vue'
 /* ----- Import components ----- */
 import Timetable from '../components/TimetablePage/Timetable.vue'
 import Title from '../components/UI/Title.vue'
-/* ----- Import Database ----- */
-import timetableDB from '../data/timetableDB.js'
+/* ----- Import store ----- */
+import { useStoreTimetable } from '../stores/storeTimetable.js'
+const storeTimetable = useStoreTimetable()
 
 /*----- Date displayer data handling -----*/
 // Define an array of month names
@@ -28,31 +29,50 @@ const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 
 // Get today's date
 const today = new Date()
+// Get today's day and month and week day
 const todayDay = today.getDate()
 const todayMonth = monthNames[today.getMonth()]
 const weekDay = weekdays[today.getDay()]
+// Make today's day and month active as default
 const clickedDay = ref(todayDay)
 const clickedMonth = ref(todayMonth)
 
+// Define an array of days that will be displayed
 const days = [{ date: todayDay, month: todayMonth, weekDay: weekDay, active: true }]
+// Loop through the next 6 days after todays date
 for (let i = 1; i <= 6; i++) {
   const nextDay = new Date()
+  // Get the next day's date
   nextDay.setDate(todayDay + i)
-
+  // Get the next day's day and month and week day
   const nextDayOfMonth = nextDay.getDate()
   const nextMonth = monthNames[nextDay.getMonth()]
   const weekDay = weekdays[nextDay.getDay()]
-
+  // Push the next day's data to the days array
   days.push({ date: nextDayOfMonth, month: nextMonth, weekDay: weekDay, active: false })
 }
+/*----- Timetable data handling -----*/
+const filteredTimetable = ref(null)
+// Wait for the timetable data to be fetched
+const timetableDataFetch = computed(() => {
+  // Return todays classes based on the weekday from the timetable
+  return storeTimetable.days[today.getDay()]
+})
 
-//Timetable data handling
-const filteredTimetable = ref(timetableDB[today.getDay()])
+// Watch for changes in data fetching
+watch(timetableDataFetch, (newValue) => {
+  // Set the data when the data is fetched
+  filteredTimetable.value = newValue
+})
+
 const handleTimetableFilter = (weekday, date, month) => {
+  // Make the clicked day active for styling
   days.forEach((day) => (day.date === date ? (day.active = true) : (day.active = false)))
+  // Display the clicked day's data
   clickedDay.value = date
   clickedMonth.value = month
-  filteredTimetable.value = timetableDB.find((timetable) => timetable.day === weekday)
+  // Filter the timetable days based on the clicked day
+  filteredTimetable.value = storeTimetable.days.find((day) => day.day === weekday)
 }
 </script>
 
@@ -95,7 +115,7 @@ const handleTimetableFilter = (weekday, date, month) => {
       <!-- Timetable -->
       <div class="mb-[4rem] flex flex-col gap-[1rem] md:mb-[6rem] lg:gap-[1.5rem]">
         <Timetable
-          v-for="singleClass in filteredTimetable.classes"
+          v-for="singleClass in filteredTimetable?.classes"
           :key="singleClass.id"
           :singleClass="singleClass"
         />
