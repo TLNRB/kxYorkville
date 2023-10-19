@@ -5,9 +5,11 @@ import EditAccount from '../components/Account/EditAccount.vue'
 import { useStoreAuth } from '../stores/storeAuth.js'
 import { useStoreUsernames } from '../stores/storeUsernames.js'
 import { useStoreUserService } from '../stores/storeUserService.js'
+import { useStoreBookings } from '../stores/storeBookings.js'
 const storeAuth = useStoreAuth()
 const storeUsernames = useStoreUsernames()
 const storeUserService = useStoreUserService()
+const storeBookings = useStoreBookings()
 
 // Form display
 const loginActive = ref(true)
@@ -434,7 +436,7 @@ const closeEditUserSettings = () => {
           />
         </div>
         <!-- Reserved Classes -->
-        <div v-else="">
+        <div v-else>
           <div class="bg-bgNormal border-[1px] border-primaryColor xs:flex-row">
             <div
               class="flex flex-col gap-[2rem] p-[1.5rem] border-b-[1px] border-bgColorDark sm:gap-[1.5rem] md:gap-[2rem] lg:gap-[1.5rem] xxxl:flex-row xxxl:items-center xxxl:justify-between xxxxl:p-[2rem]"

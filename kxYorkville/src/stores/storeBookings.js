@@ -21,8 +21,11 @@ export const useStoreBookings = defineStore('storeBookings', {
             id: doc.id,
             userID: doc.data().userID,
             class: doc.data().class,
+            coach: doc.data().coach,
             day: doc.data().day,
-            from: doc.data().from
+            month: doc.data().month,
+            from: doc.data().from,
+            to: doc.data().to
           }
           bookings.push(booking)
         })
@@ -47,8 +50,11 @@ export const useStoreBookings = defineStore('storeBookings', {
         await addDoc(bookingsCollectionRef, {
           userID: id,
           class: bookingData.class,
+          coach: bookingData.coach,
           day: bookingData.day,
-          from: bookingData.from
+          month: bookingData.month,
+          from: bookingData.from,
+          to: bookingData.to
         })
       }
     },

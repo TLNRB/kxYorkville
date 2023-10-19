@@ -7,7 +7,7 @@ const emit = defineEmits(['addBooking'])
 
 //--Handle signing up to a class
 const signUpClass = () => {
-  emit('addBooking', singleClass.name, singleClass.from)
+  emit('addBooking', singleClass.name, singleClass.coach, singleClass.from, singleClass.to)
 }
 </script>
 

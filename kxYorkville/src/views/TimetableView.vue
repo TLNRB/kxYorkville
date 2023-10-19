@@ -80,11 +80,14 @@ const handleTimetableFilter = (weekday, date, month) => {
 }
 
 /*===== Booking handling =====*/
-const addBooking = (className, from) => {
+const addBooking = (className, coach, from, to) => {
   const newBooking = reactive({
     class: className,
+    coach: coach,
     day: clickedDay.value,
-    from: from
+    month: clickedMonth.value,
+    from: from,
+    to: to
   })
   storeBookings.addBooking(newBooking, storeUserService.userAuth.id)
 }
