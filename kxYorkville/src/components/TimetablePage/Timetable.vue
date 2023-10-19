@@ -1,6 +1,6 @@
 <script setup>
 //Prop handling
-const { singleClass } = defineProps(['singleClass'])
+const { singleClass, storeUserService } = defineProps(['singleClass', 'storeUserService'])
 </script>
 
 <template>
@@ -42,6 +42,7 @@ const { singleClass } = defineProps(['singleClass'])
         class="absolute left-0 top-0 right-0 bottom-[-.5px] brightness-[85%] backdrop-blur-[2px] z-[0] rounded-b-[10px] drop-shadow-xl md:bottom-0 md:right-[-.5px] md:rounded-bl-[0px] md:rounded-r-[10px]"
       ></div>
       <button
+        v-if="storeUserService.userAuth.id"
         class="font-oswald flex flex-col w-fit text-[1rem] relative group drop-shadow-lg xs:text-[1.125rem]"
       >
         <span class="py-[.25rem] px-[1rem] bg-bgColorDark z-[1]">Reserve</span>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 /* ----- Import stores ----- */
 import { useStoreAuth } from '../../stores/storeAuth.js'
 import { useStoreUserService } from '../../stores/storeUserService.js'
@@ -17,6 +17,7 @@ const emit = defineEmits(['savedChanges', 'canceledChanges', 'imageSelected'])
 //--Temporary data
 const error = ref('')
 const image = ref('')
+let tempUsername = reactive(user.username)
 
 //--Handle image selection
 const handleChange = (e) => {
@@ -36,7 +37,7 @@ const saveChanges = () => {
       error.value = ''
     }, 5000)
   } else {
-    if (storeUsernames.checkUsername(user.username)) {
+    if (tempUsername !== user.username && storeUsernames.checkUsername(user.username)) {
       error.value = 'Username already exists'
       setInterval(() => {
         error.value = ''
@@ -120,7 +121,7 @@ const cancelChanges = () => {
           <h3 class="text-[.875rem] text-textGray sm:text-[1rem] sm:w-[200px]">Username</h3>
           <input
             type="text"
-            v-model="user.username"
+            v-model="tempUsername"
             :placeholder="user.username ? user.username : storeAuth.userData.username"
             class="w-[100%] bg-bgDark py-[.25rem] px-[.75rem] text-[.875rem] outline-none border-[1px] border-bgColorDark sm:py-[.25rem] sm:px-[.875rem] sm:text-[1rem]"
           />

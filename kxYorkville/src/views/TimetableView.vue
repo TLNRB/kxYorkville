@@ -5,6 +5,8 @@ import Timetable from '../components/TimetablePage/Timetable.vue'
 import Title from '../components/UI/Title.vue'
 /* ----- Import store ----- */
 import { useStoreTimetable } from '../stores/storeTimetable.js'
+import { useStoreUserService } from '../stores/storeUserService.js'
+const storeUserService = useStoreUserService()
 const storeTimetable = useStoreTimetable()
 
 /*----- Date displayer data handling -----*/
@@ -113,12 +115,19 @@ const handleTimetableFilter = (weekday, date, month) => {
       >
         {{ clickedMonth }} {{ clickedDay }}
       </h2>
+      <p
+        v-if="!storeUserService.userAuth.id"
+        class="mb-[2rem] text-center text-textNofile italic font-[500] sm:text-[1.125rem] lg:text-[1.25rem]"
+      >
+        Login to sign up for classes
+      </p>
       <!-- Timetable -->
       <div class="mb-[4rem] flex flex-col gap-[1rem] md:mb-[6rem] lg:gap-[1.5rem]">
         <Timetable
           v-for="singleClass in filteredTimetable?.classes"
           :key="singleClass.id"
           :singleClass="singleClass"
+          :storeUserService="storeUserService"
         />
       </div>
     </section>
