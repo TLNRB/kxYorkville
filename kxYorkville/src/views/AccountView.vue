@@ -444,11 +444,11 @@ const deleteBooking = (bookingID) => {
         <!-- Reserved Classes -->
         <div v-else>
           <div
-            v-if="storeBookings.bookings.length > 0"
+            v-if="storeBookings.userBookings.length > 0"
             class="bg-bgNormal border-[1px] border-primaryColor xs:flex-row"
           >
             <div
-              v-for="booking in storeBookings.bookings"
+              v-for="booking in storeBookings.userBookings"
               :key="booking.id"
               class="flex flex-col gap-[2rem] p-[1.5rem] border-b-[1px] border-bgColorDark sm:gap-[1.5rem] md:gap-[2rem] lg:gap-[1.5rem] xxxl:flex-row xxxl:items-center xxxl:justify-between xxxxl:p-[2rem]"
             >

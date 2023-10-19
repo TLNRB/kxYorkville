@@ -7,6 +7,7 @@ const bookingsCollectionRef = collection(db, 'bookings')
 export const useStoreBookings = defineStore('storeBookings', {
   state: () => {
     return {
+      userBookings: [],
       bookings: []
     }
   },
@@ -16,9 +17,10 @@ export const useStoreBookings = defineStore('storeBookings', {
     async getBookings(id) {
       const unsubscribe = onSnapshot(bookingsCollectionRef, (querySnapshot) => {
         let bookings = []
+        let userBookings = []
         querySnapshot.forEach((doc) => {
           if (id === doc.data().userID) {
-            let booking = {
+            let userBooking = {
               id: doc.id,
               userID: doc.data().userID,
               class: doc.data().class,
@@ -28,16 +30,24 @@ export const useStoreBookings = defineStore('storeBookings', {
               from: doc.data().from,
               to: doc.data().to
             }
-            bookings.push(booking)
+            userBookings.push(userBooking)
           }
+          let booking = {
+            id: doc.id,
+            class: doc.data().class,
+            day: doc.data().day,
+            from: doc.data().from
+          }
+          bookings.push(booking)
         })
+        this.userBookings = userBookings
         this.bookings = bookings
       })
     },
     // Add Booking
     async addBooking(bookingData, id) {
       let condition = false
-      this.bookings.forEach((booking) => {
+      this.userBookings.forEach((booking) => {
         if (
           booking.userID === id &&
           booking.class === bookingData.class &&
