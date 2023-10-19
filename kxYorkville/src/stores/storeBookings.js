@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, doc, addDoc } from 'firebase/firestore'
+import { collection, onSnapshot, doc, addDoc, deleteDoc } from 'firebase/firestore'
 import { db } from '../firebase/firebase.js'
 
 const bookingsCollectionRef = collection(db, 'bookings')

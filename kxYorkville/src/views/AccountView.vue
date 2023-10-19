@@ -176,6 +176,12 @@ const closeEditUserSettings = () => {
   tempID.value = ''
   toggleEdit()
 }
+
+/* ===== User Bookings Handling ===== */
+//--Delete booking
+const deleteBooking = (bookingID) => {
+  storeBookings.deleteBooking(bookingID)
+}
 </script>
 
 <template>
@@ -437,7 +443,10 @@ const closeEditUserSettings = () => {
         </div>
         <!-- Reserved Classes -->
         <div v-else>
-          <div class="bg-bgNormal border-[1px] border-primaryColor xs:flex-row">
+          <div
+            v-if="storeBookings.bookings.length > 0"
+            class="bg-bgNormal border-[1px] border-primaryColor xs:flex-row"
+          >
             <div
               v-for="booking in storeBookings.bookings"
               :key="booking.id"
@@ -471,7 +480,10 @@ const closeEditUserSettings = () => {
                   </p>
                 </div>
               </div>
-              <button class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mt-0">
+              <button
+                @click="deleteBooking(booking.id)"
+                class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mt-0"
+              >
                 <span
                   class="font-[500] py-[.25rem] px-[1rem] border-[1px] border-bgColorDark z-[1] ease-in duration-[.15s] delay-[.05s] md:py-[.375rem] md:px-[1.125rem] md:text-[1.125rem]"
                   >Cancel</span
@@ -482,6 +494,9 @@ const closeEditUserSettings = () => {
                 >
               </button>
             </div>
+          </div>
+          <div v-else class="text-textNofile italic xl:text-[1.125rem] xxxxl:text-[1.25rem]">
+            No reserved classes
           </div>
         </div>
       </div>
