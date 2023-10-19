@@ -56,13 +56,14 @@ const filteredTimetable = ref(null)
 // Wait for the timetable data to be fetched
 const timetableDataFetch = computed(() => {
   // Return todays classes based on the weekday from the timetable
-  return storeTimetable.days[today.getDay()]
+  return (filteredTimetable.value = storeTimetable.days[today.getDay()]) // returning this value helps with loading the page first time
 })
 
 // Watch for changes in data fetching
 watch(timetableDataFetch, (newValue) => {
   // Set the data when the data is fetched
   filteredTimetable.value = newValue
+  console.log('watch: ', filteredTimetable.value)
 })
 
 const handleTimetableFilter = (weekday, date, month) => {
