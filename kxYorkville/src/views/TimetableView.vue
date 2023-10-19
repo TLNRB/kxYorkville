@@ -1,13 +1,15 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 /* ----- Import components ----- */
 import Timetable from '../components/TimetablePage/Timetable.vue'
 import Title from '../components/UI/Title.vue'
 /* ----- Import store ----- */
 import { useStoreTimetable } from '../stores/storeTimetable.js'
 import { useStoreUserService } from '../stores/storeUserService.js'
+import { useStoreBookings } from '../stores/storeBookings.js'
 const storeUserService = useStoreUserService()
 const storeTimetable = useStoreTimetable()
+const storeBookings = useStoreBookings()
 
 /*----- Date displayer data handling -----*/
 // Define an array of month names
@@ -65,7 +67,6 @@ const timetableDataFetch = computed(() => {
 watch(timetableDataFetch, (newValue) => {
   // Set the data when the data is fetched
   filteredTimetable.value = newValue
-  console.log('watch: ', filteredTimetable.value)
 })
 
 const handleTimetableFilter = (weekday, date, month) => {
@@ -76,6 +77,16 @@ const handleTimetableFilter = (weekday, date, month) => {
   clickedMonth.value = month
   // Filter the timetable days based on the clicked day
   filteredTimetable.value = storeTimetable.days.find((day) => day.day === weekday)
+}
+
+/*===== Booking handling =====*/
+const addBooking = (className, from) => {
+  const newBooking = reactive({
+    class: className,
+    day: clickedDay.value,
+    from: from
+  })
+  storeBookings.addBooking(newBooking, storeUserService.userAuth.id)
 }
 </script>
 
@@ -128,6 +139,7 @@ const handleTimetableFilter = (weekday, date, month) => {
           :key="singleClass.id"
           :singleClass="singleClass"
           :storeUserService="storeUserService"
+          @addBooking="addBooking"
         />
       </div>
     </section>

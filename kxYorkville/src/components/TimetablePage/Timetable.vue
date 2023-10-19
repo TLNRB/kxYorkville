@@ -1,6 +1,14 @@
 <script setup>
 //Prop handling
 const { singleClass, storeUserService } = defineProps(['singleClass', 'storeUserService'])
+
+//Emit handling
+const emit = defineEmits(['addBooking'])
+
+//--Handle signing up to a class
+const signUpClass = () => {
+  emit('addBooking', singleClass.name, singleClass.from)
+}
 </script>
 
 <template>
@@ -43,12 +51,13 @@ const { singleClass, storeUserService } = defineProps(['singleClass', 'storeUser
       ></div>
       <button
         v-if="storeUserService.userAuth.id"
+        @click="signUpClass"
         class="font-oswald flex flex-col w-fit text-[1rem] relative group drop-shadow-lg xs:text-[1.125rem]"
       >
-        <span class="py-[.25rem] px-[1rem] bg-bgColorDark z-[1]">Reserve</span>
+        <span class="py-[.25rem] px-[1rem] bg-bgColorDark z-[1]">Sign Up</span>
         <span
           class="absolute top-0 left-0 right-0 bottom-0 text-transparent bg-transparent border-[1px] border-primaryColor group-hover:scale-y-[125%] group-hover:scale-x-[110%] ease-in duration-[.15s] xs:group-hover:scale-y-[127%] xs:group-hover:scale-x-[115%]"
-          >Reserve</span
+          >Sign Up</span
         >
       </button>
     </div>

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, doc, setDoc } from 'firebase/firestore'
+import { collection, onSnapshot, doc, addDoc } from 'firebase/firestore'
 import { db } from '../firebase/firebase.js'
 
 const bookingsCollectionRef = collection(db, 'bookings')
@@ -19,6 +19,7 @@ export const useStoreBookings = defineStore('storeBookings', {
         querySnapshot.forEach((doc) => {
           let booking = {
             id: doc.id,
+            userID: doc.data().userID,
             class: doc.data().class,
             day: doc.data().day,
             from: doc.data().from
@@ -30,11 +31,26 @@ export const useStoreBookings = defineStore('storeBookings', {
     },
     // Add Booking
     async addBooking(bookingData, id) {
-      await setDoc(doc(bookingsCollectionRef, id), {
-        class: bookingData.class,
-        day: bookingData.day,
-        from: bookingData.from
+      let condition = false
+      this.bookings.forEach((booking) => {
+        if (
+          booking.userID === id &&
+          booking.class === bookingData.class &&
+          booking.day === bookingData.day &&
+          booking.from === bookingData.from
+        ) {
+          condition = true
+          return
+        }
       })
+      if (!condition) {
+        await addDoc(bookingsCollectionRef, {
+          userID: id,
+          class: bookingData.class,
+          day: bookingData.day,
+          from: bookingData.from
+        })
+      }
     },
     // Delete Booking
     async deleteBooking(id) {
