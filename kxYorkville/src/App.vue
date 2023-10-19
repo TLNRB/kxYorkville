@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { RouterView } from 'vue-router'
 /* ----- Import assets ----- */
 import Navbar from './components/Navbar.vue'
@@ -34,8 +34,17 @@ onMounted(() => {
   storeUsernames.getUsernames()
   // Get all the timetable data
   storeTimetable.getTimetable()
-  // Get all the bookings for the classes
-  storeBookings.getBookings()
+  /*===== Get the loggedin users bookings =====*/
+  // Storing the logged in user's ID
+  let userID = ref(null)
+  // Getting the logged in user's ID as soon as its available
+  const getUserID = computed(() => {
+    return (userID = storeUserService.userAuth.id)
+  })
+  // Getting the logged in user's bookings after the ID is available
+  watch(getUserID, () => {
+    storeBookings.getBookings(userID)
+  })
 })
 </script>
 

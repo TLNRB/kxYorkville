@@ -13,21 +13,23 @@ export const useStoreBookings = defineStore('storeBookings', {
 
   actions: {
     // Get Bookings
-    async getBookings() {
+    async getBookings(id) {
       const unsubscribe = onSnapshot(bookingsCollectionRef, (querySnapshot) => {
         let bookings = []
         querySnapshot.forEach((doc) => {
-          let booking = {
-            id: doc.id,
-            userID: doc.data().userID,
-            class: doc.data().class,
-            coach: doc.data().coach,
-            day: doc.data().day,
-            month: doc.data().month,
-            from: doc.data().from,
-            to: doc.data().to
+          if (id === doc.data().userID) {
+            let booking = {
+              id: doc.id,
+              userID: doc.data().userID,
+              class: doc.data().class,
+              coach: doc.data().coach,
+              day: doc.data().day,
+              month: doc.data().month,
+              from: doc.data().from,
+              to: doc.data().to
+            }
+            bookings.push(booking)
           }
-          bookings.push(booking)
         })
         this.bookings = bookings
       })
