@@ -31,6 +31,7 @@ export const useStoreUsernames = defineStore('storeUsernames', {
       let condition = false
       for (let i = 0; i < this.usernames.length; i++) {
         if (this.usernames[i].username === username) {
+          console.log(this.usernames[i].username, username)
           condition = true
           break
         }

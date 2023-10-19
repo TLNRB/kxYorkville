@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 /* ----- Import stores ----- */
 import { useStoreAuth } from '../../stores/storeAuth.js'
 import { useStoreUserService } from '../../stores/storeUserService.js'
@@ -17,7 +17,7 @@ const emit = defineEmits(['savedChanges', 'canceledChanges', 'imageSelected'])
 //--Temporary data
 const error = ref('')
 const image = ref('')
-let tempUsername = reactive(user.username)
+let tempUsername = ref(user.username)
 
 //--Handle image selection
 const handleChange = (e) => {
@@ -37,12 +37,13 @@ const saveChanges = () => {
       error.value = ''
     }, 5000)
   } else {
-    if (tempUsername !== user.username && storeUsernames.checkUsername(user.username)) {
+    if (tempUsername.value !== user.username && storeUsernames.checkUsername(tempUsername.value)) {
       error.value = 'Username already exists'
       setInterval(() => {
         error.value = ''
       }, 5000)
     } else {
+      user.username = tempUsername.value
       emit('savedChanges')
       image.value = ''
     }
