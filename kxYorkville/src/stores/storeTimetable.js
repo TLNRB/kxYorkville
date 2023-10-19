@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, doc, setDoc, updateDoc } from 'firebase/firestore'
+import { collection, onSnapshot, doc } from 'firebase/firestore'
 import { db } from '../firebase/firebase.js'
 
 const timetableDocRef = doc(db, 'timetable', 'ZB5rtoe3MxG2BZNflqbZ')
