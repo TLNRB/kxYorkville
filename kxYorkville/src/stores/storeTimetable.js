@@ -47,7 +47,6 @@ export const useStoreTimetable = defineStore('storeTimetable', {
         // Update the entire "classes" array in the Firestore document.
         await updateDoc(docRef, { classes })
       } else if (operation == 'delete') {
-        console.log('delete', id, classesIndex)
         // Update the "reserved" field of the specified class
         classes[classesIndex].reserved--
         // Update the entire "classes" array in the Firestore document.
