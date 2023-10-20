@@ -1,15 +1,19 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, computed } from 'vue'
+/*----- Importing components -----*/
 import EditAccount from '../components/Account/EditAccount.vue'
+import CancelClass from '../components/Account/CancelClass.vue'
 /* ----- Import stores ----- */
 import { useStoreAuth } from '../stores/storeAuth.js'
 import { useStoreUsernames } from '../stores/storeUsernames.js'
 import { useStoreUserService } from '../stores/storeUserService.js'
 import { useStoreBookings } from '../stores/storeBookings.js'
+import { useStoreTimetable } from '../stores/storeTimetable.js'
 const storeAuth = useStoreAuth()
 const storeUsernames = useStoreUsernames()
 const storeUserService = useStoreUserService()
 const storeBookings = useStoreBookings()
+const storeTimetable = useStoreTimetable()
 
 // Form display
 const loginActive = ref(true)
@@ -178,9 +182,55 @@ const closeEditUserSettings = () => {
 }
 
 /* ===== User Bookings Handling ===== */
+// Order the bookings by month, day and time
+const orderedBookings = computed(() => {
+  // Order the bookings by time
+  const orderBookings = storeBookings.userBookings.sort((a, b) => {
+    return a.classID - b.classID
+  })
+  // Order the bookings by day
+  orderBookings.sort((a, b) => {
+    return a.day - b.day
+  })
+  // Order the bookings by month
+  orderBookings.sort((a, b) => {
+    return a.month - b.month
+  })
+  return orderBookings
+})
+
+/*===== Delete Booking =====*/
+const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const deleteClass = ref(0)
+
+//--Toggle delete modal
+const toggleDelete = (index) => {
+  deleteClass.value = index
+}
+
+//--Open Delete Modal
+const openDeleteModal = (id) => {
+  toggleDelete(id)
+}
+
+//--Close Delete Modal
+const closeDeleteModal = () => {
+  toggleDelete(0)
+}
+
 //--Delete booking
-const deleteBooking = (bookingID) => {
-  storeBookings.deleteBooking(bookingID)
+const deleteBooking = (bookingID, bookingWeekday, timetableID, classID) => {
+  let dayIndex
+  // Get the current day index
+  for (let i = 0; i < weekdays.length; i++) {
+    if (weekdays[i] === bookingWeekday) {
+      dayIndex = i
+      break
+    }
+  }
+  storeBookings.deleteBooking(bookingID, dayIndex)
+  storeTimetable.updateTimetableReservedClass(timetableID, classID, 'delete')
+  closeDeleteModal()
 }
 </script>
 
@@ -448,7 +498,7 @@ const deleteBooking = (bookingID) => {
             class="bg-bgNormal border-[1px] border-primaryColor xs:flex-row"
           >
             <div
-              v-for="booking in storeBookings.userBookings"
+              v-for="booking in orderedBookings"
               :key="booking.id"
               class="flex flex-col gap-[2rem] p-[1.5rem] border-b-[1px] border-bgColorDark sm:gap-[1.5rem] md:gap-[2rem] lg:gap-[1.5rem] xxxl:flex-row xxxl:items-center xxxl:justify-between xxxxl:p-[2rem]"
             >
@@ -481,7 +531,7 @@ const deleteBooking = (bookingID) => {
                 </div>
               </div>
               <button
-                @click="deleteBooking(booking.id)"
+                @click="openDeleteModal(booking.id)"
                 class="font-oswald flex flex-col w-fit text-[1rem] relative group sm:mt-0"
               >
                 <span
@@ -493,6 +543,19 @@ const deleteBooking = (bookingID) => {
                   >Cancel</span
                 >
               </button>
+              <!-- Delete Coach -->
+              <div
+                v-if="deleteClass === booking.id"
+                class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
+              >
+                <CancelClass
+                  :booking="booking"
+                  @savedChanges="
+                    deleteBooking(booking.id, booking.weekday, booking.timetableID, booking.classID)
+                  "
+                  @canceledChanges="closeDeleteModal"
+                />
+              </div>
             </div>
           </div>
           <div v-else class="text-textNofile italic xl:text-[1.125rem] xxxxl:text-[1.25rem]">
@@ -514,5 +577,10 @@ input:-webkit-autofill:focus {
 
 ::placeholder {
   color: #606060;
+}
+
+.modal {
+  background-color: #1818183a;
+  backdrop-filter: blur(5px);
 }
 </style>

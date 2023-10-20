@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, watch } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 /* ----- Import components ----- */
 import Timetable from '../components/TimetablePage/Timetable.vue'
 import Title from '../components/UI/Title.vue'
@@ -40,6 +40,7 @@ const weekDay = weekdays[today.getDay()]
 // Make today's day and month active as default
 const clickedDay = ref(todayDay)
 const clickedMonth = ref(todayMonth)
+const clickedWeekday = ref(weekDay)
 
 // Define an array of days that will be displayed
 const days = [{ date: todayDay, month: todayMonth, weekDay: weekDay, active: true }]
@@ -55,42 +56,63 @@ for (let i = 1; i <= 6; i++) {
   // Push the next day's data to the days array
   days.push({ date: nextDayOfMonth, month: nextMonth, weekDay: weekDay, active: false })
 }
-/*----- Timetable data handling -----*/
-const filteredTimetable = ref(null)
-// Wait for the timetable data to be fetched
-const timetableDataFetch = computed(() => {
-  // Return todays classes based on the weekday from the timetable
-  return (filteredTimetable.value = storeTimetable.days[today.getDay()]) // returning this value helps with loading the page first time
-})
 
-// Watch for changes in data fetching
-watch(timetableDataFetch, (newValue) => {
-  // Set the data when the data is fetched
-  filteredTimetable.value = newValue
-})
+/*===== Timetable data handling =====*/
+const filteredTimetable = ref('')
+
+const filterTimetableDays = (weekday) => {
+  return (filteredTimetable.value = storeTimetable.days.find((day) => day.day === weekday))
+}
 
 const handleTimetableFilter = (weekday, date, month) => {
   // Make the clicked day active for styling
   days.forEach((day) => (day.date === date ? (day.active = true) : (day.active = false)))
-  // Display the clicked day's data
+  // Display and store the clicked day's data
   clickedDay.value = date
   clickedMonth.value = month
+  clickedWeekday.value = weekday
   // Filter the timetable days based on the clicked day
-  filteredTimetable.value = storeTimetable.days.find((day) => day.day === weekday)
+  filterTimetableDays(weekday)
 }
 
 /*===== Booking handling =====*/
-const addBooking = (className, coach, from, to) => {
-  const newBooking = reactive({
-    class: className,
-    coach: coach,
-    day: clickedDay.value,
-    month: clickedMonth.value,
-    from: from,
-    to: to
+const addBooking = (className, coach, from, to, classID) => {
+  let condition = false
+  // Check if the user has already booked the class
+  storeBookings.userBookings.forEach((booking) => {
+    if (booking.day === clickedDay.value && booking.class === className && booking.from === from) {
+      condition = true
+    }
   })
-  storeBookings.addBooking(newBooking, storeUserService.userAuth.id)
+  // If the user has not booked the class, add the booking
+  if (!condition) {
+    const newBooking = reactive({
+      class: className,
+      coach: coach,
+      day: clickedDay.value,
+      month: clickedMonth.value,
+      weekday: clickedWeekday.value,
+      from: from,
+      to: to,
+      timetableID: filteredTimetable.value.id,
+      classID: classID
+    })
+    storeBookings.addBooking(newBooking, storeUserService.userAuth.id)
+    storeTimetable.updateTimetableReservedClass(filteredTimetable.value.id, classID, 'reserve')
+    filterTimetableDays(clickedWeekday.value)
+  }
 }
+
+onMounted(() => {
+  // Start the interval for checking if the timetable data is loaded
+  const intervalId = setInterval(() => {
+    if (storeTimetable.days[today.getDay()] === undefined) {
+    } else {
+      filteredTimetable.value = storeTimetable.days[today.getDay()]
+      clearInterval(intervalId) // Stop the interval when the task is completed
+    }
+  }, 500)
+})
 </script>
 
 <template>
@@ -138,10 +160,13 @@ const addBooking = (className, coach, from, to) => {
       <!-- Timetable -->
       <div class="mb-[4rem] flex flex-col gap-[1rem] md:mb-[6rem] lg:gap-[1.5rem]">
         <Timetable
-          v-for="singleClass in filteredTimetable?.classes"
-          :key="singleClass.id"
+          v-for="(singleClass, index) in filteredTimetable.classes"
+          :key="`${filteredTimetable.id}-${index}`"
+          :singleClassID="index"
+          :timetableID="filteredTimetable.id"
           :singleClass="singleClass"
           :storeUserService="storeUserService"
+          :storeBookings="storeBookings"
           @addBooking="addBooking"
         />
       </div>

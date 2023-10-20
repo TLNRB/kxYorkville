@@ -12,7 +12,6 @@ const error = ref('')
 
 //--Handle form submission
 const saveChanges = () => {
-  console.log('test out')
   if (
     !newGeneral.phone ||
     !newGeneral.email ||

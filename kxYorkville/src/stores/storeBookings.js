@@ -27,8 +27,11 @@ export const useStoreBookings = defineStore('storeBookings', {
               coach: doc.data().coach,
               day: doc.data().day,
               month: doc.data().month,
+              weekday: doc.data().weekday,
               from: doc.data().from,
-              to: doc.data().to
+              to: doc.data().to,
+              timetableID: doc.data().timetableID,
+              classID: doc.data().classID
             }
             userBookings.push(userBooking)
           }
@@ -46,29 +49,18 @@ export const useStoreBookings = defineStore('storeBookings', {
     },
     // Add Booking
     async addBooking(bookingData, id) {
-      let condition = false
-      this.userBookings.forEach((booking) => {
-        if (
-          booking.userID === id &&
-          booking.class === bookingData.class &&
-          booking.day === bookingData.day &&
-          booking.from === bookingData.from
-        ) {
-          condition = true
-          return
-        }
+      await addDoc(bookingsCollectionRef, {
+        userID: id,
+        class: bookingData.class,
+        coach: bookingData.coach,
+        day: bookingData.day,
+        month: bookingData.month,
+        weekday: bookingData.weekday,
+        from: bookingData.from,
+        to: bookingData.to,
+        timetableID: bookingData.timetableID,
+        classID: bookingData.classID
       })
-      if (!condition) {
-        await addDoc(bookingsCollectionRef, {
-          userID: id,
-          class: bookingData.class,
-          coach: bookingData.coach,
-          day: bookingData.day,
-          month: bookingData.month,
-          from: bookingData.from,
-          to: bookingData.to
-        })
-      }
     },
     // Delete Booking
     async deleteBooking(id) {

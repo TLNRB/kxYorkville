@@ -1,14 +1,44 @@
 <script setup>
+import { computed } from 'vue'
+
 //Prop handling
-const { singleClass, storeUserService } = defineProps(['singleClass', 'storeUserService'])
+const { singleClass, storeUserService, storeBookings, singleClassID, timetableID } = defineProps([
+  'singleClass',
+  'storeUserService',
+  'storeBookings',
+  'singleClassID',
+  'timetableID'
+])
 
 //Emit handling
 const emit = defineEmits(['addBooking'])
 
 //--Handle signing up to a class
 const signUpClass = () => {
-  emit('addBooking', singleClass.name, singleClass.coach, singleClass.from, singleClass.to)
+  emit(
+    'addBooking',
+    singleClass.name,
+    singleClass.coach,
+    singleClass.from,
+    singleClass.to,
+    singleClassID
+  )
 }
+
+//--Check if the user has booked the class
+const isBooked = computed(() => {
+  let condition = false
+  storeBookings.userBookings.forEach((booking) => {
+    if (
+      booking.class === singleClass.name &&
+      booking.from === singleClass.from &&
+      booking.timetableID === timetableID
+    ) {
+      condition = true
+    }
+  })
+  return condition
+})
 </script>
 
 <template>
@@ -16,7 +46,8 @@ const signUpClass = () => {
     class="w-[225px] flex flex-col mx-auto text-textGray xs:w-[300px] md:w-auto md:flex-row md:justify-center"
   >
     <div
-      class="flex flex-col items-center gap-[.75rem] text-center py-[.5rem] px-[1.25rem] rounded-t-[10px] bg-bgHoverDark xs:py-[.625rem] xs:px-[1.375rem] md:rounded-tr-[0px] md:rounded-l-[10px] md:flex-row md:items-start md:py-[1rem] md:px-[1.5rem] md:gap-[2rem] md:text-start lg:py-[1.25rem] lg:px-[2rem] lg:gap-[4rem] xxxxl:py-[1.5rem] xxxxl:px-[2.5rem]"
+      class="flex flex-col items-center gap-[.75rem] text-center py-[.5rem] px-[1.25rem] rounded-t-[10px] bg-bgHoverDark border-[2px] duration-[.15s] ease-in-out xs:py-[.625rem] xs:px-[1.375rem] md:rounded-tr-[0px] md:rounded-l-[10px] md:flex-row md:items-start md:py-[1rem] md:px-[1.5rem] md:gap-[2rem] md:text-start lg:py-[1.25rem] lg:px-[2rem] lg:gap-[4rem] xxxxl:py-[1.5rem] xxxxl:px-[2.5rem]"
+      :class="isBooked ? ' border-primaryColor' : 'border-transparent'"
     >
       <p
         class="hidden font-[500] md:block md:min-w-[75px] md:text-[1.25rem] lg:text-[1.5rem] lg:leading-snug xxxxl:text-[1.75rem] xxxxl:leading-tight xxxxl:min-w-[85px]"
@@ -37,8 +68,13 @@ const signUpClass = () => {
         class="font-oswald text-[.875rem] xs:text-[1rem] md:min-w-[80px] xxxxl:translate-y-[2px] xxxxl:text-[1.125rem] xxxxl:min-w-[95px]"
       >
         <p class="text-bgColorLightest">{{ singleClass.from }} - {{ singleClass.to }}</p>
-        <p class="text-primaryColor font-[500] md:mt-[.5rem]">{{ singleClass.size }} left</p>
-        <!-- <p class="text-primaryColor line-through font-[500] sm:mt-[.5rem]">full</p> -->
+        <p
+          v-if="singleClass.size - singleClass.reserved !== 0"
+          class="text-primaryColor font-[500] md:mt-[.5rem]"
+        >
+          {{ singleClass.size - singleClass.reserved }} left
+        </p>
+        <p v-else class="text-primaryColor line-through font-[500] sm:mt-[.5rem]">full</p>
       </div>
     </div>
     <div
@@ -50,9 +86,11 @@ const signUpClass = () => {
         class="absolute left-0 top-0 right-0 bottom-[-.5px] brightness-[85%] backdrop-blur-[2px] z-[0] rounded-b-[10px] drop-shadow-xl md:bottom-0 md:right-[-.5px] md:rounded-bl-[0px] md:rounded-r-[10px]"
       ></div>
       <button
-        v-if="storeUserService.userAuth.id"
+        v-if="
+          storeUserService.userAuth.id && singleClass.size - singleClass.reserved > 0 && !isBooked
+        "
         @click="signUpClass"
-        class="font-oswald flex flex-col w-fit text-[1rem] relative group drop-shadow-lg xs:text-[1.125rem]"
+        class="font-oswald flex flex-col w-fit text-[1rem] relative group drop-shadow-lg duration-[.15s] ease-in-out xs:text-[1.125rem]"
       >
         <span class="py-[.25rem] px-[1rem] bg-bgColorDark z-[1]">Sign Up</span>
         <span
@@ -60,6 +98,12 @@ const signUpClass = () => {
           >Sign Up</span
         >
       </button>
+      <p
+        v-else-if="isBooked"
+        class="py-[.25rem] px-[1rem] shadow-xl bg-primaryColor z-[1] font-oswald flex flex-col w-fit text-[1rem] relative group drop-shadow-lg duration-[.15s] ease-in-out xs:text-[1.125rem]"
+      >
+        Reserved
+      </p>
     </div>
   </section>
 </template>

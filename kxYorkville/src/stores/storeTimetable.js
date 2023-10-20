@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, doc } from 'firebase/firestore'
+import { collection, onSnapshot, doc, updateDoc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase/firebase.js'
 
 const timetableDocRef = doc(db, 'timetable', 'ZB5rtoe3MxG2BZNflqbZ')
@@ -15,7 +15,7 @@ export const useStoreTimetable = defineStore('storeTimetable', {
   },
 
   actions: {
-    // Get Classes
+    // Get Timetable
     async getTimetable() {
       const unsubscribe = onSnapshot(daysCollectionRef, (querySnapshot) => {
         let days = []
@@ -29,6 +29,30 @@ export const useStoreTimetable = defineStore('storeTimetable', {
         })
         this.days = days
       })
+    },
+    // Update Timetable Reserved Classes
+    async updateTimetableReservedClass(id, classesIndex, operation) {
+      // Get the document reference from Firestore
+      const docRef = doc(daysCollectionRef, id)
+      // Get the document snapshot from Firestore
+      const docSnap = await getDoc(docRef)
+      // Get the data from the document snapshot
+      const data = docSnap.data()
+      // Get the "classes" array from the data
+      const classes = data.classes
+
+      if (operation == 'reserve') {
+        // Update the "reserved" field of the specified class
+        classes[classesIndex].reserved++
+        // Update the entire "classes" array in the Firestore document.
+        await updateDoc(docRef, { classes })
+      } else if (operation == 'delete') {
+        console.log('delete', id, classesIndex)
+        // Update the "reserved" field of the specified class
+        classes[classesIndex].reserved--
+        // Update the entire "classes" array in the Firestore document.
+        await updateDoc(docRef, { classes })
+      }
     }
   }
 })
