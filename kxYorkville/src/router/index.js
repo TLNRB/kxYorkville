@@ -7,8 +7,9 @@ import CoachView from '../views/CoachView.vue'
 import TimetableView from '../views/TimetableView.vue'
 import AdminView from '../views/AdminView.vue'
 /* ---------- Import Stores ---------- */
-import { useStoreClasses } from '../stores/storeClasses'
-import { useStoreCoaches } from '../stores/storeCoaches'
+import { useStoreClasses } from '../stores/storeClasses.js'
+import { useStoreCoaches } from '../stores/storeCoaches.js'
+import { useStoreUserService } from '../stores/storeUserService.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,11 +74,31 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: AdminView
+      component: AdminView,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/:catchall(.*)*',
+      name: 'notfound',
+      component: HomeView
     }
   ],
   scrollBehavior(to, from, savedPosition) {
     return { top: 0 }
+  }
+})
+
+router.beforeEach(async (to, from) => {
+  const storeUserService = useStoreUserService()
+  // If user is not logged in and tries to access admin page, redirect to home page
+  if (!storeUserService.userAuth.id && to.name === 'admin') {
+    return { name: 'home' }
+  }
+  // If user tries to access admin page, but doesn't logged in with a specific email redirect to home page
+  if (to.name === 'admin' && storeUserService.userAuth.email !== 'admin@admin.com') {
+    return { name: 'home' }
   }
 })
 

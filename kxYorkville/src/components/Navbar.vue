@@ -128,6 +128,7 @@ onUnmounted(() => {
       >
         K<span class="ml-[-.1125rem] font-[600] drop-shadow-md">X</span> Yorkville
       </RouterLink>
+      <!-- Login/Profile -->
       <RouterLink
         to="/account"
         v-if="!storeUserService.userAuth.id"
@@ -176,6 +177,19 @@ onUnmounted(() => {
           </p>
         </div>
         <div class="my-[.5rem]">
+          <!-- Admin -->
+          <RouterLink
+            to="/admin"
+            v-if="storeUserService.userAuth.email === 'admin@admin.com'"
+            @click="toggleLogin"
+            class="flex items-center gap-[1rem] py-[.375rem] px-[1rem] hover:bg-bgHoverDark duration-[.15s] ease-out cursor-pointer"
+          >
+            <font-awesome-icon
+              class="text-[1.125rem] translate-x-[2px]"
+              :icon="['fas', 'screwdriver-wrench']"
+            />
+            <p class="text-[.875rem]">admin</p>
+          </RouterLink>
           <RouterLink
             to="/account"
             @click="toggleLogin"

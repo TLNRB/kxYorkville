@@ -56,7 +56,9 @@ export const useStoreAuth = defineStore('storeAuth', {
     //Logout User
     logOutUser() {
       signOut(auth)
-        .then(() => {})
+        .then(() => {
+          this.router.replace('/')
+        })
         .catch((error) => {
           console.log('error message: ', error.message)
         })

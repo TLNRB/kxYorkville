@@ -1,6 +1,6 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
@@ -21,7 +21,8 @@ import {
   faUser,
   faGear,
   faArrowRightLong,
-  faCaretDown
+  faCaretDown,
+  faScrewdriverWrench
 } from '@fortawesome/free-solid-svg-icons'
 /* import brand icons */
 import {} from '@fortawesome/free-brands-svg-icons'
@@ -37,13 +38,20 @@ library.add(
   faUser,
   faGear,
   faArrowRightLong,
-  faCaretDown
+  faCaretDown,
+  faScrewdriverWrench
 )
+
+// Enable router in stores (for us in auth, after logout we need to redirect to home page)
+const pinia = createPinia()
+pinia.use(({ store }) => {
+  store.router = markRaw(router)
+})
 
 const app = createApp(App)
 
 app.component('font-awesome-icon', FontAwesomeIcon)
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')
