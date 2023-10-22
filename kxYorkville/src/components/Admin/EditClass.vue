@@ -157,7 +157,7 @@ const cancelChanges = () => {
     <!-- Error -->
     <p
       v-show="error"
-      class="text-[.75rem] text-red-500 sm:text-[.875rem] sm:text-center xl:text-[1rem]"
+      class="text-[.75rem] italic text-red-500 sm:text-[.875rem] sm:text-center xl:text-[1rem]"
     >
       {{ error }}
     </p>

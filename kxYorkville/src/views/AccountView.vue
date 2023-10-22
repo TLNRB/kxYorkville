@@ -162,7 +162,12 @@ const editUserSettings = () => {
 }
 
 //--Save user editing
+const updateMessage = ref('')
 const saveEditUserSettings = async () => {
+  updateMessage.value = 'Updates saved, reload page to see the changes'
+  setInterval(() => {
+    updateMessage.value = ''
+  }, 5000)
   // Checking if the image changed
   storeUserService.updateImage(tempID.value)
   // Updating the username
@@ -289,7 +294,7 @@ const deleteBooking = (bookingID, bookingWeekday, timetableID, classID) => {
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
               :class="{ 'border-b-red-600': storeAuth.error }"
             />
-            <p v-if="storeAuth.error" class="text-red-600">
+            <p v-if="storeAuth.error" class="text-red-600 italic">
               {{ storeAuth.error }}
             </p>
             <button
@@ -348,10 +353,10 @@ const deleteBooking = (bookingID, bookingWeekday, timetableID, classID) => {
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
               :class="{ 'border-b-red-600': storeAuth.error || error }"
             />
-            <p v-if="storeAuth.error" class="text-red-600">
+            <p v-if="storeAuth.error" class="text-red-600 italic">
               {{ storeAuth.error }}
             </p>
-            <p v-else-if="error" class="text-red-600">
+            <p v-else-if="error" class="text-red-600 italic">
               {{ error }}
             </p>
             <button
@@ -469,6 +474,13 @@ const deleteBooking = (bookingID, bookingWeekday, timetableID, classID) => {
                 </div>
               </div>
             </div>
+            <!-- Updated message -->
+            <p
+              v-show="updateMessage"
+              class="mt-[-.5rem] text-[.75rem] italic sm:mt-0 sm:text-[.875rem] md:mt-[-.5rem] xl:text-[1rem]"
+            >
+              {{ updateMessage }}
+            </p>
             <button
               @click="editUserSettings"
               class="font-oswald flex flex-col w-fit mt-[-1rem] text-[1rem] relative group sm:mt-0 md:mt-[-1rem]"

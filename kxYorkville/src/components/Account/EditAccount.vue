@@ -151,7 +151,10 @@ const cancelChanges = () => {
       </div>
     </div>
     <!-- Error -->
-    <p v-show="error" class="text-[.75rem] text-red-500 sm:text-[.875rem] xl:text-[1rem]">
+    <p
+      v-show="error"
+      class="mt-[-.5rem] text-[.75rem] italic text-red-500 sm:mt-0 sm:text-[.875rem] md:mt-[-.5rem] xl:text-[1rem]"
+    >
       {{ error }}
     </p>
     <div class="flex justify-start gap-[1rem] mt-[-1rem] sm:mt-0 md:mt-[-1rem] md:gap-[1.5rem]">
