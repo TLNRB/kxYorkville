@@ -28,3 +28,4 @@ coverage
 *.sw?
 
 firebase-config.js
+service-account-key.json
