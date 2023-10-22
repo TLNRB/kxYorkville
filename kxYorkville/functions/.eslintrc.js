@@ -8,7 +8,6 @@ module.exports = {
   },
   extends: ['eslint:recommended', 'google'],
   rules: {
-    'linebreak-style': ['error', 'unix'],
     'no-restricted-globals': ['error', 'name', 'length'],
     'prefer-arrow-callback': 'error',
     quotes: ['error', 'double', { allowTemplateLiterals: true }]
@@ -19,7 +18,9 @@ module.exports = {
       env: {
         mocha: true
       },
-      rules: {}
+      rules: {
+        'linebreak-style': ['error', 'windows']
+      }
     }
   ],
   globals: {}
