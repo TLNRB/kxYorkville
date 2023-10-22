@@ -353,7 +353,7 @@ const deleteBooking = (bookingID, bookingWeekday, timetableID, classID) => {
               class="py-[.25rem] bg-transparent text-textGray border-b-[1px] border-primaryColor outline-none placeholder:text-textDarker xs:py-[.375rem] md:py-[.5rem]"
               :class="{ 'border-b-red-600': storeAuth.error || error }"
             />
-            <p v-if="storeAuth.error" class="text-red-600 italic">
+            <p v-if="storeAuth.error" class="text-red-600 italics">
               {{ storeAuth.error }}
             </p>
             <p v-else-if="error" class="text-red-600 italic">
