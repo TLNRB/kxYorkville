@@ -154,7 +154,6 @@ const toggleDelete = () => {
 
 //--Open Delete Modal
 const openDeleteModal = (id) => {
-  console.log(id)
   deleteID.value = id
   toggleDelete()
 }
