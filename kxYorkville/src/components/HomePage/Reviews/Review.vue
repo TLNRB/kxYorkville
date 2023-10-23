@@ -5,7 +5,7 @@ import { useDateFormat } from '@vueuse/core'
 import { useStoreUserService } from '../../../stores/storeUserService.js'
 const storeUserService = useStoreUserService()
 
-//Prop handling
+// Prop handling
 const { review } = defineProps(['review'])
 
 //-- Date formatting
@@ -15,6 +15,13 @@ const dateFormatted = computed(() => {
   let formattedDate = useDateFormat(date, 'MM-DD-YYYY')
   return formattedDate.value
 })
+
+// Emit handling
+const emit = defineEmits(['deleteReview'])
+
+const deleteReview = () => {
+  emit('deleteReview', review.id)
+}
 </script>
 
 <template>
@@ -24,26 +31,38 @@ const dateFormatted = computed(() => {
     <p class="text-[.875rem] sm:text-[1rem]">
       {{ review.review }}
     </p>
-    <div class="flex items-center gap-[.75rem]">
-      <div>
-        <button
-          v-if="!review.userImg"
-          class="w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center sm:w-[40px] sm:h-[40px]"
+    <div class="flex flex-col gap-[.75rem] sm:flex-row sm:items-center">
+      <div class="flex items-center gap-[.75rem] sm:justify-around sm:w-[100%]">
+        <div>
+          <button
+            v-if="!review.userImg"
+            class="w-[30px] h-[30px] rounded-full bg-primaryColor flex justify-center items-center sm:w-[40px] sm:h-[40px]"
+          >
+            <font-awesome-icon class="text-[1rem]" :icon="['fas', 'user']" />
+          </button>
+          <button
+            v-else
+            class="w-[30px] h-[30px] rounded-full flex justify-center items-center bg-cover bg-center-top-mid bg-no-repeat sm:w-[40px] sm:h-[40px]"
+            :style="`background-image: url('${review.userImg}')`"
+          ></button>
+        </div>
+        <p class="font-oswald xs:text-[1.125rem]">{{ review.username }}</p>
+        <p
+          class="ml-auto font-oswald text-textNofile text-[.875rem] xs:translate-y-[1px] xs:text-[1rem] sm:translate-y-0"
         >
-          <font-awesome-icon class="text-[1rem]" :icon="['fas', 'user']" />
-        </button>
-        <button
-          v-else
-          class="w-[30px] h-[30px] rounded-full flex justify-center items-center bg-cover bg-center-top-mid bg-no-repeat sm:w-[40px] sm:h-[40px]"
-          :style="`background-image: url('${review.userImg}')`"
-        ></button>
+          {{ dateFormatted }}
+        </p>
       </div>
-      <p class="font-oswald xs:text-[1.125rem]">{{ review.username }}</p>
-      <p
-        class="ml-auto font-oswald text-textNofile text-[.875rem] translate-y-[1px] xs:text-[1rem] xs:translate-y-0"
+      <div
+        v-if="
+          review.userID === storeUserService.userAuth.id ||
+          storeUserService.userAuth.email === 'admin@admin.com'
+        "
+        @click="deleteReview(review.id)"
+        class="min-w-[30px] min-h-[30px] mx-auto rounded-full flex justify-center items-center bg-red-600 cursor-pointer sm:mx-0"
       >
-        {{ dateFormatted }}
-      </p>
+        <font-awesome-icon class="text-[1rem]" :icon="['fas', 'trash']" />
+      </div>
     </div>
   </div>
 </template>

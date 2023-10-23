@@ -5,6 +5,7 @@ import { RouterLink } from 'vue-router'
 import Title from '../../UI/Title.vue'
 import Button from '../../UI/Button.vue'
 import Review from '../Reviews/Review.vue'
+import DeleteReview from '../Reviews/DeleteReview.vue'
 /* ----- Import store ----- */
 import { useStoreUserService } from '../../../stores/storeUserService.js'
 import { useStoreReviews } from '../../../stores/storeReviews.js'
@@ -143,30 +144,31 @@ const addReview = () => {
 }
 
 /*----- Delete Section -----*/
-const deleteReview = ref(0)
+const deleteModal = ref(false)
 const deleteID = ref('')
 
 //--Toggle delete modal
-const toggleDelete = (index) => {
-  deleteReview.value = index
+const toggleDelete = () => {
+  deleteModal.value = !deleteModal.value
 }
 
 //--Open Delete Modal
 const openDeleteModal = (id) => {
+  console.log(id)
   deleteID.value = id
-  toggleDelete(id)
+  toggleDelete()
 }
 
 //--Close Delete Modal
 const closeDeleteModal = () => {
-  toggleDelete(0)
+  toggleDelete()
   deleteID.value = ''
 }
 
 //--Confirm Delete Modal review
 const confirmDelete = () => {
   storeReviews.deleteReview(deleteID.value)
-  closeDeleteModal()
+  toggleDelete()
 }
 
 onMounted(() => {
@@ -245,11 +247,21 @@ onMounted(() => {
       >
         <!-- Column 1 -->
         <div class="flex flex-col gap-[1.5rem]">
-          <Review v-for="review in reviewFilterTwo(1)" :key="review.id" :review="review" />
+          <Review
+            v-for="review in reviewFilterTwo(1)"
+            :key="review.id"
+            :review="review"
+            @deleteReview="openDeleteModal"
+          />
         </div>
         <!-- Column 2 -->
         <div class="flex flex-col gap-[1.5rem]">
-          <Review v-for="review in reviewFilterTwo(2)" :key="review.id" :review="review" />
+          <Review
+            v-for="review in reviewFilterTwo(2)"
+            :key="review.id"
+            :review="review"
+            @deleteReview="openDeleteModal"
+          />
         </div>
       </div>
       <!-- SETUP - Column 3 -->
@@ -259,23 +271,50 @@ onMounted(() => {
       >
         <!-- Column 1 -->
         <div class="flex flex-col gap-[1.5rem] xxxxl:gap-[1.75rem]">
-          <Review v-for="review in reviewFilterThree(1)" :key="review.id" :review="review" />
+          <Review
+            v-for="review in reviewFilterThree(1)"
+            :key="review.id"
+            :review="review"
+            @deleteReview="openDeleteModal"
+          />
         </div>
         <!-- Column 2 -->
         <div class="flex flex-col gap-[1.5rem] xxxxl:gap-[1.75rem]">
-          <Review v-for="review in reviewFilterThree(2)" :key="review.id" :review="review" />
+          <Review
+            v-for="review in reviewFilterThree(2)"
+            :key="review.id"
+            :review="review"
+            @deleteReview="openDeleteModal"
+          />
         </div>
         <!-- Column 3 -->
         <div class="flex flex-col gap-[1.5rem] xxxxl:gap-[1.75rem]">
-          <Review v-for="review in reviewFilterThree(3)" :key="review.id" :review="review" />
+          <Review
+            v-for="review in reviewFilterThree(3)"
+            :key="review.id"
+            :review="review"
+            @deleteReview="openDeleteModal"
+          />
         </div>
       </div>
       <!-- SETUP - Column 1 -->
       <div v-else class="flex justify-center items-center my-[4rem]">
         <div class="flex flex-col gap-[1.5rem]">
-          <Review v-for="review in reviewFilterOne()" :key="review.id" :review="review" />
+          <Review
+            v-for="review in reviewFilterOne()"
+            :key="review.id"
+            :review="review"
+            @deleteReview="openDeleteModal"
+          />
         </div>
       </div>
+    </div>
+    <!-- Delete Review -->
+    <div
+      v-if="deleteModal"
+      class="modal h-[100%] w-[100%] z-[15] fixed top-0 left-0 right-0 overflow-auto"
+    >
+      <DeleteReview @savedChanges="confirmDelete" @canceledChanges="closeDeleteModal" />
     </div>
     <div class="flex flex-wrap justify-center gap-[1.5rem] xs:gap-[2rem]">
       <Button content="Show More" @click="seeMoreReviews" />
@@ -288,5 +327,10 @@ onMounted(() => {
 textarea {
   resize: none;
   overflow: hidden;
+}
+
+.modal {
+  background-color: #181818bb;
+  backdrop-filter: blur(5px);
 }
 </style>

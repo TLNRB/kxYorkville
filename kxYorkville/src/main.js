@@ -22,7 +22,8 @@ import {
   faGear,
   faArrowRightLong,
   faCaretDown,
-  faScrewdriverWrench
+  faScrewdriverWrench,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons'
 /* import brand icons */
 import {} from '@fortawesome/free-brands-svg-icons'
@@ -39,7 +40,8 @@ library.add(
   faGear,
   faArrowRightLong,
   faCaretDown,
-  faScrewdriverWrench
+  faScrewdriverWrench,
+  faTrash
 )
 
 // Enable router in stores (for us in auth, after logout we need to redirect to home page)
