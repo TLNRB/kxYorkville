@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, doc, addDoc, deleteDoc } from 'firebase/firestore'
+import { collection, onSnapshot, doc, addDoc, deleteDoc, query, orderBy } from 'firebase/firestore'
 import { db } from '../firebase/firebase.js'
 
 const reviewsCollectionRef = collection(db, 'reviews')
+const reviewsCollectionQuery = query(reviewsCollectionRef, orderBy('date', 'desc'))
 
 export const useStoreReviews = defineStore('storeReviews', {
   state: () => {
