@@ -13,8 +13,7 @@ const serviceAccount = require("./service-account-key.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
-
-exports.bookingsCleanup = onSchedule("every day 00:00", async (event) => {
+exports.bookingsCleanup = onSchedule("every day 23:00", async (event) => {
   /* ===== Delete bookings made on previus day =====*/
   const currentDateTime = new Date();
   console.log("currentDateTime", currentDateTime);
@@ -69,5 +68,4 @@ exports.bookingsCleanup = onSchedule("every day 00:00", async (event) => {
   console.log("dayDoc updated", dayDoc.id);
 
   return null;
-},
-);
+});
