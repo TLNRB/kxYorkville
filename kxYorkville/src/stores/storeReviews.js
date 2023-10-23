@@ -22,6 +22,7 @@ export const useStoreReviews = defineStore('storeReviews', {
             id: doc.id,
             userID: doc.data().userID,
             username: doc.data().username,
+            userImg: doc.data().userImg,
             review: doc.data().review,
             date: doc.data().date
           }
@@ -35,6 +36,7 @@ export const useStoreReviews = defineStore('storeReviews', {
       await addDoc(reviewsCollectionRef, {
         userID: reviewContent.userID,
         username: reviewContent.username,
+        userImg: reviewContent.userImg,
         review: reviewContent.review,
         date: reviewContent.date
       })

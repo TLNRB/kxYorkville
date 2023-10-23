@@ -126,6 +126,7 @@ const newReview = reactive({
 const valueClear = () => {
   newReview.userID = ''
   newReview.username = ''
+  newReview.userImg = ''
   newReview.review = ''
   newReview.date = ''
 }
@@ -135,6 +136,7 @@ const addReview = () => {
   const currentDate = new Date().getTime()
   newReview.userID = storeUserService.userAuth.id
   newReview.username = storeUserService.userData.username
+  newReview.userImg = storeUserService.userData.img
   newReview.date = currentDate.toString()
   storeReviews.addReview(newReview)
   valueClear()
