@@ -316,9 +316,18 @@ onMounted(() => {
     >
       <DeleteReview @savedChanges="confirmDelete" @canceledChanges="closeDeleteModal" />
     </div>
-    <div class="flex flex-wrap justify-center gap-[1.5rem] xs:gap-[2rem]">
+    <div
+      v-if="storeReviews?.reviews.length > 0"
+      class="flex flex-wrap justify-center gap-[1.5rem] xs:gap-[2rem]"
+    >
       <Button content="Show More" @click="seeMoreReviews" />
       <Button v-if="!reviewDefaultState" content="Hide" @click="hideMoreReviews" />
+    </div>
+    <div
+      v-else
+      class="relative flex justify-center mt-[-2.5rem] italic font-[500] text-textNofile drop-shadow-xl"
+    >
+      No reviews to display
     </div>
   </section>
 </template>

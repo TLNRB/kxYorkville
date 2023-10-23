@@ -151,12 +151,13 @@ onMounted(() => {
       >
         {{ clickedMonth }} {{ clickedDay }}
       </h2>
-      <p
+      <RouterLink
+        to="/account"
         v-if="!storeUserService.userAuth.id"
-        class="mb-[2rem] text-center text-textNofile italic font-[500] sm:text-[1.125rem] lg:text-[1.25rem]"
+        class="flex justify-center mb-[2rem] text-textNofile italic font-[500] sm:text-[1.125rem] lg:text-[1.25rem]"
       >
         Login to sign up for classes
-      </p>
+      </RouterLink>
       <!-- Timetable -->
       <div class="mb-[4rem] flex flex-col gap-[1rem] md:mb-[6rem] lg:gap-[1.5rem]">
         <Timetable
