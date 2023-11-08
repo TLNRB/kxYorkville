@@ -169,7 +169,7 @@ const submitForm = () => {
         :style="`background-image: url('${singleCoach?.img}')`"
       >
         <h2
-          class="absolute top-0 right-[50%] translate-x-[50%] text-center leading-tight py-[.5rem] px-[1.25rem] bg-bgDark font-[600] text-textGray rounded-b-[15px] brightness-[110%] sm:py-[.75rem] sm:px-[1.5rem] sm:text-[1.5rem] md:text-[2rem] md:rounded-b-[17px] lg:text-left lg:rounded-br-[0px] lg:right-0 lg:translate-x-0 xxxl:text-[2.5rem] xxxxl:text-[3rem]"
+          class="absolute top-0 right-[50%] translate-x-[50%] text-center leading-tight py-[.5rem] px-[1.25rem] bg-bgDark font-[600] text-textGray rounded-b-[15px] brightness-[110%] z-[5] sm:py-[.75rem] sm:px-[1.5rem] sm:text-[1.5rem] md:text-[2rem] md:rounded-b-[17px] lg:text-left lg:rounded-br-[0px] lg:right-0 lg:translate-x-0 xxxl:text-[2.5rem] xxxxl:text-[3rem]"
         >
           {{ singleCoach?.name }}
         </h2>

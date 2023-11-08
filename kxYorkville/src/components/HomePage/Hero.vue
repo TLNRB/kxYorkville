@@ -26,6 +26,8 @@ const sectionSelected = (id) => {
       autoplay
       loop
       muted
+      playsinline
+      webkit-playsinline
     ></video>
     <div class="pt-[62px] px-[1.5rem]">
       <h1
